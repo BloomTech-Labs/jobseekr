@@ -9,6 +9,7 @@ import MeetUps from "./components/meetUps";
 import Settings from "./components/settings";
 import SignIn from "./components/signIn";
 import SignOut from "./components/signOut";
+import Header from "./components/header";
 
 const JobSeeker = () => (
   <Router>
