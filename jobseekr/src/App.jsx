@@ -1,10 +1,12 @@
 import React from 'react';
 import { Jumbotron, Button } from 'react-bootstrap';
 import './App.css';
+import Header from './components/header';
 
 const App = () =>
   (
     <div className="App">
+      <Header />
       <Jumbotron>
         <h1>JobSeekr!</h1>
         <p>
