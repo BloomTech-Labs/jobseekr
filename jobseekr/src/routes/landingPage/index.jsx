@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, NavItem, NavDropdown, Nav, MenuItem } from 'react-bootstrap';
+import Header from '../../components/header';
 
 const LandingPage = () =>
   (
@@ -7,6 +7,8 @@ const LandingPage = () =>
       <Header />
       <div className="LandingWrapper">
         <div>
+          <h4>hello
+          </h4>
         </div>
       </div>
     </div>
