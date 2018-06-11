@@ -7,37 +7,29 @@ const Header = () =>
       <Navbar inverse collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="#brand">React-Bootstrap</a>
+            <a href="/">JobSeekr</a>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <NavItem eventKey={1} href="#">
-              Link
+            <NavItem eventKey={1} href="/jobs">
+              Jobs List
             </NavItem>
-            <NavItem eventKey={2} href="#">
-              Link
+            <NavItem eventKey={2} href="/meetups">
+              Meet Ups
             </NavItem>
-            <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-              <MenuItem eventKey={3.1}>Action</MenuItem>
-              <MenuItem eventKey={3.2}>Another action</MenuItem>
-              <MenuItem eventKey={3.3}>Something else here</MenuItem>
-              <MenuItem divider />
-              <MenuItem eventKey={3.3}>Separated link</MenuItem>
-            </NavDropdown>
+            <NavItem eventKey={3} href="/contributions">
+              Contributions
+            </NavItem>
           </Nav>
           <Nav pullRight>
-            <NavItem eventKey={1} href="/">
-              Home
-            </NavItem>
-            <NavItem eventKey={2} href="/signIn">
-              Sign In!
-            </NavItem>
-            <NavItem eventKey={3} href="/signOut">
-              Sign Out!
-            </NavItem>
-
+            <NavDropdown eventKey={4} title="Account" id="basic-nav-dropdown">
+              <MenuItem eventKey={4.1} href="/settings">Settings</MenuItem>
+              <MenuItem eventKey={4.2} href="/billing">Billing</MenuItem>
+              <MenuItem divider />
+              <MenuItem eventKey={3.3} href="/signin">Sign In</MenuItem>
+            </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
