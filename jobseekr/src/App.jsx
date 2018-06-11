@@ -14,7 +14,6 @@ import Header from './components/header';
 const JobSeeker = () => (
   <Router>
     <div>
-      <Header />
       <Route exact path="/" component={LandingPage} />
       <Route path="/addjob" component={AddJob} />
       <Route path="/billing" component={Billing} />
