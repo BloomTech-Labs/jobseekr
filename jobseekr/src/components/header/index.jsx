@@ -28,12 +28,16 @@ const Header = () =>
             </NavDropdown>
           </Nav>
           <Nav pullRight>
-            <NavItem eventKey={1} href="#">
-              Link Right
+            <NavItem eventKey={1} href="/">
+              Home
             </NavItem>
-            <NavItem eventKey={2} href="#">
-              Link Right
+            <NavItem eventKey={2} href="/signIn">
+              Sign In!
             </NavItem>
+            <NavItem eventKey={3} href="/signOut">
+              Sign Out!
+            </NavItem>
+
           </Nav>
         </Navbar.Collapse>
       </Navbar>
