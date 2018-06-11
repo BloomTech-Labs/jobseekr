@@ -11,7 +11,19 @@ const UserSchema = mongoose.Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  email: {
+    type: mongoose.SchemaTypes.Email,
+    required: true,
+    unique: true,
+    lowercase: true,
+ },
+ subscriptionType: String,
+ creditCardInfo: {
+   ccNumber: Number,
+   expirationDate: Date,
+   cvv: Number,
+ },
 });
 
 UserSchema.pre('save', function(next) {
