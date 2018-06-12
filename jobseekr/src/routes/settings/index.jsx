@@ -57,7 +57,7 @@ class Settings extends React.Component {
 
   render() {
     return (
-      <div className="parent">
+      <div className="settingsWrapper">
         <Header />
         <Grid>
           <Row>
