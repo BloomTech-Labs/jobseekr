@@ -6,8 +6,8 @@ const LandingPage = () =>
     <div className="parent">
       <Header />
       <div className="LandingWrapper">
-        <div>
-          <h4>hello
+        <div className="first">
+          <h4>hello im landing page
           </h4>
         </div>
       </div>
