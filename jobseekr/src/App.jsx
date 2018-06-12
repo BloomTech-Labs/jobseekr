@@ -52,4 +52,6 @@ export default JobSeeker;
 //   }
 // }
 
+
 // export default App;
+
