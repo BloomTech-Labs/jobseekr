@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
+const routes = require('./api/routes/routes');
 
 let server = express();
 server.use(express.json());
@@ -17,6 +18,8 @@ server.use(
     methods: ['GET', 'POST']
   })
 );
+
+routes(server);
 
 mongoose
   .connect('mongodb://localhost/jobseekr')
