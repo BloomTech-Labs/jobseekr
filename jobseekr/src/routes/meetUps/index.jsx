@@ -5,9 +5,9 @@ const Contributions = () =>
   (
     <div className="parent">
       <Header />
-      <div className="ContributionsWrapper">
+      <div className="MeetupsWrapper">
         <div>
-          <h4>hello im Contributions
+          <h4>hello im Meetups
           </h4>
         </div>
       </div>
