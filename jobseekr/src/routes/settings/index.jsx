@@ -20,16 +20,19 @@ class Settings extends React.Component {
     super(props, context);
 
     this.state = {
-      email: '',
+      oldEmail: '',
+      newEmail: '',
       oldPassword: '',
       newPassword: '',
       resumeOpen: false,
       changePassword: false,
+      changeEmail: false,
       currentPassword: 'password',
+      currentEmail: 'email@example.com',
     };
   }
 
-  validateEmailLength() {
+  validateLength() {
     const { length } = this.state.newPassword;
     if (length > 9) return 'success';
     else if (length > 5) return 'warning';
@@ -42,6 +45,10 @@ class Settings extends React.Component {
     return 'warning';
   }
 
+  validateMatchingEmail(email) {
+    if (email === this.state.currentEmail) return 'success';
+    return 'warning';
+  }
   // handleChange = (e) => {
   //   let { name, value } = e.target;
   //   this.setState({ [name]: value });
@@ -55,6 +62,52 @@ class Settings extends React.Component {
           <Row>
             <PageHeader>Settings</PageHeader>
             <Col xs={8} md={4}>
+              <Button onClick={() => this.setState({ changeEmail: !this.state.changeEmail })}>
+              Change Email
+              </Button>
+              <Collapse in={this.state.changeEmail}>
+                <div>
+                  <Well>
+                    <form>
+                      <FormGroup
+                        controlId="formControlsEmail"
+                        validationState={this.validateMatchingEmail(this.state.oldEmail)}
+                      >
+                        <ControlLabel>Email Address</ControlLabel>
+                        <FormControl
+                          type="email"
+                          value={this.state.oldEmail}
+                          placeholder="Enter email"
+                          onChange={e => this.setState({ oldEmail: e.target.value })}
+                        />
+                        <FormControl.Feedback />
+                        <HelpBlock>Must match current email address on file.</HelpBlock>
+                      </FormGroup>
+                      <FormGroup
+                        controlId="formControlsEmail"
+                      >
+                        <ControlLabel>Email Address</ControlLabel>
+                        <FormControl
+                          type="email"
+                          value={this.state.newEmail}
+                          placeholder="Enter email"
+                          onChange={e => this.setState({ newEmail: e.target.value })}
+                        />
+                        <FormControl.Feedback />
+                        <HelpBlock>Must use a valid email address.</HelpBlock>
+                      </FormGroup>
+                      <Button type="submit">Save</Button>
+                    </form>
+                  </Well>
+                </div>
+              </Collapse>
+            </Col>
+          </Row>
+        </Grid>
+        <hr width="85%" />
+        <Grid>
+          <Row>
+            <Col xs={8} md={4}>
               <Button onClick={() => this.setState({ changePassword: !this.state.changePassword })}>
                 Change Password
               </Button>
@@ -62,19 +115,6 @@ class Settings extends React.Component {
                 <div>
                   <Well>
                     <form>
-                      <FormGroup
-                        controlId="formControlsEmail"
-                      >
-                        <ControlLabel>Email Address</ControlLabel>
-                        <FormControl
-                          type="email"
-                          value={this.state.email}
-                          placeholder="Enter email"
-                          onChange={e => this.setState({ email: e.target.value })}
-                        />
-                        <FormControl.Feedback />
-                        <HelpBlock>Must use a valid email address.</HelpBlock>
-                      </FormGroup>
                       <FormGroup
                         controlId="formControlsOldPassword"
                         validationState={this.validateMatchingPassword(this.state.oldPassword)}
@@ -91,7 +131,7 @@ class Settings extends React.Component {
                       </FormGroup>
                       <FormGroup
                         controlId="formControlsNewPassword"
-                        validationState={this.validateEmailLength()}
+                        validationState={this.validateLength()}
                       >
                         <ControlLabel>New Password</ControlLabel>
                         <FormControl
@@ -111,7 +151,7 @@ class Settings extends React.Component {
             </Col>
           </Row>
         </Grid>
-        <hr width="81%" />
+        <hr width="85%" />
         <Grid>
           <Row>
             <Col xs={8} md={4}>
