@@ -10,22 +10,25 @@ class Settings extends React.Component {
     this.handleChange = this.handleChange.bind(this);
 
     this.state = {
-      value: '',
+      email: '',
+      oldPassword: '',
+      newPassword: '',
     };
   }
 
-  getValidationState() {
-    const { length } = this.state.value;
-    if (length > 10) return 'success';
-    else if (length > 5) return 'warning';
-    else if (length > 0) return 'error';
-    return null;
-  }
+  // getValidationState() {
+  //   const { length } = this.state.newPassword;
+  //   if (length > 10) return 'success';
+  //   else if (length > 5) return 'warning';
+  //   else if (length > 0) return 'error';
+  //   return null;
+  // }
 
   handleChange(e) {
-    this.setState({ email: e.target.email,
+    this.setState({
+      email: e.target.email,
       oldPassword: e.target.oldPassword,
-      newPassword: e.target.newPassword, 
+      newPassword: e.target.newPassword,
     });
   }
 
@@ -59,6 +62,20 @@ class Settings extends React.Component {
             />
             <FormControl.Feedback />
             <HelpBlock>Password must match existing password.</HelpBlock>
+          </FormGroup>
+          <FormGroup
+            controlId="formControlsOldPassword"
+            // validationState={this.getValidationState()}
+          >
+            <ControlLabel>New Password</ControlLabel>
+            <FormControl
+              type="password"
+              value={this.state.newPassword}
+              placeholder="Enter new password"
+              onChange={this.handleChange}
+            />
+            <FormControl.Feedback />
+            <HelpBlock>Password must be at least 10 characters long.</HelpBlock>
           </FormGroup>
         </form>
       </div>
