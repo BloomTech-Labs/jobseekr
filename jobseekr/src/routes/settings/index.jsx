@@ -10,20 +10,17 @@ class Settings extends React.Component {
     this.handleChange = this.handleChange.bind(this);
 
     this.state = {
-      value: '',
+      email: '',
+      oldPassword: '',
+      newPassword: '', 
     };
   }
 
-  getValidationState() {
-    const { length } = this.state.value;
-    if (length > 10) return 'success';
-    else if (length > 5) return 'warning';
-    else if (length > 0) return 'error';
-    return null;
-  }
-
   handleChange(e) {
-    this.setState({ value: e.target.value });
+    this.setState({ email: e.target.email,
+      oldPassword: e.target.oldPassword,
+      newPassword: e.target.newPassword, 
+    });
   }
 
   render() {
@@ -32,18 +29,30 @@ class Settings extends React.Component {
         <Header />
         <form>
           <FormGroup
-            controlId="formBasicText"
-            validationState={this.getValidationState()}
+            controlId="formControlsEmail"
           >
-            <ControlLabel>Working example with validation</ControlLabel>
+            <ControlLabel>Email Address</ControlLabel>
             <FormControl
-              type="text"
-              value={this.state.value}
-              placeholder="Enter text"
+              type="email"
+              value={this.state.email}
+              placeholder="Enter email"
               onChange={this.handleChange}
             />
             <FormControl.Feedback />
-            <HelpBlock>Validation is based on string length.</HelpBlock>
+            <HelpBlock>Must use a valid email address.</HelpBlock>
+          </FormGroup>
+          <FormGroup
+            controlId="formControlsOldPassword"
+          >
+            <ControlLabel>Old Password</ControlLabel>
+            <FormControl
+              type="password"
+              value={this.state.oldPassword}
+              placeholder="Enter old password"
+              onChange={this.handleChange}
+            />
+            <FormControl.Feedback />
+            <HelpBlock>Username must be at least 10 characters long.</HelpBlock>
           </FormGroup>
         </form>
       </div>
