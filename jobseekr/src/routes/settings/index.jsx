@@ -11,6 +11,7 @@ import {
   PageHeader,
   Collapse,
   Well,
+  Badge,
 } from 'react-bootstrap';
 import Header from '../../components/header';
 
@@ -155,6 +156,9 @@ class Settings extends React.Component {
         <Grid>
           <Row>
             <Col xs={8} md={4}>
+              <p>
+                documents <Badge>0</Badge>
+              </p>
               <Button onClick={() => this.setState({ resumeOpen: !this.state.resumeOpen })}>
                 Add Resume
               </Button>
