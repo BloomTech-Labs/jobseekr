@@ -8,6 +8,7 @@ import {
   Panel,
 } from 'react-bootstrap';
 import Header from '../../components/header';
+import AddJob from '../../components/addjob';
 
 class Jobs extends Component {
   constructor(props, context) {
@@ -15,13 +16,13 @@ class Jobs extends Component {
 
     this.state = {
       lists: [
-        { title: 'Wishlist', content: 'insert jobs here' },
-        { title: 'Applied', content: 'insert jobs here' },
-        { title: 'Phone', content: 'insert jobs here' },
-        { title: 'On Site', content: 'insert jobs here' },
-        { title: 'Offer', content: 'insert jobs here' },
-        { title: 'Rejected', content: 'insert jobs here' },
-        { title: 'Add List', content: 'insert jobs here' },
+        { category: 'Wishlist', jobs: [] },
+        { category: 'Applied', jobs: [] },
+        { category: 'Phone', jobs: [] },
+        { category: 'On Site', jobs: [] },
+        { category: 'Offer', jobs: [] },
+        { category: 'Rejected', jobs: [] },
+        { category: 'Add List', jobs: [] },
       ],
     };
   }
@@ -40,10 +41,11 @@ class Jobs extends Component {
                 <Col key="" xs={6} md={4}>
                   <Panel className="list">
                     <Panel.Heading>
-                      <Panel.Title componentClass="h3">{list.title}</Panel.Title>
+                      <Panel.Title componentClass="h3">{list.category}</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body>
-                      {list.content}
+                      <AddJob />
+                      {list.jobs}
                     </Panel.Body>
                   </Panel>
                 </Col>

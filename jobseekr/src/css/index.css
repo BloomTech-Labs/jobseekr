@@ -13,13 +13,31 @@
 }
 .board__container {
   min-width: 3000px;
-  margin: 10px;
 }
 .board__container .board {
   display: flex;
   flex-direction: row;
 }
-.Header {
-  position: fixed;
-  width: 100%;
+.board__container .list {
+  display: flex;
+  flex-direction: column;
+}
+/* The .Header class adds styling to the Header div containing the navbar
+ * so that it doesn't slide to the left when scrolling right horizontally
+ */
+.parent {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+}
+.parent .Header {
+  position: relative;
+  top: -10px;
+}
+.list__btn {
+  min-width: 327px;
+}
+.parent {
+  margin-top: 10px;
 }
