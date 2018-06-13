@@ -9,6 +9,7 @@ import {
 } from 'react-bootstrap';
 import Header from '../../components/header';
 import AddJob from '../../components/addjob';
+import AddList from '../../components/addlist';
 
 class Jobs extends Component {
   constructor(props, context) {
@@ -16,13 +17,12 @@ class Jobs extends Component {
 
     this.state = {
       lists: [
-        { category: 'Wishlist', jobs: [] },
-        { category: 'Applied', jobs: [] },
-        { category: 'Phone', jobs: [] },
-        { category: 'On Site', jobs: [] },
-        { category: 'Offer', jobs: [] },
-        { category: 'Rejected', jobs: [] },
-        { category: 'Add List', jobs: [] },
+        { id: 1, category: 'Wishlist', jobs: [] },
+        { id: 2, category: 'Applied', jobs: [] },
+        { id: 3, category: 'Phone', jobs: [] },
+        { id: 4, category: 'On Site', jobs: [] },
+        { id: 5, category: 'Offer', jobs: [] },
+        { id: 6, category: 'Rejected', jobs: [] },
       ],
     };
   }
@@ -38,7 +38,7 @@ class Jobs extends Component {
             </PageHeader>
             <Row className="board">
               {this.state.lists.map(list => (
-                <Col key="" xs={6} md={4}>
+                <Col key={list.id} xs={6} md={4}>
                   <Panel className="list">
                     <Panel.Heading>
                       <Panel.Title componentClass="h3">{list.category}</Panel.Title>
@@ -50,6 +50,11 @@ class Jobs extends Component {
                   </Panel>
                 </Col>
               ))}
+            </Row>
+            <Row>
+              <div className="addlist__btn" >
+                <AddList />
+              </div>
             </Row>
           </Well>
         </Grid>

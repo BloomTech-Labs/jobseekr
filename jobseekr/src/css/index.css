@@ -13,6 +13,8 @@
 }
 .board__container {
   min-width: 3000px;
+  margin-top: 52px;
+  padding-top: 15px;
 }
 .board__container .board {
   display: flex;
@@ -21,23 +23,25 @@
 .board__container .list {
   display: flex;
   flex-direction: column;
+  min-height: 500px;
 }
-/* The .Header class adds styling to the Header div containing the navbar
+.addlist__btn {
+  position: fixed;
+  top: 90%;
+  left: 75%;
+  bottom: 15%;
+}
+/* The .Header class adds tyling to the Header div containing the navbar
  * so that it doesn't slide to the left when scrolling right horizontally
+ * when I ma
  */
-.parent {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-}
-.parent .Header {
-  position: relative;
-  top: -10px;
+.Header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  margin-bottom: 50px;
+  z-index: 500;
 }
 .list__btn {
   min-width: 327px;
-}
-.parent {
-  margin-top: 10px;
 }
