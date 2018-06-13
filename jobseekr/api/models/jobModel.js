@@ -19,6 +19,10 @@ const JobSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        user: {
+            type: ObjectId,
+            ref: 'Users',
+        },
         sourceOfJob: String,
         linkToPosting: String,
         pointOfContactName: {
@@ -44,10 +48,6 @@ const JobSchema = mongoose.Schema(
         linkToRejection: String,
         gotOffer: Boolean,
         linkToOffer: String,
-        user: {
-          type: ObjectId,
-          ref: 'Users',
-        },
     },
     { timestamps: true }
 );
