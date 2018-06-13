@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import LandingPage from './routes/landingPage';
-import AddJob from './routes/addJob';
 import Billing from './routes/billing';
 import Contributions from './routes/contributions';
 import Jobs from './routes/jobs';
@@ -14,7 +13,6 @@ const JobSeeker = () => (
   <Router>
     <div>
       <Route exact path="/" component={LandingPage} />
-      <Route path="/addjob" component={AddJob} />
       <Route path="/billing" component={Billing} />
       <Route path="/contributions" component={Contributions} />
       <Route path="/jobs" component={Jobs} />
@@ -25,7 +23,6 @@ const JobSeeker = () => (
     </div>
   </Router>
 );
-
 
 export default JobSeeker;
 
@@ -52,6 +49,4 @@ export default JobSeeker;
 //   }
 // }
 
-
 // export default App;
-

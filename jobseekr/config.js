@@ -1,1 +1,5 @@
-mySecret='random'
+const mySecret = 'random';
+
+module.exports = {
+  mySecret,
+};
