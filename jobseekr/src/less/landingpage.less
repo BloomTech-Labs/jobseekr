@@ -1,4 +1,72 @@
+@import "index.less";
+@import "mixins.less";
+
+@pictonBlue: #48ACF0;
+@horses: #594236;
+@licorice: #15100E;
+@cadetGrey: #93A3BC;
+@columbiaBlue: #CCDDE2;
+
+// addid margin and padding to deal with changes to the header style so that the navbar
+// is sticky when scrolling left.
 .LandingWrapper {
   margin-top: 52px;
   padding-top: 13px;
+}
+
+.gradient {
+  text-align: center;
+  padding-top: 2%;
+  margin: 0px;
+  min-width: 1350px;
+  max-width: 2000px;
+  width: 100%;
+  max-height: 700px;
+  min-height: 400px;
+  height: 100%;
+  background: linear-gradient( 45deg, #48ACF0 20%, #594236);
+}
+
+.titles {
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.paragraphs {
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.parent {
+  min-width: 1350px;
+  max-width: 2000px;
+}
+
+.pngBox {
+  border-radius: 50%;
+  margin-left: 34.9%;
+  background: #CCDDE2;
+  -ms-flex-line-pack: center;
+  align-content: flex-end;
+  justify-content: flex-end;
+  min-width: 250px;
+  max-width: 400px;
+  min-height: 200px;
+  max-height: 350px;
+  padding-top: 4%;
+  margin-top: 5%;
+}
+//change button{} to a couple different button classes
+#two {
+  h1 {
+    margin-left: 39.2%;
+  }
+  p {
+    margin-left: 32.3%;
+
+  }
+
+  button {
+    margin-left: 21.5%;
+
+  }
+
 }

@@ -1,0 +1,22 @@
+.navbar {
+  border-radius: 0px;
+}
+.form-group {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.btn-default {
+  margin: 10px;
+}
+.settingsWrapper {
+  height: 1600px;
+}
+.gradient {
+  min-width: 1200px;
+  max-width: 2000px;
+  width: 500px;
+  max-height: 400px;
+  min-height: 300px;
+  height: 500px;
+  background-color: linear-gradient(#48ACF0 10%, 594236);
+}
