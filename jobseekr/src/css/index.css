@@ -3,13 +3,15 @@
 }
 .form-group {
   padding-left: 10px;
-  padding-right: 10px;
+  padding-right: 0px;
 }
 .btn-default {
   margin: 10px;
 }
 .settingsWrapper {
   height: 1600px;
+  margin-top: 52px;
+  padding-top: 15px;
 }
 .board__container {
   min-width: 3000px;
@@ -44,4 +46,24 @@
 }
 .list__btn {
   min-width: 327px;
+}
+.LandingWrapper {
+  margin-top: 52px;
+  padding-top: 13px;
+}
+.MeetupsWrapper {
+  margin-top: 52px;
+  padding-top: 13px;
+}
+.BillingWrapper {
+  margin-top: 52px;
+  padding-top: 13px;
+}
+.ContributionsWrapper {
+  margin-top: 52px;
+  padding-top: 13px;
+}
+.SignInWrapper {
+  margin-top: 52px;
+  padding-top: 13px;
 }
