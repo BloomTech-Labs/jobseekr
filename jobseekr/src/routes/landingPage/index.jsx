@@ -34,6 +34,14 @@ const LandingPage = () =>
       </Jumbotron>
       <Team />
     </div>
-  );
+    <Jumbotron className="AttentionDiv" id="two">
+      <h1>JobSeekr!</h1>
+      <p>Find your next job quickly and in an organized fashion!</p>
+      <p>
+        <Button bsStyle="primary">Buy Now!</Button>
+      </p>
+    </Jumbotron>
+  </div>
+);
 
 export default LandingPage;

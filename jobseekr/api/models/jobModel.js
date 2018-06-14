@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Users = require('./userModels');
+const Users = require('./userModel');
 
 const JobSchema = mongoose.Schema(
     {
@@ -18,6 +18,10 @@ const JobSchema = mongoose.Schema(
         status: {
             type: String,
             required: true,
+        },
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Users',
         },
         sourceOfJob: String,
         linkToPosting: String,
@@ -44,10 +48,6 @@ const JobSchema = mongoose.Schema(
         linkToRejection: String,
         gotOffer: Boolean,
         linkToOffer: String,
-        user: {
-          type: ObjectId,
-          ref: 'Users',
-        },
     },
     { timestamps: true }
 );
