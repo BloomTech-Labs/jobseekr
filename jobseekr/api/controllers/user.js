@@ -1,9 +1,10 @@
 const User = require('../models/userModel');
 
 const createUser = (req, res) => {
-   const { username, password } = req.body;
-   if (username && password) {
-      const newUser = new User({ username, password });
+   const { username, password, email } = req.body;
+   if (username && password && email) {
+      const newUser = new User({ username, password, email });
+      console.log({ newUser });
       newUser
          .save()
          .then(user => res.send(user))
