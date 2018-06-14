@@ -3,14 +3,14 @@ const mySecret = require('../../config');
 const User = require('../models/userModel');
 
 const login = (req, res) => {
-  const { username, password } = req.body;
-  User.findOne({ username }, (err, user) => {
+  const { email, password } = req.body;
+  User.findOne({ email }, (err, user) => {
     if (err) {
-      res.status(403).json({ error: 'Invalid Username/Password' });
+      res.status(403).json({ error: 'Invalid Email/Password' });
       return;
     }
     if (user === null) {
-      res.status(422).json({ error: 'No user with that username in our records' });
+      res.status(422).json({ error: 'No user with that email in our records' });
       return;
     }
     user.checkPassword(password, (nonMatch, hashMatch) => {
@@ -19,7 +19,7 @@ const login = (req, res) => {
         return;
       }
       if (hashMatch) {
-        const payload = { username: user.username };
+        const payload = { email: user.email };
         const token = jwt.sign(payload, mySecret.toString());
         res.json({ token });
       }

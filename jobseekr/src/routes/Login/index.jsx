@@ -18,7 +18,7 @@ export default class Login extends Component {
     super(props, context);
 
     this.state = {
-      username: '',
+      email: '',
       password: '',
     };
   }
@@ -27,13 +27,13 @@ export default class Login extends Component {
     e.preventDefault();
     let body = { ...this.state };
     axios
-      .post('http://localhost:5000/login', { username: body.username, password: body.password })
+      .post('http://localhost:5000/login', { email: body.email, password: body.password })
       .then(result => {
         localStorage.setItem('token', result.data.token);
         this.props.history.push('/jobs');
       })
       .catch(() => {
-        console.log('Incorrect username or password');
+        console.log('Incorrect email or password');
       });
   };
 
@@ -47,13 +47,13 @@ export default class Login extends Component {
             <Col xs={8} md={4}>
               <Well>
                 <form>
-                  <FormGroup controlId="formControlsUsername">
-                    <ControlLabel>Username</ControlLabel>
+                  <FormGroup controlId="formControlsEmail">
+                    <ControlLabel>Email</ControlLabel>
                     <FormControl
-                      type="username"
-                      value={this.state.username}
-                      placeholder="Enter Username"
-                      onChange={e => this.setState({ username: e.target.value })}
+                      type="email"
+                      value={this.state.email}
+                      placeholder="Enter Email"
+                      onChange={e => this.setState({ email: e.target.value })}
                     />
                     <FormControl.Feedback />
                   </FormGroup>
