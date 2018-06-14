@@ -3,7 +3,7 @@ const login = require('./login');
 const { getAllJobs } = require('./jobs');
 
 module.exports = {
-   createUser,
-   login,
-   getAllJobs,
+  createUser,
+  login,
+  getAllJobs,
 };
