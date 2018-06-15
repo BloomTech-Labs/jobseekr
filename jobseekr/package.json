@@ -7,8 +7,6 @@
     "axios": "^0.18.0",
     "bcrypt": "^2.0.1",
     "cors": "^2.8.4",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-jsx-a11y": "^6.0.3",
     "express": "^4.16.3",
     "helmet": "^3.12.1",
     "jsonwebtoken": "^8.3.0",
@@ -31,6 +29,7 @@
     "lint": "eslint"
   },
   "devDependencies": {
+    "eslint-config-airbnb-base": "^12.1.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.12.0",

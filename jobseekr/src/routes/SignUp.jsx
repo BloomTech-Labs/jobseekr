@@ -10,7 +10,7 @@ import {
   Button,
   Well,
 } from 'react-bootstrap';
-import Header from '../../components/header';
+import { Header } from '../components/AllComponents';
 import axios from 'axios';
 
 export default class SignUp extends Component {

@@ -1,17 +1,17 @@
+import axios from 'axios';
 import React, { Component } from 'react';
+import { Header } from '../components/AllComponents';
 import {
   Grid,
   Row,
   PageHeader,
   Col,
-  FormGroup,
-  FormControl,
-  ControlLabel,
-  Button,
   Well,
+  FormGroup,
+  ControlLabel,
+  FormControl,
+  Button,
 } from 'react-bootstrap';
-import Header from '../../components/header';
-import axios from 'axios';
 
 export default class Login extends Component {
   constructor(props, context) {

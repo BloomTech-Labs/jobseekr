@@ -13,8 +13,7 @@ import {
   Well,
   Badge,
 } from 'react-bootstrap';
-import Header from '../../components/header';
-
+import { Header } from '../components/AllComponents';
 
 class Settings extends React.Component {
   constructor(props, context) {
@@ -64,7 +63,7 @@ class Settings extends React.Component {
             <PageHeader>Settings</PageHeader>
             <Col xs={8} md={4}>
               <Button onClick={() => this.setState({ changeEmail: !this.state.changeEmail })}>
-              Change Email
+                Change Email
               </Button>
               <Collapse in={this.state.changeEmail}>
                 <div>
@@ -84,9 +83,7 @@ class Settings extends React.Component {
                         <FormControl.Feedback />
                         <HelpBlock>Must match current email address on file.</HelpBlock>
                       </FormGroup>
-                      <FormGroup
-                        controlId="formControlsEmail"
-                      >
+                      <FormGroup controlId="formControlsEmail">
                         <ControlLabel>Email Address</ControlLabel>
                         <FormControl
                           type="email"
@@ -166,9 +163,7 @@ class Settings extends React.Component {
                 <div>
                   <Well>
                     <form>
-                      <FormGroup
-                        controlId="formControlsFile"
-                      >
+                      <FormGroup controlId="formControlsFile">
                         <ControlLabel>Upload a copy of your Resume</ControlLabel>
                         <FormControl type="file" />
                         <FormControl.Feedback />

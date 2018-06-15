@@ -1,15 +1,6 @@
 import React, { Component } from 'react';
-import {
-  Well,
-  Grid,
-  Row,
-  Col,
-  PageHeader,
-  Panel,
-} from 'react-bootstrap';
-import Header from '../../components/header';
-import AddJob from '../../components/addjob';
-import AddList from '../../components/addlist';
+import { Well, Grid, Row, Col, PageHeader, Panel } from 'react-bootstrap';
+import { Header, AddJob, AddList } from '../components/AllComponents';
 
 class Jobs extends Component {
   constructor(props, context) {
@@ -33,9 +24,7 @@ class Jobs extends Component {
         <Header />
         <Grid className="board__container">
           <Well>
-            <PageHeader className="board__header">
-              Jobs List
-            </PageHeader>
+            <PageHeader className="board__header">Jobs List</PageHeader>
             <Row className="board">
               {this.state.lists.map(list => (
                 <Col key={list.id} xs={6} md={4}>
@@ -52,7 +41,7 @@ class Jobs extends Component {
               ))}
             </Row>
             <Row>
-              <div className="addlist__btn" >
+              <div className="addlist__btn">
                 <AddList />
               </div>
             </Row>
