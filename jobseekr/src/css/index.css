@@ -48,15 +48,14 @@
 .list__btn {
   min-width: 327px;
 }
-.LandingWrapper {
-  margin-top: 52px;
-  padding-top: 13px;
-}
 .parent {
   min-width: '420px';
   max-width: '2000px';
 }
 .gradient {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   text-align: center;
   padding-top: 2%;
   margin: 0px;
