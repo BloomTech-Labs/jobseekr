@@ -98,16 +98,36 @@
   margin-left: 21.5%;
 }
 .MeetupsWrapper {
-  margin-top: 52px;
+  margin: 52px;
   padding-top: 13px;
+}
+.MeetupsWrapper .col {
+  display: inline-flex;
+  flex-wrap: wrap;
+  padding: .5%;
+  width: 20%;
+}
+.MeetupsWrapper Button {
+  border-radius: 50%;
+  font-size: 15;
 }
 .BillingWrapper {
   margin-top: 52px;
   padding-top: 13px;
 }
 .ContributionsWrapper {
-  margin-top: 52px;
+  margin: 52px;
   padding-top: 13px;
+}
+.ContributionsWrapper .col {
+  display: inline-flex;
+  flex-wrap: wrap;
+  padding: .5%;
+  width: 20%;
+}
+.ContributionsWrapper Button {
+  border-radius: 50%;
+  font-size: 15;
 }
 .SignInWrapper {
   margin-top: 52px;
