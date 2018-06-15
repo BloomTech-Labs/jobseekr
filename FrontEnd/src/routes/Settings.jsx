@@ -70,7 +70,7 @@ class Settings extends React.Component {
                   <Well>
                     <form>
                       <FormGroup
-                        controlId="formControlsEmail"
+                        controlId="formControlsOldEmail"
                         validationState={this.validateMatchingEmail(this.state.oldEmail)}
                       >
                         <ControlLabel>Email Address</ControlLabel>

@@ -27,6 +27,9 @@ export default class SignUp extends Component {
   handleSignUp = e => {
     e.preventDefault();
     let body = { ...this.state };
+    if (body.password.length <= 0) {
+      alert("You must enter a password");
+    } else if (body.password.length > 0) {
     axios
       .post('http://localhost:5000/signup', {
         email: body.email,
@@ -39,6 +42,7 @@ export default class SignUp extends Component {
       .catch(() => {
         console.log('Error creating user');
       });
+    }
   };
 
   validateMatchingPassword(password) {
@@ -64,6 +68,7 @@ export default class SignUp extends Component {
                       placeholder="Enter Email"
                       onChange={e => this.setState({ email: e.target.value })}
                     />
+                    <HelpBlock>Must use a valid email address.</HelpBlock>
                     <FormControl.Feedback />
                   </FormGroup>
                   <FormGroup controlId="formControlsPassword">
