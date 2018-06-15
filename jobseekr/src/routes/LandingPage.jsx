@@ -1,7 +1,7 @@
 import React from 'react';
 import { Jumbotron, Button } from 'react-bootstrap';
-import Header from '../../components/header';
-import JobSeekr from './jobSeekr.png';
+import { Header } from '../components/AllComponents';
+import JobSeekr from '../Images/jobSeekr.png';
 
 const LandingPage = () => (
   <div className="parent">

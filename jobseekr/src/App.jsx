@@ -1,15 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import LandingPage from './routes/landingPage';
-import AddJob from './components/addjob/index';
-import Billing from './routes/billing';
-import Contributions from './routes/contributions';
-import Jobs from './routes/jobs';
-import MeetUps from './routes/meetUps';
-import Settings from './routes/settings';
-import Login from './routes/Login';
-import SignOut from './routes/signOut';
-import SignUp from './routes/SignUp';
+import { AddJob } from './components/AllComponents';
+import {
+  LandingPage,
+  Billing,
+  Contributions,
+  Jobs,
+  MeetUps,
+  Settings,
+  Login,
+  SignUp,
+  SignOut,
+} from './routes/AllRoutes';
 
 const JobSeeker = () => (
   <Router>

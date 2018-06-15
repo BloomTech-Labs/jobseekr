@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, NavItem, NavDropdown, Nav, MenuItem } from 'react-bootstrap';
 
-const handleLogout = (e) => {
+const handleLogout = () => {
   localStorage.removeItem('token');
 };
 
@@ -36,7 +36,7 @@ const Header = () => (
             </MenuItem>
             <MenuItem divider />
             {localStorage.getItem('token') ? (
-              <MenuItem eventKey={3.3} href="/" onClick={e => handleLogout(e)}>
+              <MenuItem eventKey={3.3} href="/" onClick={() => handleLogout()}>
                 Logout
               </MenuItem>
             ) : (
