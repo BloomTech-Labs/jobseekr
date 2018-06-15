@@ -85,5 +85,23 @@ async const changePassword = (req, res) => {
       }
     });
   })
-    
+}
+
+async const changeEmail = (req, res) => {
+  // - get token, old email, and new email from the request
+  const { token, oldEmail, newEmail } = req.body;
+  //- use jwt.verify to find email
+  const storedPayload = await jwt.verify(token, mySecret);
+  const storedEmail = storedPayload.email;
+  oldEmail = oldEmail.toLowerCase();
+  if (storedEmail === oldEmail) {
+    //- find user using email
+    User.findOneAndUpdate({ email: oldEmail }, { email: newEmail }, { new: true })
+      .then(user => res.status(200).send(user))
+      .catch(err => {
+        res.status(422).json({ error: 'error updating email', err });
+      });
+  } else {
+    res.status(422).json({ error: 'old email does not match our records for signed in user' });
+  }
 }
