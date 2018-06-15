@@ -9,8 +9,8 @@ import {
   ControlLabel,
   Button,
   Well,
+  HelpBlock,
 } from 'react-bootstrap';
-import { Header } from '../components/AllComponents';
 import axios from 'axios';
 
 export default class SignUp extends Component {
@@ -18,43 +18,57 @@ export default class SignUp extends Component {
     super(props, context);
 
     this.state = {
-      username: '',
+      email: '',
       password: '',
+      confirmPassword: '',
     };
   }
 
-  handleSignIn = e => {
+  handleSignUp = e => {
     e.preventDefault();
     let body = { ...this.state };
+    if (body.password.length <= 0) {
+      alert("You must enter a password");
+    } else if (body.password.length > 0) {
     axios
-      .post('http://localhost:5000/signup', { username: body.username, password: body.password })
+      .post('http://localhost:5000/signup', {
+        email: body.email,
+        password: body.confirmPassword,
+      })
       .then(result => {
         localStorage.setItem('token', result.data.token);
         this.props.history.push('/jobs');
       })
       .catch(() => {
-        console.log('Incorrect username or password');
+        console.log('Error creating user');
       });
+    }
   };
+
+  validateMatchingPassword(password) {
+    if (password.length === 0) return null
+    else if (password === this.state.password) return 'success';
+    return 'warning';
+  }
 
   render() {
     return (
       <div>
-        <Header />
-        <Grid className="SignInWrapper">
+        <Grid className="SignUpWrapper">
           <Row>
             <PageHeader>Sign Up</PageHeader>
             <Col xs={8} md={4}>
               <Well>
                 <form>
-                  <FormGroup controlId="formControlsUsername">
-                    <ControlLabel>Username</ControlLabel>
+                  <FormGroup controlId="formControlsEmail">
+                    <ControlLabel>Email</ControlLabel>
                     <FormControl
-                      type="username"
-                      value={this.state.username}
-                      placeholder="Enter Username"
-                      onChange={e => this.setState({ username: e.target.value })}
+                      type="email"
+                      value={this.state.email}
+                      placeholder="Enter Email"
+                      onChange={e => this.setState({ email: e.target.value })}
                     />
+                    <HelpBlock>Must use a valid email address.</HelpBlock>
                     <FormControl.Feedback />
                   </FormGroup>
                   <FormGroup controlId="formControlsPassword">
@@ -67,7 +81,21 @@ export default class SignUp extends Component {
                     />
                     <FormControl.Feedback />
                   </FormGroup>
-                  <Button onClick={e => this.handleSignIn(e)}>Sign Up</Button>
+                  <FormGroup 
+                    controlId="formControlsConfirmPassword"
+                    validationState={this.validateMatchingPassword(this.state.confirmPassword)}
+                  >
+                    <ControlLabel>Confirm Password</ControlLabel>
+                    <FormControl
+                      type="password"
+                      value={this.state.confirmPassword}
+                      placeholder="Confirm Password"
+                      onChange={e => this.setState({ confirmPassword: e.target.value })}
+                    />
+                    <FormControl.Feedback />
+                    <HelpBlock>Both passwords must match each other.</HelpBlock>
+                  </FormGroup>
+                  <Button onClick={e => this.handleSignUp(e)}>Sign Up</Button>
                 </form>
               </Well>
             </Col>
