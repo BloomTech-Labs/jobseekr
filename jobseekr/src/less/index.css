@@ -1,0 +1,59 @@
+.navbar {
+  border-radius: 0px;
+  margin-bottom: -2%;
+}
+.form-group {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.btn-default {
+  margin: 10px;
+}
+.settingsWrapper {
+  height: 1600px;
+}
+.parent {
+  min-width: 450px;
+  max-width: 2000px;
+}
+.gradient {
+  text-align: center;
+  padding-top: 2%;
+  margin: 0px;
+  min-width: 1250px;
+  max-width: 2000px;
+  width: 100%;
+  max-height: 700px;
+  min-height: 400px;
+  height: 100%;
+  background: linear-gradient(45deg, #48ACF0 20%, #594236);
+}
+.titles {
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.paragraphs {
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.pngBox {
+  border-radius: 50%;
+  margin-left: 34.9%;
+  background: #CCDDE2;
+  -ms-flex-line-pack: center;
+  align-content: flex-end;
+  justify-content: flex-end;
+  min-width: 250px;
+  max-width: 400px;
+  min-height: 200px;
+  max-height: 350px;
+  padding-top: 4%;
+  margin-top: 5%;
+}
+#two h1 {
+  margin-left: 39.2%;
+}
+#two p {
+  margin-left: 32.3%;
+}
+#two button {
+  margin-left: 21.5%;
+}
