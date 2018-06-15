@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { AddJob } from './components/AllComponents';
+import { AddJob, Header } from './components/AllComponents';
+
 import {
   LandingPage,
   Billing,
@@ -16,6 +17,7 @@ import {
 const JobSeeker = () => (
   <Router>
     <div>
+      <Header />
       <Route exact path="/" component={LandingPage} />
       <Route path="/addjob" component={AddJob} />
       <Route path="/billing" component={Billing} />
