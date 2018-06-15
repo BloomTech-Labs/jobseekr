@@ -1,4 +1,6 @@
 const User = require('../models/userModel');
+const jwt = require('jsonwebtoken');
+const mySecret = require('../config');
 
 const createUser = (req, res) => {
   const { email, password } = req.body;
@@ -16,7 +18,7 @@ const createUser = (req, res) => {
 };
 
 const changePassword = (req, res) => {
-  const { oldPassword, newPassword } = req.body;
+  const { oldPassword, newPassword, id } = req.body;
   if (!oldPassword || !newPassword || !id) {
     res.status(400).send({ error: 'must provide both the old and new password and the user\'s id' });
   }
@@ -51,12 +53,37 @@ module.exports = {
   changePassword,
 };
 
-/*
-
-get id, old password, and new password from the request
-find that user by the id and 
-
-make sure that the current password
-matches the old password in the request.
-
-change password to the new password.
+async const changePassword = (req, res) => {
+  // - get token, old password, and new password from the request
+  const { token, oldPassword, newPassword } = req.body;
+  //- use jwt.verify to find email
+  const storedPayload = await jwt.verify(token, mySecret);
+  const email = storedPayload.email;
+  //- find user using email
+  User.findOne({ email }, (err, user) => {
+    if (err) {
+      res.status(403).json({ error: 'Invalid Email/Password' });
+      return;
+    }
+    if (user === null) {
+      res.status(422).json({ error: 'No user with that email in our records' });
+      return;
+    }
+    //- - make sure that the current password matches old password (got code from login controller)
+    user.checkPassword(oldPassword, (nonMatch, hashMatch) => {
+      if (nonMatch !== null) {
+        res.status(422).json({ error: "old password does not match our stored password" });
+        return;
+      }
+      //- - if matches, change password to the new password
+      if (hashMatch) {
+        User.findOneAndUpdate({ email }, { password: newPassword }, { new: true })
+          .then(user => res.status(200).send(user))
+          .catch(err => {
+            res.status(422).json({ error: 'error updating password', err });
+          });
+      }
+    });
+  })
+    
+}
