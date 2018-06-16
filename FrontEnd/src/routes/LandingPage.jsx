@@ -1,9 +1,7 @@
 import React from 'react';
 import { Jumbotron, Button } from 'react-bootstrap';
-<<<<<<< HEAD:jobseekr/src/routes/landingPage/index.jsx
-import Header from '../../components/header';
-import JobSeekr from './jobSeekr.png';
-import Team from '../../components/Team';
+import {Header, Team } from '../components/AllComponents';
+import JobSeekr from '../Images/jobSeekr.png';
 
 
 const LandingPage = () =>
