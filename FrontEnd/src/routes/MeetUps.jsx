@@ -1,6 +1,7 @@
 import React from 'react';
 import { Header } from '../components/AllComponents';
-import { Button } from 'react-bootstrap';
+import { Button, Glyphicon } from 'react-bootstrap';
+import DatePick from '../components/DatePicker';
 
 const MeetUps = () => (
   <div className="parent">
@@ -11,30 +12,49 @@ const MeetUps = () => (
         <thead>
           <tr>
             <th scope="col">Date</th>
-            <th scope="col">Link</th>
+            <th scope="col">Activity | Link</th>
             <th scope="col">Notes</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <th scope="row">Date...</th>
-            <td>Link...</td>
+            <td>
+              Activity...
+              <Button bsSize="small">
+                <Glyphicon glyph="link" />
+              </Button>
+            </td>
             <td>Notes...</td>
           </tr>
           <tr>
             <th scope="row">Date...</th>
-            <td>Link...</td>
+            <td>
+              Activity...
+              <Button bsSize="small">
+                <Glyphicon glyph="link" />
+              </Button>
+            </td>
             <td>Notes...</td>
           </tr>
           <tr>
             <th scope="row">Date...</th>
-            <td>Link...</td>
+            <td>
+              Activity...
+              <Button bsSize="small">
+                <Glyphicon glyph="link" />
+              </Button>
+            </td>
             <td>Notes...</td>
           </tr>
         </tbody>
       </table>
       <form>
         <div className="form-row">
+          <Glyphicon glyph="calendar" />
+          <div className="col">
+            <DatePick />
+          </div>
           <div className="col">
             <input type="text" className="form-control" placeholder="Activity" />
           </div>

@@ -1,0 +1,16 @@
+.navbar {
+  border-radius: 0px;
+  margin-bottom: -2%;
+}
+.form-group {
+  padding-left: 10px;
+  padding-right: 0px;
+}
+.btn-default {
+  margin: 10px;
+}
+.settingsWrapper {
+  height: 1600px;
+  margin-top: 52px;
+  padding-top: 15px;
+}
