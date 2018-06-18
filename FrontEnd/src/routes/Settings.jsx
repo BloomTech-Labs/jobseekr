@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import {
   FormGroup,
   FormControl,
@@ -49,10 +50,42 @@ class Settings extends React.Component {
     if (email === this.state.currentEmail) return 'success';
     return 'warning';
   }
-  // handleChange = (e) => {
-  //   let { name, value } = e.target;
-  //   this.setState({ [name]: value });
-  // }
+
+  handleEmailSubmit = (e) => {
+    e.preventDefault();
+    const body = { ...this.state };
+    const token = localStorage.getItem('token');
+    axios
+      .put('http://localhost:5000/changeemail', {
+        oldEmail: body.oldEmail,
+        newEmail: body.newEmail,
+        token,
+      })
+      .then(result => {
+        alert(`Your new email is ${result.data.email}`);
+      })
+      .catch(() => {
+        console.log('Error changing email');
+      });
+  }
+
+  handlePasswordSubmit = (e) => {
+    e.preventDefault();
+    const body = { ...this.state };
+    const token = localStorage.getItem('token');
+    axios
+      .put('http://localhost:5000/changepassword', {
+        oldPassword: body.oldPassword,
+        newPassword: body.newPassword,
+        token,
+      })
+      .then(result => {
+        alert(`Your new password has been saved`);
+      })
+      .catch(() => {
+        console.log('Error changing password');
+      });
+  }
 
   render() {
     return (
@@ -94,7 +127,12 @@ class Settings extends React.Component {
                         <FormControl.Feedback />
                         <HelpBlock>Must use a valid email address.</HelpBlock>
                       </FormGroup>
-                      <Button type="submit">Save</Button>
+                      <Button 
+                        onClick={e => this.handleEmailSubmit(e)}
+                      >
+                          Save
+                      </Button>
+
                     </form>
                   </Well>
                 </div>
@@ -141,7 +179,7 @@ class Settings extends React.Component {
                         <FormControl.Feedback />
                         <HelpBlock>Password must be at least 10 characters long.</HelpBlock>
                       </FormGroup>
-                      <Button type="submit">Save</Button>
+                      <Button onClick={e => this.handlePasswordSubmit(e)}> Save</Button>
                     </form>
                   </Well>
                 </div>
