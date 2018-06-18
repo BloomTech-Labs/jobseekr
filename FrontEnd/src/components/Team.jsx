@@ -1,12 +1,17 @@
 import React from 'react';
 import { Media, Image } from 'react-bootstrap';
+import Team1 from '../Images/Daniel.png';
+import Team2 from '../Images/Jon.png';
+import Team3 from '../Images/Aaron.png';
+import Team4 from '../Images/Cliff.png';
+
 
 const Team = () =>
   (
     <div className="TeamWrapper">
       <Media>
         <Media.Left align="top">
-          <Image width={164} height={164} src="https://source.unsplash.com/user/erondu" alt="thumbnail" circle />
+          <Image width={164} height={164} src={Team1} alt="thumbnail" circle />
         </Media.Left>
         <Media.Body>
           <Media.Heading>Top aligned media</Media.Heading>
@@ -25,11 +30,11 @@ const Team = () =>
         </Media.Body>
       </Media>
       <Media>
-        <Media.Left align="middle">
-          <Image width={164} height={164} src="https://source.unsplash.com/user/phil" alt="thumbnail" circle />
+        <Media.Left align="top">
+          <Image width={164} height={164} src={Team2} alt="thumbnail" circle />
         </Media.Left>
         <Media.Body>
-          <Media.Heading>Middle aligned media</Media.Heading>
+          <Media.Heading>Top aligned media</Media.Heading>
           <p>
             Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
             ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at,
@@ -45,17 +50,38 @@ const Team = () =>
         </Media.Body>
       </Media>
       <Media>
-        <Media.Left align="bottom">
-          <Image width={164} height={164} src="https://source.unsplash.com/user/sarah" alt="thumbnail" circle />
+        <Media.Left align="top">
+          <Image width={164} height={164} src={Team3} alt="thumbnail" circle />
         </Media.Left>
         <Media.Body>
-          <Media.Heading>Bottom aligned media</Media.Heading>
+          <Media.Heading>Top aligned media</Media.Heading>
           <p>
             Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
             ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at,
             tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
             fringilla. Donec lacinia congue felis in faucibus.
           </p>
+
+          <p>
+            Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu
+            leo. Cum sociis natoque penatibus et magnis dis parturient montes,
+            nascetur ridiculus mus.
+          </p>
+        </Media.Body>
+      </Media>
+      <Media>
+        <Media.Left align="top">
+          <Image width={164} height={164} src={Team4} alt="thumbnail" circle />
+        </Media.Left>
+        <Media.Body>
+          <Media.Heading>Top aligned media</Media.Heading>
+          <p>
+            Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
+            ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at,
+            tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate
+            fringilla. Donec lacinia congue felis in faucibus.
+          </p>
+
           <p>
             Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu
             leo. Cum sociis natoque penatibus et magnis dis parturient montes,

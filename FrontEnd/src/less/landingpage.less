@@ -27,6 +27,10 @@
   min-height: 400px;
   height: 100%;
   background: linear-gradient( 45deg, #48ACF0 20%, #594236);
+
+  @media @smartphones {
+
+	}
 }
 
 .titles {
@@ -51,7 +55,9 @@
 
     }
     height: 180px;
-    margin-left: 0%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 28%;
 	}
   border-radius: 50%;
   background: #CCDDE2;
@@ -73,11 +79,16 @@
   }
 
 .titles {
+  display: flex;
+  justify-content: center;
   font-size: 40px;
 }
 
 .paragraphs {
-
+  display: flex;
+  justify-content: center;
+  padding-left: 3%;
+  padding-right: 3%;
   font-size: @font-size--large;
 }
 

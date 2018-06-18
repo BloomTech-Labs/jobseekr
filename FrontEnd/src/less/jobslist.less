@@ -1,10 +1,9 @@
+@import './mixins.less';
 
 .board__container {
   min-width: 3000px;
   margin-top: 52px;
   padding-top: 15px;
-  .board__header {
-  }
 
   .board {
     display: flex;
@@ -25,4 +24,11 @@
     top: 90%;
     left: 75%;
     bottom: 15%;
+    width: 20%;
+    margin-bottom: 4.7%;
+    @media @smartphones {
+      width: 50%;
+      left: 70%;
+    }
+    
   }
