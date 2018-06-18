@@ -27,9 +27,9 @@ export default class SignUp extends Component {
   handleSignUp = e => {
     e.preventDefault();
     let body = { ...this.state };
-    if (body.password.length <= 0) {
-      alert("You must enter a password");
-    } else if (body.password.length > 0) {
+    if (body.password !== body.confirmPassword) {
+      alert("Your passwords must match");
+    } else {
     axios
       .post('http://localhost:5000/signup', {
         email: body.email,
