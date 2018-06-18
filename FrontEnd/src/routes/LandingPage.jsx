@@ -1,7 +1,8 @@
 import React from 'react';
 import { Jumbotron, Button } from 'react-bootstrap';
-import {Header, Team } from '../components/AllComponents';
+import { Header, Team } from '../components/AllComponents';
 import JobSeekr from '../Images/jobSeekr.png';
+
 
 
 const LandingPage = () =>
@@ -23,8 +24,8 @@ const LandingPage = () =>
         </p>
       </div>
       <Jumbotron className="AttentionDiv" id="two">
-        <h1 >JobSeekr!</h1>
-        <p>
+        <h1 className="titles">JobSeekr!</h1>
+        <p className="paragraphs">
         Find your next job quickly <br /> and in an organized fashion!
         </p>
         <p>
@@ -33,8 +34,8 @@ const LandingPage = () =>
       </Jumbotron>
       <Team />
       <Jumbotron className="AttentionDiv" id="two">
-        <h1>JobSeekr!</h1>
-        <p>Find your next job quickly and in an organized fashion!</p>
+        <h1 className="titles">JobSeekr!</h1>
+        <p className="paragraphs">Find your next job quickly and in an organized fashion!</p>
         <p>
           <Button bsStyle="primary">Buy Now!</Button>
         </p>

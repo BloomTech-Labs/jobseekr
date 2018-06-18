@@ -21,7 +21,7 @@ class AddList extends Component {
     return (
       <div>
         <OverlayTrigger overlay={tooltip}>
-          <Button bsStyle="primary" bsSize="large" onClick={() => this.setState({ show: true })}>
+          <Button onClick={() => this.setState({ show: true })}>
             Add List &nbsp;<Glyphicon glyph="">+</Glyphicon>
           </Button>
         </OverlayTrigger>
