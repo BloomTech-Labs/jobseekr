@@ -2,7 +2,8 @@ const {
   createUser,
   login,
   getAllJobs,
-  changePassword, 
+  changePassword,
+  changeEmail,
 } = require('../controllers');
 
 module.exports = (server) => {
@@ -11,6 +12,7 @@ module.exports = (server) => {
   
   // PUT ROUTES
   server.route('/changepassword').put(changePassword);
+  server.route('/changeemail').put(changeEmail);
 
   // DELETE ROUTES
 

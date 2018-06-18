@@ -1,1 +1,3 @@
-mySecret='random'
+mySecret = "random"
+
+module.exports = mySecret;
