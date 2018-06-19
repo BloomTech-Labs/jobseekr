@@ -12,6 +12,7 @@ import {
   HelpBlock,
 } from 'react-bootstrap';
 import axios from 'axios';
+import ROOT_URL from './config';
 
 export default class SignUp extends Component {
   constructor(props, context) {
@@ -31,7 +32,7 @@ export default class SignUp extends Component {
       alert("Your passwords must match");
     } else {
     axios
-      .post('http://localhost:5000/signup', {
+      .post(`${ROOT_URL}/signup`, {
         email: body.email,
         password: body.confirmPassword,
       })
