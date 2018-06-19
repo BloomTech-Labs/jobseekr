@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
-const mySecret = require('../config.js');
+const mySecret = process.env.SECRET;
 
 const createUser = (req, res) => {
   const { email, password } = req.body;

@@ -12,6 +12,7 @@ import {
   FormControl,
   Button,
 } from 'react-bootstrap';
+import ROOT_URL from './config';
 
 export default class Login extends Component {
   constructor(props, context) {
@@ -27,7 +28,7 @@ export default class Login extends Component {
     e.preventDefault();
     let body = { ...this.state };
     axios
-      .post('http://localhost:5000/login', { email: body.email, password: body.password })
+      .post(`${ROOT_URL}/login`, { email: body.email, password: body.password })
       .then(result => {
         localStorage.setItem('token', result.data.token);
         this.props.history.push('/jobs');

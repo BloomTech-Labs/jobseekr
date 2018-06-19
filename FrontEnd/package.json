@@ -17,7 +17,6 @@
     "react-scripts": "1.1.4"
   },
   "scripts": {
-    "start server": "nodemon server.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
@@ -31,5 +30,6 @@
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.9.1"
-  }
+  },
+  "proxy": "https://ls-jobseekr1.herokuapp.com/"
 }

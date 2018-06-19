@@ -15,6 +15,7 @@ import {
   Badge,
 } from 'react-bootstrap';
 import { Header } from '../components/AllComponents';
+import ROOT_URL from './config';
 
 class Settings extends React.Component {
   constructor(props, context) {
@@ -56,7 +57,7 @@ class Settings extends React.Component {
     const body = { ...this.state };
     const token = localStorage.getItem('token');
     axios
-      .put('http://localhost:5000/changeemail', {
+      .put(`${ROOT_URL}/changeemail`, {
         oldEmail: body.oldEmail,
         newEmail: body.newEmail,
         token,
@@ -74,7 +75,7 @@ class Settings extends React.Component {
     const body = { ...this.state };
     const token = localStorage.getItem('token');
     axios
-      .put('http://localhost:5000/changepassword', {
+      .put(`${ROOT_URL}/changepassword`, {
         oldPassword: body.oldPassword,
         newPassword: body.newPassword,
         token,

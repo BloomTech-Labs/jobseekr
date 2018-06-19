@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const mySecret = require('../config');
+const mySecret = process.env.SECRET;
 const User = require('../models/userModel');
 
 const login = (req, res) => {
