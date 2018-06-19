@@ -35,4 +35,4 @@ mongoose
     console.log('Error connecting to Mongo.');
   });
 
-server.listen(5000, () => console.log(`Server is Listening on port: ${PORT}`));
+server.listen(PORT, () => console.log(`Server is Listening on port: ${PORT}`));
