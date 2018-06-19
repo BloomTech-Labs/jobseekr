@@ -15,10 +15,11 @@ server.use(express.static(path.join(__dirname, '/FrontEnd/build')));
 server.use(morgan('combined'));
 server.use(helmet());
 server.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://ls-jobseekr1.herokuapp.com/',
   credentials: true,
   methods: ['GET', 'PUT', 'POST'],
 }));
+server.options('*', cors());
 
 routes(server);
 
