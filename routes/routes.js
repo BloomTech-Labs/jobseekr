@@ -12,7 +12,7 @@ module.exports = (server) => {
   // GET ROUTES
   server.route('/jobs').get(getAllJobs);
   server.route('*').get((req, res) => {
-    res.sendFile(path.join(__dirname+'../FrontEnd/build/index.html'));
+    res.sendFile(path.join(__dirname+'/FrontEnd/build/index.html'));
   });
   
   // PUT ROUTES
