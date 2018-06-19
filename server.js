@@ -6,6 +6,9 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const routes = require('./routes/routes.js');
 
+const user = process.env.USER;
+const pass = process.env.PASSWORD;
+
 const server = express();
 server.use(express.json());
 const PORT = process.env.PORT || 5000;
@@ -24,8 +27,8 @@ server.options('*', cors());
 routes(server);
 
 mongoose
-  .connect('mongodb://localhost/jobseekr')
-  .then((pass) => {
+  .connect(`mongodb://${user}:${pass}@ds163650.mlab.com:63650/jobseekr`)
+  .then((result) => {
     console.log('Mongo Connected');
   })
   .catch((error) => {
