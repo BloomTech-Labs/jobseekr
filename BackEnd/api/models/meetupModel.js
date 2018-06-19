@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Users = require('./userModels');
+const Users = require('./userModel');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const MeetupSchema = mongoose.Schema(
   {
@@ -29,4 +30,4 @@ const MeetupSchema = mongoose.Schema(
 );
 // add validation for link string types
 
-module.exports = mongoose.model('Meetups', MeetupSchema);
+module.exports = mongoose.model('Meetup', MeetupSchema);
