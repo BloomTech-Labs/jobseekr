@@ -21,10 +21,11 @@ const getMeetup = (req, res) => {
 };
 
 const createMeetup = (req, res) => {
-  const { meetup } = req.body;""
+  const { meetup } = req.body;
   if (meetup.dateOfEvent && meetup.eventName) {
-    Meetup.save({ ...meetup })
-      .then(meetup => res.json(meetup))
+    const newMeetup = new Meetup ({ ...meetup });
+    newMeetup.save()
+      .then(meetUp => res.json(meetUp))
       .catch(err => res.status(500).json({ error: 'Error saving the meetup' }));
   } else {
     res.status(400).json({ error: 'Please send valid date and name for event' });
