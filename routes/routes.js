@@ -21,7 +21,4 @@ module.exports = (server) => {
   // POST ROUTES
   server.route('/api/signup').post(createUser);
   server.route('/api/login').post(login);
-  server.route('*').get((req, res) => {
-    res.sendFile(path.join(__dirname+'/FrontEnd/build/index.html'));
-  });
 };

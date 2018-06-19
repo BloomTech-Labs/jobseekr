@@ -25,6 +25,9 @@ server.use(cors({
 server.options('*', cors());
 
 routes(server);
+server.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/FrontEnd/build/index.html'));
+});
 
 mongoose
   .connect(`mongodb://${user}:${pass}@ds163650.mlab.com:63650/jobseekr`)
