@@ -4,6 +4,7 @@ const {
   getAllJobs,
   changePassword,
   changeEmail,
+  createMeetup,
 } = require('../controllers');
 const path = require('path');
 
@@ -21,4 +22,5 @@ module.exports = (server) => {
   // POST ROUTES
   server.route('/api/signup').post(createUser);
   server.route('/api/login').post(login);
+  server.route('/api/meetups').post(createMeetup);
 };

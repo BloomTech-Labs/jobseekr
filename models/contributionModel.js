@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Users = require('./userModels');
+const Users = require('./userModel');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const ContributionSchema = mongoose.Schema(
   {
