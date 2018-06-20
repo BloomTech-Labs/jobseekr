@@ -22,8 +22,9 @@ const getMeetup = (req, res) => {
 };
 
 const createMeetup = async (req, res) => {
-  const { meetup } = req.body;
-  const storedPayload = await jwt.verify(meetup.token, mySecret);
+  const { dateOfEvent, eventName, token } = req.body;
+  console.log('body: ', req.body);
+  const storedPayload = await jwt.verify(token, mySecret);
   const email = storedPayload.email
   User.findOne({ email }, (err, user) => {
     if (err) {
@@ -34,9 +35,8 @@ const createMeetup = async (req, res) => {
       res.status(422).json({ error: 'No user with that id in our records' });
       return;
     }
-    meetup.user = user;
-    if (meetup.dateOfEvent && meetup.eventName && meetup.user) {
-      const newMeetup = new Meetup ({ ...meetup });
+    if (dateOfEvent && eventName && user) {
+      const newMeetup = new Meetup ({ ...req.body, user });
       newMeetup.save()
         .then(meetUp => res.json(meetUp))
         .catch(err => res.status(500).json({ error: 'Error saving the meetup' }));
