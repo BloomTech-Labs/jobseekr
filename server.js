@@ -30,7 +30,7 @@ server.get('*', (req, res) => {
 });
 
 mongoose
-  .connect(`mongodb://${user}:${pass}@ds163650.mlab.com:63650/jobseekr`)
+  .connect(`mongodb://${user}:${pass}@ds263520.mlab.com:63520/jobseekr`)
   .then((result) => {
     console.log('Mongo Connected');
   })
