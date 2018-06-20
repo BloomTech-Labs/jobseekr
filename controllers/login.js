@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const mySecret = process.env.SECRET;
+const mySecret = process.env.SECRET || "random";
 const User = require('../models/userModel');
 
 const login = (req, res) => {
