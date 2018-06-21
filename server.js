@@ -13,7 +13,6 @@ server.use(express.json());
 const PORT = process.env.PORT || 5000;
 
 server.use(express.static(path.join(__dirname, "/FrontEnd/build")));
-
 server.use(morgan("combined"));
 server.use(helmet());
 server.use(
@@ -23,7 +22,7 @@ server.use(
     methods: ["GET", "PUT", "POST"]
   })
 );
-server.options("*", cors());
+server.options("http://localhost:3000/", cors());
 
 routes(server);
 server.get("*", (req, res) => {
