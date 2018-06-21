@@ -8,7 +8,12 @@
   padding: .5%;
   width: 20%;
 }
-.ContributionsWrapper Button {
+.ContributionsWrapper .contributions--btn {
   border-radius: 50%;
   font-size: 15;
+}
+.ContributionsWrapper .form-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

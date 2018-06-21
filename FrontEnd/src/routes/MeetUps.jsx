@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Glyphicon } from 'react-bootstrap';
+import { Button, Glyphicon, } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import { Header } from '../components/AllComponents';
@@ -75,6 +75,12 @@ class MeetUps extends Component {
       })
   }
 
+  validateLink(link) {
+    if (link.substring(0,6) === "http://") return 'success';
+    else if (link.substring(0,7) === "https://") return 'success';
+    else return 'warning;'
+  }
+
   render() {
     return (
       <div className="parent">
@@ -94,10 +100,10 @@ class MeetUps extends Component {
               const id = meetup._id;
               return (
                   <tr key={id}>
-                    <th scope="row">{meetup.dateOfEvent}</th>
+                    <th scope="row">{meetup.dateOfEvent.substring(0,10)}</th>
                     <td>
                       {meetup.eventName}
-                      <Button bsSize="small">
+                      <Button bsSize="small" className="meetups--btn">
                         <a href={meetup.linkToEvent} target="blank">
                           <Glyphicon glyph="link" />
                         </a>
@@ -107,55 +113,57 @@ class MeetUps extends Component {
                     <td>
                       <Button 
                         bsStyle="primary"
+                        className="meetups--btn"
                         onClick={e => this.destroyMeetup(e, id)}
-                      >
+                        >
                         X
                       </Button>
                     </td>
                   </tr>
                 )
-            }) : null}
-            </tbody>
-          </table>
+              }) : null}
+              </tbody>
+            </table>
           <form>
             <div className="form-row">
-              <Glyphicon glyph="calendar" />
-              <div className="col">
+              <div className="form-col">
+              <Glyphicon glyph="calendar" /> &nbsp;
               <DatePicker
                   className="form-control"
                   selected={this.state.dateOfEvent}
                   onChange={this.handleDateChange}
-                />
+                  />
               </div>
-              <div className="col">
+              <div className="form-col">
                 <input 
                   type="text" 
                   className="form-control" 
                   placeholder="Activity" 
                   onChange={e => this.setState({ eventName: e.target.value })}
-                />
-              </div>
-              <div className="col">
+                  /> &nbsp;
                 <input 
                   type="text"
                   className="form-control" 
                   placeholder="Link" 
-                  onChange={e => this.setState({ linkToEvent: e.target.value })}
-                />
+                  onChange={e => {
+                    if (!e.target.value.match(/http/gi)) {
+                      e.target.value = "http".concat(e.target.value)
+                    }
+                    this.setState({ linkToEvent: e.target.value })}}
+                    />
               </div>
-              <div className="col">
+              <div className="form-col">
                 <input 
                   type="text" 
                   className="form-control" 
                   placeholder="Notes" 
                   onChange={e => this.setState({ notes: e.target.value })}
-                />
-              </div>
-              <div className="plusDiv">
+                  />
                 <Button 
                   bsStyle="primary"
                   onClick={e => this.handleCreateMeetup(e)}
-                >
+                  className="meetups--btn meetups--btn__plus"
+                  >
                   +
                 </Button>
               </div>

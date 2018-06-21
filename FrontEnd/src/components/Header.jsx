@@ -15,7 +15,7 @@ const Header = () => (
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
-        <Nav>
+        <Nav >
           <NavItem eventKey={1} href="/jobs">
             Jobs List
           </NavItem>
