@@ -9,18 +9,6 @@
   width: 20%;
 }
 .MeetupsWrapper Button {
-  border-radius: 15px;
+  border-radius: 50%;
   font-size: 15;
-}
-.MeetupsWrapper .form-row {
-  justify-content: center;
-}
-.MeetupsWrapper .form-row .col {
-  margin-left: 10%;
-}
-.MeetupsWrapper .plusDiv {
-  display: flex;
-  flex-flow: column;
-  justify-content: flex-start;
-  margin-top: 2%;
 }
