@@ -162,9 +162,9 @@ class MeetUps extends Component {
                 <Button 
                   bsStyle="primary"
                   onClick={e => this.handleCreateMeetup(e)}
-                  className="meetups--btn meetups--btn__plus"
+                  className="meetups--btn"
                   >
-                  +
+                  <Glyphicon glyph="plus" className="meetups--btn__plus"/>
                 </Button>
               </div>
             </div>

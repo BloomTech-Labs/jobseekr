@@ -44,6 +44,10 @@
   margin-bottom: -2%;
   max-height: 50px;
 }
+.Header .js-navbar {
+  border-radius: 0;
+  background: #15100E;
+}
 .list__btn {
   min-width: 327px;
 }
@@ -123,6 +127,9 @@
   font-size: 1.5rem;
   font-weight: 900;
   margin: 10px;
+}
+.MeetupsWrapper .meetups--btn .meetups--btn__plus {
+  margin: -3px;
 }
 .MeetupsWrapper .form-row {
   display: flex;
