@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Popover, Button, Modal, OverlayTrigger, SplitButton, MenuItem, Glyphicon, Tooltip, Checkbox, FormControl } from 'react-bootstrap';
+import { Popover, Button, Modal, OverlayTrigger, Radio, FormGroup, SplitButton, MenuItem, Glyphicon, Tooltip, Checkbox, FormControl } from 'react-bootstrap';
 
 class AddJob extends Component {
   constructor(props, context) {
@@ -7,15 +7,27 @@ class AddJob extends Component {
 
     this.state = {
       show: false,
+      timelineSelection: '',
+      list: ['Want to Apply', 'Submitted Job App', 'Received Response', 'Phone Interview', 'On Site Interview', 'Technical Interview', 'Offer'],
     };
   }
 
+  handleTimelineRadioClick = (e) => {
+    console.log('event object is', e);
+    e.preventDefault();
+    const status = this.state;
+    console.log('event target prop is', e.target.prop);
+    console.log('event target attr is', e.target.attr);
+    status.timelineSelection = e.target.value;
+    this.setState(status);
+  }
+
   render() {
-    const popover = (
-      <Popover id="modal-popover" title="Add Job">
-        Add a new job to the list.
-      </Popover>
-    );
+    // const popover = (
+    //   <Popover id="modal-popover" title="Add Job">
+    //     Add a new job to the list.
+    //   </Popover>
+    // );
     const tooltip = <Tooltip id="modal-tooltip">Add a Job.</Tooltip>;
 
     return (
@@ -35,31 +47,34 @@ class AddJob extends Component {
           <form>
             <Modal.Body>
               <div className="top-section-job-modal">
-                <div className="top-left-section">
-                  <Checkbox checked readOnly>
-                    Want to Apply
-                  </Checkbox>
-                  <Checkbox checked readOnly>
-                    Received Response
-                  </Checkbox>
-                  <Checkbox checked readOnly>
-                    On-Site Interview
-                  </Checkbox>
-                  <Checkbox checked readOnly>
-                    Offer
-                  </Checkbox>
-                </div>
-                <div className="top-middle-section">
-                  <Checkbox checked readOnly>
-                    Submitted Job App
-                  </Checkbox>
-                  <Checkbox checked readOnly>
-                    Phone Interview
-                  </Checkbox>
-                  <Checkbox checked readOnly>
-                    Technical Interview
-                  </Checkbox>
-                </div>
+                <FormGroup>
+                  <div className="top-left-section">
+                    {this.state.list.slice(0, Math.ceil(this.state.list.length / 2)).map(e => {
+                      return (
+                        <Radio 
+                          name='timeline' 
+                          value={e} 
+                          onClick={this.handleTimelineRadioClick}
+                          {...e === this.state.timelineSelection ? 'checked' : {}}>
+                          {e}
+                        </Radio>
+                      )
+                    })}
+                  </div>
+                  <div className="top-middle-section">
+                    {this.state.list.slice(Math.ceil(this.state.list.length / 2)).map(e => {
+                      return (
+                        <Radio 
+                          name='timeline' 
+                          value={e} 
+                          onClick={this.handleTimelineRadioClick}
+                          {...(e === this.state.timelineSelection ? 'checked' : {})}>
+                          {e}
+                        </Radio>
+                      )
+                    })}
+                  </div>
+                </FormGroup>
                 <div className="top-right-section">
                   <Checkbox checked readOnly>
                     Got a Rejection
@@ -67,7 +82,7 @@ class AddJob extends Component {
                   <Button>
                     Upload Rejection Letter
                   </Button>
-                  <Checkbox checked readOnly>
+                  <Checkbox unchecked readOnly>
                     Got an Offer
                   </Checkbox>
                   <Button>
