@@ -106,6 +106,9 @@
   flex-direction: column;
   flex-grow: 1;
 }
+.top-left-section {
+  display: flex;
+}
 .addListButton {
   width: 100%;
   margin-bottom: 10%;
