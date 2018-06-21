@@ -5,7 +5,6 @@ const mySecret = process.env.SECRET || "random";
 
 const getAllMeetups = async (req, res) => {
   const { token } = req.headers;
-  console.log({token});
   const storedPayload = await jwt.verify(token, mySecret);
   const email = storedPayload.email;
   User.findOne({ email }, (err, user) => {
@@ -22,6 +21,17 @@ const getAllMeetups = async (req, res) => {
     .catch(err => res.status(500).json({ error: 'Error fetching Meetups' }));
   });
 };
+
+const destroyMeetup = (req, res) => {
+  const { id } = req.body;
+  Meetup.findByIdAndRemove(id, (err, removedMeetup) => {
+    if (err) {
+      res.status(422).json({ error: 'Cannot find meetup by that id' });
+    }
+    res.status(200).json({ success: `${removedMeetup.eventName} was removed from the db` });
+  }
+);
+}
 
 const getMeetup = (req, res) => {
   const { username, _id } = req.body;
@@ -62,4 +72,5 @@ module.exports = {
   getAllMeetups,
   getMeetup,
   createMeetup,
+  destroyMeetup,
 };

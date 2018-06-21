@@ -6,8 +6,8 @@ const {
   changeEmail,
   createMeetup,
   getAllMeetups,
+  destroyMeetup,
 } = require('../controllers');
-const path = require('path');
 
 
 module.exports = (server) => {
@@ -20,6 +20,7 @@ module.exports = (server) => {
   server.route('/api/changeemail').put(changeEmail);
   
   // DELETE ROUTES
+  server.route('/api/meetups').delete(destroyMeetup);
   
   // POST ROUTES
   server.route('/api/signup').post(createUser);

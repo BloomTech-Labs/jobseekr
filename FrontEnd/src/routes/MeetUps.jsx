@@ -16,7 +16,37 @@ class MeetUps extends Component {
       linkToEvent: '',
       notes: '',
       token: localStorage.getItem('token'),
+      meetups: [],
     };
+  }
+  componentDidMount() {
+    this.getMeetups();
+  }
+
+
+  getMeetups = () => {
+    const token = this.state.token;
+    axios.get(`${ROOT_URL}/meetups`,
+    {
+      headers: {
+        token
+      }
+    })
+    .then(response => {
+      const gotMeetups = response.data;
+      this.setState({ meetups: gotMeetups });
+    })
+    .catch(err => console.log(err));
+  }
+
+  destroyMeetup = (e, id) => {
+    e.preventDefault();
+    let data = { id }
+    axios.delete(`${ROOT_URL}/meetups`, { data })
+    .then(() => {
+      this.getMeetups();
+    })
+    .catch(err => console.log(err));
   }
 
   handleDateChange = (date) => {
@@ -37,8 +67,8 @@ class MeetUps extends Component {
         notes: body.notes,
         token: body.token,
       })
-      .then(result => {
-        console.log(result.data);
+      .then(() => {
+        this.getMeetups();
       })
       .catch((err) => {
         console.log(err);
@@ -60,43 +90,38 @@ class MeetUps extends Component {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">Date...</th>
-                <td>
-                  Activity...
-                  <Button bsSize="small">
-                    <Glyphicon glyph="link" />
-                  </Button>
-                </td>
-                <td>Notes...</td>
-              </tr>
-              <tr>
-                <th scope="row">Date...</th>
-                <td>
-                  Activity...
-                  <Button bsSize="small">
-                    <Glyphicon glyph="link" />
-                  </Button>
-                </td>
-                <td>Notes...</td>
-              </tr>
-              <tr>
-                <th scope="row">Date...</th>
-                <td>
-                  Activity...
-                  <Button bsSize="small">
-                    <Glyphicon glyph="link" />
-                  </Button>
-                </td>
-                <td>Notes...</td>
-              </tr>
+            {this.state.meetups.length > 0 ? this.state.meetups.map((meetup) => {
+              const id = meetup._id;
+              return (
+                  <tr key={id}>
+                    <th scope="row">{meetup.dateOfEvent}</th>
+                    <td>
+                      {meetup.eventName}
+                      <Button bsSize="small">
+                        <a href={meetup.linkToEvent} target="blank">
+                          <Glyphicon glyph="link" />
+                        </a>
+                      </Button>
+                    </td>
+                    <td>{meetup.notes}</td>
+                    <td>
+                      <Button 
+                        bsStyle="primary"
+                        onClick={e => this.destroyMeetup(e, id)}
+                      >
+                        X
+                      </Button>
+                    </td>
+                  </tr>
+                )
+            }) : null}
             </tbody>
           </table>
           <form>
             <div className="form-row">
               <Glyphicon glyph="calendar" />
               <div className="col">
-                <DatePicker
+              <DatePicker
                   className="form-control"
                   selected={this.state.dateOfEvent}
                   onChange={this.handleDateChange}
