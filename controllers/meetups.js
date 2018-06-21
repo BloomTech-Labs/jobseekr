@@ -3,11 +3,24 @@ const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const mySecret = process.env.SECRET || "random";
 
-const getAllMeetups = (req, res) => {
-  const { username } = req.body;
-  Meetup.find({ username })
+const getAllMeetups = async (req, res) => {
+  const { token } = req.headers;
+  console.log({token});
+  const storedPayload = await jwt.verify(token, mySecret);
+  const email = storedPayload.email;
+  User.findOne({ email }, (err, user) => {
+    if (err) {
+      res.status(403).json({ error: 'Error finding user' });
+    }
+    if (user === null) {
+      res.status(422).json({ error: 'No user with that id in our records' });
+      return;
+    }
+
+  Meetup.find({ user })
     .then(meetups => res.json(meetups))
     .catch(err => res.status(500).json({ error: 'Error fetching Meetups' }));
+  });
 };
 
 const getMeetup = (req, res) => {
@@ -23,9 +36,8 @@ const getMeetup = (req, res) => {
 
 const createMeetup = async (req, res) => {
   const { dateOfEvent, eventName, token } = req.body;
-  console.log('body: ', req.body);
   const storedPayload = await jwt.verify(token, mySecret);
-  const email = storedPayload.email
+  const email = storedPayload.email;
   User.findOne({ email }, (err, user) => {
     if (err) {
       res.status(403).json({ error: 'Invalid user id' });
