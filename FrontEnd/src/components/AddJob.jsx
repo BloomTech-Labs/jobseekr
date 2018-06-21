@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Popover, Button, Modal, OverlayTrigger, Glyphicon, Tooltip } from 'react-bootstrap';
+import { Popover, Button, Modal, OverlayTrigger, SplitButton, MenuItem, Glyphicon, Tooltip, Checkbox, FormControl } from 'react-bootstrap';
 
 class AddJob extends Component {
   constructor(props, context) {
@@ -30,78 +30,84 @@ class AddJob extends Component {
 
         <Modal show={this.state.show} onHide={() => this.setState({ show: false })}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Job Timeline</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <h4>Text in a modal</h4>
-            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
-
-            <h4>Popover in a modal</h4>
-            <p>
-              there is a{' '}
-              <OverlayTrigger overlay={popover}>
+          <form>
+            <Modal.Body>
+              <div className="top-section-job-modal">
+                <div className="top-left-section">
+                  <Checkbox checked readOnly>
+                    Want to Apply
+                  </Checkbox>
+                  <Checkbox checked readOnly>
+                    Received Response
+                  </Checkbox>
+                  <Checkbox checked readOnly>
+                    On-Site Interview
+                  </Checkbox>
+                  <Checkbox checked readOnly>
+                    Offer
+                  </Checkbox>
+                </div>
+                <div className="top-middle-section">
+                  <Checkbox checked readOnly>
+                    Submitted Job App
+                  </Checkbox>
+                  <Checkbox checked readOnly>
+                    Phone Interview
+                  </Checkbox>
+                  <Checkbox checked readOnly>
+                    Technical Interview
+                  </Checkbox>
+                </div>
+                <div className="top-right-section">
+                  <Checkbox checked readOnly>
+                    Got a Rejection
+                  </Checkbox>
+                  <Button>
+                    Upload Rejection Letter
+                  </Button>
+                  <Checkbox checked readOnly>
+                    Got an Offer
+                  </Checkbox>
+                  <Button>
+                    Upload Offer Letter
+                  </Button>
+                </div>
+              </div>
+              <FormControl componentClass="textarea" placeholder="Notes" />
+              {/* <OverlayTrigger overlay={popover}>
                 <a href="#popover">popover</a>
-              </OverlayTrigger>{' '}
-              here
-            </p>
-
-            <h4>Tooltips in a modal</h4>
-            <p>
-              there is a{' '}
-              <OverlayTrigger overlay={tooltip}>
-                <a href="#tooltip">tooltip</a>
-              </OverlayTrigger>{' '}
-              here
-            </p>
-
-            <hr />
-
-            <h4>Overflowing text to show scroll behavior</h4>
-            <p>
-              Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-              facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
-              at eros.
-            </p>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-              lacus vel augue laoreet rutrum faucibus dolor auctor.
-            </p>
-            <p>
-              Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-              scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-              auctor fringilla.
-            </p>
-            <p>
-              Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-              facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
-              at eros.
-            </p>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-              lacus vel augue laoreet rutrum faucibus dolor auctor.
-            </p>
-            <p>
-              Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-              scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-              auctor fringilla.
-            </p>
-            <p>
-              Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-              facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
-              at eros.
-            </p>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-              lacus vel augue laoreet rutrum faucibus dolor auctor.
-            </p>
-            <p>
-              Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-              scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-              auctor fringilla.
-            </p>
-          </Modal.Body>
+              </OverlayTrigger>{' '} */}
+            </Modal.Body>
+            <Modal.Header closeButton>
+              <Modal.Title>Job Information</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div className="bottom-section-job-modal">
+                <div className="bottom-left-section">
+                  <FormControl type="text" placeholder="Company Name" />
+                  <FormControl type="url" placeholder="Link to Job Posting" />
+                  <FormControl type="text" placeholder="Point of Contact" />
+                </div>
+                <div className="bottom-right-section">
+                  <SplitButton title="Source of Job">
+                    <MenuItem eventKey="1">Met in Person</MenuItem>
+                    <MenuItem eventKey="2">Applied Online</MenuItem>
+                    <MenuItem eventKey="3">Referral</MenuItem>
+                  </SplitButton>
+                  <Button>
+                    Resolution (Open/Closed)
+                  </Button>
+                  <Button>
+                    Upload Resume/CV
+                  </Button>
+                </div>
+              </div>
+            </Modal.Body>
+          </form>
           <Modal.Footer>
-            <Button onClick={() => this.setState({ show: false })}>Close</Button>
+            <Button onClick={() => this.setState({ show: false })}>Add Job</Button>
           </Modal.Footer>
         </Modal>
       </div>
