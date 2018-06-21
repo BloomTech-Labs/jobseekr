@@ -2,10 +2,19 @@
  * so that it doesn't slide to the left when scrolling right horizontally
  * when I ma
  */
+
+ @import 'mixins.less';
+
 .Header {
   position: fixed;
   top: 0;
   width: 100%;
-  margin-bottom: 50px;
   z-index: 500;
+  border-radius: 0px;
+  margin-bottom: -2%;
+  max-height: 50px;
+  .js-navbar {
+    border-radius: 0;
+    background: @licorice;
+  }
 }
