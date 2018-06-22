@@ -18,7 +18,7 @@ server.use(express.static(path.join(__dirname, '/FrontEnd/build')));
 server.use(morgan('combined'));
 server.use(helmet());
 server.use(cors({
-  origin: 'https://ls-jobseekr1.herokuapp.com/',
+  origin: ('https://ls-jobseekr1.herokuapp.com', 'http://localhost:3000'),
   credentials: true,
   methods: ['GET', 'PUT', 'POST'],
 }));
