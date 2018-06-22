@@ -1,13 +1,14 @@
-const mongoose = require("mongoose");
-const express = require("express");
-const path = require("path");
-const cors = require("cors");
-const morgan = require("morgan");
-const helmet = require("helmet");
-const routes = require("./routes/routes.js");
+const mongoose = require('mongoose');
+const express = require('express');
+const path = require('path');
+const cors = require('cors');
+const morgan = require('morgan');
+const helmet = require('helmet');
+const routes = require('./routes/routes.js');
 
 const user = process.env.JOBSEEKR_USERNAME || "jobseekr";
 const pass = process.env.JOBSEEKR_PASSWORD || "job123";
+
 const server = express();
 server.use(express.json());
 const PORT = process.env.PORT || 5000;

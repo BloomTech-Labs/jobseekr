@@ -17,7 +17,7 @@ const LandingPage = () =>
           <img src={JobSeekr} className="png1" alt="hello" />
 
         </div>
-        <h3 className="titles" >JobSeeker
+        <h3 className="titles" >JobSeekr
         </h3>
         <p className="paragraphs">
           Sweating the small stuff, so you dont have to!
