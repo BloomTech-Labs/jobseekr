@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Popover, Button, Modal, OverlayTrigger, Glyphicon, Tooltip } from 'react-bootstrap';
+import { ToggleButtonGroup, DropdownButton,ButtonToolbar, Button, Modal, OverlayTrigger, Radio, MenuItem, Glyphicon, Tooltip, Checkbox, FormControl } from 'react-bootstrap';
 
 class AddJob extends Component {
   constructor(props, context) {
@@ -7,15 +7,40 @@ class AddJob extends Component {
 
     this.state = {
       show: false,
+      timelineSelection: '',
+      list: ['Want to Apply', 'Submitted Job App', 'Received Response', 'Phone Interview', 'On Site Interview', 'Technical Interview', 'Offer'],
+      gotRejected: false,
+      gotOffer: false,
+      notes: '',
+      companyName: '',
+      jobPostingLink: '',
+      pointOfContact : '',
+      sourceOfJob: ['Met in Person', 'Referral', 'Applied Online'],
+      sourceSelection: 'Source of Job',
     };
   }
 
+  handleTimelineRadioClick = (selection) => {
+    this.setState({ timelineSelection: selection });
+  }
+
+  handleCheckbox = (e) => {
+    const toBeChanged = e.target.value;
+    this.setState({ [toBeChanged] : !this.state[toBeChanged] })
+  }
+
+  handleChange = (e) => {
+    const change = e.target.value;
+    this.setState({ [e.target.id] : change });
+  }
+
+  handleSourceClick = (key, e) => {
+    const change = key;
+    console.log('change is', change);
+    this.setState({ sourceSelection: key });
+  }
+
   render() {
-    const popover = (
-      <Popover id="modal-popover" title="Add Job">
-        Add a new job to the list.
-      </Popover>
-    );
     const tooltip = <Tooltip id="modal-tooltip">Add a Job.</Tooltip>;
 
     return (
@@ -30,78 +55,113 @@ class AddJob extends Component {
 
         <Modal show={this.state.show} onHide={() => this.setState({ show: false })}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Job Timeline</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <h4>Text in a modal</h4>
-            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
-
-            <h4>Popover in a modal</h4>
-            <p>
-              there is a{' '}
-              <OverlayTrigger overlay={popover}>
-                <a href="#popover">popover</a>
-              </OverlayTrigger>{' '}
-              here
-            </p>
-
-            <h4>Tooltips in a modal</h4>
-            <p>
-              there is a{' '}
-              <OverlayTrigger overlay={tooltip}>
-                <a href="#tooltip">tooltip</a>
-              </OverlayTrigger>{' '}
-              here
-            </p>
-
-            <hr />
-
-            <h4>Overflowing text to show scroll behavior</h4>
-            <p>
-              Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-              facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
-              at eros.
-            </p>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-              lacus vel augue laoreet rutrum faucibus dolor auctor.
-            </p>
-            <p>
-              Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-              scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-              auctor fringilla.
-            </p>
-            <p>
-              Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-              facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
-              at eros.
-            </p>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-              lacus vel augue laoreet rutrum faucibus dolor auctor.
-            </p>
-            <p>
-              Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-              scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-              auctor fringilla.
-            </p>
-            <p>
-              Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-              facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
-              at eros.
-            </p>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-              lacus vel augue laoreet rutrum faucibus dolor auctor.
-            </p>
-            <p>
-              Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-              scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-              auctor fringilla.
-            </p>
-          </Modal.Body>
+          <form>
+            <Modal.Body>
+              <div className="top-section-job-modal">
+                <ButtonToolbar>
+                  <div className="top-left-section">
+                    <ToggleButtonGroup 
+                      type="radio" 
+                      name="timeline" 
+                      value={[this.state.timelineSelection]} 
+                      onChange={this.handleTimelineRadioClick}
+                    >
+                      {this.state.list.slice(0, Math.ceil(this.state.list.length / 2)).map(e => {
+                        return <Radio value={e}>{e}</Radio>
+                      })}
+                    </ToggleButtonGroup>
+                  </div>
+                  <div className="top-middle-section">
+                    <ToggleButtonGroup 
+                      type="radio" 
+                      name="timeline" 
+                      value={[this.state.timelineSelection]} 
+                      onChange={this.handleTimelineRadioClick}
+                    >
+                      {this.state.list.slice(Math.ceil(this.state.list.length / 2)).map(e => {
+                        return <Radio value={e}>{e}</Radio>
+                      })}
+                    </ToggleButtonGroup>
+                  </div>
+                </ButtonToolbar>
+                <div className="top-right-section">
+                  <Checkbox 
+                    checked={this.state.gotRejected} 
+                    value={"gotRejected"}
+                    onChange={this.handleCheckbox} 
+                    readOnly
+                  >
+                    Got a Rejection
+                  </Checkbox>
+                  <Button>
+                    Upload Rejection Letter
+                  </Button>
+                  <Checkbox 
+                    checked={this.state.gotOffer} 
+                    value={"gotOffer"}
+                    onChange={this.handleCheckbox} 
+                    readOnly
+                  >
+                    Got an Offer
+                  </Checkbox>
+                  <Button>
+                    Upload Offer Letter
+                  </Button>
+                </div>
+              </div>
+              <FormControl 
+                componentClass="textarea" 
+                value={this.state.notes} 
+                placeholder="Notes"
+                id='notes'
+                onChange={this.handleChange}
+              />
+            </Modal.Body>
+            <Modal.Header closeButton>
+              <Modal.Title>Job Information</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <div className="bottom-section-job-modal">
+                <div className="bottom-left-section">
+                  <FormControl 
+                    type="text" 
+                    placeholder="Company Name" 
+                    id='companyName'
+                    onChange={this.handleChange}
+                  />
+                  <FormControl 
+                    type="text" 
+                    placeholder="Link to Job Posting" 
+                    id='jobPostingLink'
+                    onChange={this.handleChange}
+                  />
+                  <FormControl 
+                    type="text" 
+                    placeholder="Point of Contact" 
+                    id='pointOfContact'
+                    onChange={this.handleChange}
+                  />
+                </div>
+                <div className="bottom-right-section">
+                  <DropdownButton title={this.state.sourceSelection}>
+                    {this.state.sourceOfJob.map(e => {
+                      return <MenuItem eventKey={e} onSelect={this.handleSourceClick}>{e}</MenuItem>
+                    })}
+                  </DropdownButton>
+                  <Button>
+                    Resolution (Open/Closed)
+                  </Button>
+                  <Button>
+                    Upload Resume/CV
+                  </Button>
+                </div>
+              </div>
+            </Modal.Body>
+          </form>
           <Modal.Footer>
-            <Button onClick={() => this.setState({ show: false })}>Close</Button>
+            <Button onClick={() => this.setState({ show: false })}>Add Job</Button>
           </Modal.Footer>
         </Modal>
       </div>
