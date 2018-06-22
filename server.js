@@ -17,12 +17,14 @@ server.use(morgan("combined"));
 server.use(helmet());
 server.use(
   cors({
-    origin: "https://ls-jobseekr1.herokuapp.com/",
+    origin: ("https://ls-jobseekr1.herokuapp.com",
+    "https://m.stripe.network",
+    "http://localhost:3000"),
     credentials: true,
     methods: ["GET", "PUT", "POST"]
   })
 );
-server.options("http://localhost:3000/", cors());
+server.options("http://localhost:3000", cors());
 
 routes(server);
 server.get("*", (req, res) => {
