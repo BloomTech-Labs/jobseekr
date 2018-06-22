@@ -21,32 +21,13 @@ const Contributions = () => (
             <th scope="row">Date...</th>
             <td>
               Contribution...
-              <Button bsSize="small">
+              <Button bsSize="small" className="contributions--btn">
                 <Glyphicon glyph="link" />
               </Button>
             </td>
             <td>Notes...</td>
           </tr>
-          <tr>
-            <th scope="row">Date...</th>
-            <td>
-              Contribution...
-              <Button bsSize="small">
-                <Glyphicon glyph="link" />
-              </Button>
-            </td>
-            <td>Notes...</td>
-          </tr>
-          <tr>
-            <th scope="row">Date...</th>
-            <td>
-              Contribution...
-              <Button bsSize="small">
-                <Glyphicon glyph="link" />
-              </Button>
-            </td>
-            <td>Notes...</td>
-          </tr>
+
         </tbody>
       </table>
       <form>
@@ -64,7 +45,7 @@ const Contributions = () => (
           <div className="col">
             <input type="text" className="form-control" placeholder="Notes" />
           </div>
-          <Button bsStyle="primary">+</Button>
+          <Button bsStyle="primary" className="contributions--btn">+</Button>
         </div>
       </form>
     </div>

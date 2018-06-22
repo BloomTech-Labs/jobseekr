@@ -3,12 +3,35 @@ const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const mySecret = process.env.SECRET || "random";
 
-const getAllMeetups = (req, res) => {
-  const { username } = req.body;
-  Meetup.find({ username })
+const getAllMeetups = async (req, res) => {
+  const { token } = req.headers;
+  const storedPayload = await jwt.verify(token, mySecret);
+  const email = storedPayload.email;
+  User.findOne({ email }, (err, user) => {
+    if (err) {
+      res.status(403).json({ error: 'Error finding user' });
+    }
+    if (user === null) {
+      res.status(422).json({ error: 'No user with that id in our records' });
+      return;
+    }
+
+  Meetup.find({ user })
     .then(meetups => res.json(meetups))
     .catch(err => res.status(500).json({ error: 'Error fetching Meetups' }));
+  });
 };
+
+const destroyMeetup = (req, res) => {
+  const { id } = req.body;
+  Meetup.findByIdAndRemove(id, (err, removedMeetup) => {
+    if (err) {
+      res.status(422).json({ error: 'Cannot find meetup by that id' });
+    }
+    res.status(200).json({ success: `${removedMeetup.eventName} was removed from the db` });
+  }
+);
+}
 
 const getMeetup = (req, res) => {
   const { username, _id } = req.body;
@@ -22,9 +45,9 @@ const getMeetup = (req, res) => {
 };
 
 const createMeetup = async (req, res) => {
-  const { meetup } = req.body;
-  const storedPayload = await jwt.verify(meetup.token, mySecret);
-  const email = storedPayload.email
+  const { dateOfEvent, eventName, token } = req.body;
+  const storedPayload = await jwt.verify(token, mySecret);
+  const email = storedPayload.email;
   User.findOne({ email }, (err, user) => {
     if (err) {
       res.status(403).json({ error: 'Invalid user id' });
@@ -34,9 +57,8 @@ const createMeetup = async (req, res) => {
       res.status(422).json({ error: 'No user with that id in our records' });
       return;
     }
-    meetup.user = user;
-    if (meetup.dateOfEvent && meetup.eventName && meetup.user) {
-      const newMeetup = new Meetup ({ ...meetup });
+    if (dateOfEvent && eventName && user) {
+      const newMeetup = new Meetup ({ ...req.body, user });
       newMeetup.save()
         .then(meetUp => res.json(meetUp))
         .catch(err => res.status(500).json({ error: 'Error saving the meetup' }));
@@ -50,4 +72,5 @@ module.exports = {
   getAllMeetups,
   getMeetup,
   createMeetup,
+  destroyMeetup,
 };
