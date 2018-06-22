@@ -23,7 +23,7 @@ server.use(
     'https://m.stripe.network',
     'http://localhost:3000'),
     credentials: true,
-    methods: ['GET', 'PUT', 'POST']
+    methods: ["GET", "PUT", "POST", "DELETE"]
   })
 );
 server.options('http://localhost:3000', cors());

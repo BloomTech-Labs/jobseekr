@@ -9,12 +9,15 @@ API expects data of type `JSON`.
 | ------------- |:-------------:| -----:|
 | 'GET'  > '/jobs'           | `body: { username }`                        | `{jobs}`
 | 'GET'  > '/meetups'           | `headers: { token }`                        | `{[...meetups]}`
+| 'GET'  > '/contributions'           | `headers: { token }`                        | `{[...contributions]}`
 | 'PUT'  > '/changeemail'    | `body: { token, oldEmail, newEmail }`       | `{user}`
 | 'PUT'  > '/changepassword' | `body: { token, oldPassword, newPassword }` | `{user}` 
 | 'DELETE' > '/meetups'      | `body: { id }`                              | `{success message}`
+| 'DELETE' > '/contributions'      | `body: { id }`                              | `{success message}`
 | 'POST' > '/signup'         | `body: { username, password }`             | `{newUser}`
 | 'POST' > '/login'          | `body: { username, password }`              | `{token}`
 | 'POST' > '/meetups'          | `body: { dateOfEvent, eventName, linkToEvent*, notes*, token }`| `{meetup}`
+| 'POST' > '/contributions'          | `body: { dateOfContribution, contributionName, linkToContribution*, notes*, token }`| `{contribution}`
 `* - optional`
 
 

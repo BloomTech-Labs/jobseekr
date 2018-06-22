@@ -5,6 +5,7 @@ import moment from 'moment';
 import { Header } from '../components/AllComponents';
 import axios from 'axios';
 import ROOT_URL from './config';
+import 'react-datepicker/dist/react-datepicker.css';
 
 class MeetUps extends Component {
   constructor(props, context) {
