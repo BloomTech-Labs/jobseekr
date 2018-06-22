@@ -8,7 +8,12 @@
   padding: .5%;
   width: 20%;
 }
-.MeetupsWrapper Button {
+.MeetupsWrapper .meetups--btn {
   border-radius: 50%;
   font-size: 15;
+}
+.MeetupsWrapper .form-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

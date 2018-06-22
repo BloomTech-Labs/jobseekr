@@ -30,4 +30,4 @@ const ContributionSchema = mongoose.Schema(
 );
 // add validation for link string types
 
-module.exports = mongoose.model('Contributions', ContributionSchema);
+module.exports = mongoose.model('Contribution', ContributionSchema);

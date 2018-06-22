@@ -7,7 +7,7 @@ const handleLogout = () => {
 
 const Header = () => (
   <div className="Header">
-    <Navbar inverse collapseOnSelect>
+    <Navbar inverse collapseOnSelect className="js-navbar">
       <Navbar.Header>
         <Navbar.Brand>
           <a className="navBrand" href="/">JobSeekr</a>
@@ -15,7 +15,7 @@ const Header = () => (
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
-        <Nav>
+        <Nav >
           <NavItem eventKey={1} href="/jobs">
             Jobs List
           </NavItem>
