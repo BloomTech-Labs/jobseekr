@@ -1,5 +1,18 @@
 import React, { Component } from 'react';
-import { ToggleButtonGroup, DropdownButton,ButtonToolbar, Button, Modal, OverlayTrigger, Radio, MenuItem, Glyphicon, Tooltip, Checkbox, FormControl } from 'react-bootstrap';
+import { 
+  ToggleButtonGroup, 
+  DropdownButton,
+  ButtonToolbar, 
+  Button, 
+  Modal, 
+  OverlayTrigger, 
+  Radio, 
+  MenuItem, 
+  Glyphicon, 
+  Tooltip, 
+  Checkbox, 
+  FormControl 
+} from 'react-bootstrap';
 
 class AddJob extends Component {
   constructor(props, context) {
