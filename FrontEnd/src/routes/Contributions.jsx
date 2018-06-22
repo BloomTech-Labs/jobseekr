@@ -100,7 +100,7 @@ class Contributions extends Component {
                     <td>
                       {contrib.contributionName}
                       <Button bsSize="small" className="contributions--btn">
-                        <a href={contrib.linkToEvent} target="blank">
+                        <a href={contrib.linkToContribution} target="blank">
                           <Glyphicon glyph="link" />
                         </a>
                       </Button>
@@ -111,7 +111,7 @@ class Contributions extends Component {
                         bsStyle="primary"
                         className="contributions--btn"
                         onClick={e => this.destroyContribution(e, id)}
-                        >
+                      >
                         X
                       </Button>
                     </td>
