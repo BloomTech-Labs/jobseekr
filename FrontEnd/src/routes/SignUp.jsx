@@ -29,25 +29,25 @@ export default class SignUp extends Component {
     e.preventDefault();
     let body = { ...this.state };
     if (body.password !== body.confirmPassword) {
-      alert("Your passwords must match");
+      alert('Your passwords must match');
     } else {
-    axios
-      .post(`${ROOT_URL}/signup`, {
-        email: body.email,
-        password: body.confirmPassword,
-      })
-      .then(result => {
-        localStorage.setItem('token', result.data.token);
-        this.props.history.push('/jobs');
-      })
-      .catch(() => {
-        console.log('Error creating user');
-      });
+      axios
+        .post(`${ROOT_URL}/signup`, {
+          email: body.email,
+          password: body.confirmPassword,
+        })
+        .then(result => {
+          localStorage.setItem('token', result.data.token);
+          this.props.history.push('/jobs');
+        })
+        .catch(error => {
+          console.log('Error creating user');
+        });
     }
   };
 
   validateMatchingPassword(password) {
-    if (password.length === 0) return null
+    if (password.length === 0) return null;
     else if (password === this.state.password) return 'success';
     return 'warning';
   }
@@ -82,7 +82,7 @@ export default class SignUp extends Component {
                     />
                     <FormControl.Feedback />
                   </FormGroup>
-                  <FormGroup 
+                  <FormGroup
                     controlId="formControlsConfirmPassword"
                     validationState={this.validateMatchingPassword(this.state.confirmPassword)}
                   >
