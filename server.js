@@ -20,7 +20,7 @@ server.use(helmet());
 server.use(cors({
   origin: ('https://ls-jobseekr1.herokuapp.com', 'http://localhost:3000'),
   credentials: true,
-  methods: ['GET', 'PUT', 'POST'],
+  methods: ['GET', 'PUT', 'POST', 'DELETE'],
 }));
 server.options('*', cors());
 

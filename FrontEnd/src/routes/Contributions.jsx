@@ -5,6 +5,7 @@ import moment from 'moment';
 import { Header } from '../components/AllComponents';
 import axios from 'axios';
 import ROOT_URL from './config';
+import 'react-datepicker/dist/react-datepicker.css'; 
 
 class Contributions extends Component {
   constructor(props, context) {
@@ -34,7 +35,7 @@ class Contributions extends Component {
     })
     .then(response => {
       const gotContributions = response.data;
-      this.setState({ meetups: gotContributions });
+      this.setState({ contributions: gotContributions });
     })
     .catch(err => console.log(err));
   }
@@ -157,7 +158,7 @@ class Contributions extends Component {
                 />
                 <Button 
                   bsStyle="primary"
-                  onClick={e => this.handleCreateMeetup(e)}
+                  onClick={e => this.handleCreateContribution(e)}
                   className="contributions--btn"
                 >
                   <Glyphicon glyph="plus" className="contributions--btn__plus"/>
