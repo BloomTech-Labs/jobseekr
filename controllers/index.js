@@ -6,6 +6,7 @@ const {
   getAllContributions,
   createContribution,
   destroyContribution, } = require('./contributions')
+const { billing } = require("./billing");
 
 module.exports = {
   createUser,
@@ -14,6 +15,7 @@ module.exports = {
   changePassword,
   changeEmail,
   createMeetup,
+  billing,
   getAllMeetups,
   destroyMeetup,
   getAllContributions,
