@@ -44,7 +44,9 @@ const MeetUps = () => (
           <div className="col">
             <input type="text" className="form-control" placeholder="Notes" />
           </div>
-          <Button bsStyle="primary">+</Button>
+          <div className="plusDivContributions">
+            <Button bsStyle="primary" >+</Button>
+          </div>
         </div>
       </form>
     </div>

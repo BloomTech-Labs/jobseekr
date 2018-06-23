@@ -48,6 +48,10 @@
   height: 1600px;
   margin-top: 52px;
   padding-top: 15px;
+  background-color: #48ACF0;
+}
+.page-header {
+  border-bottom: 0;
 }
 .board__container {
   min-width: 3000px;
@@ -90,10 +94,6 @@
 }
 .list__btn {
   min-width: 327px;
-}
-.addListButton {
-  width: 100%;
-  margin-bottom: 10%;
 }
 .parent {
   min-width: 400px;
@@ -175,8 +175,10 @@ button {
   width: 20%;
 }
 .MeetupsWrapper Button {
+  background: #48ACF0;
   border-radius: 15px;
   font-size: 15;
+  color: white;
 }
 .MeetupsWrapper .form-row {
   justify-content: center;
@@ -205,8 +207,25 @@ button {
   width: 20%;
 }
 .ContributionsWrapper Button {
-  border-radius: 50%;
+  background: #48ACF0;
+  border-radius: 15px;
   font-size: 15;
+  color: white;
+}
+.ContributionsWrapper Button :hover {
+  color: white;
+}
+.ContributionsWrapper .form-row {
+  justify-content: center;
+}
+.ContributionsWrapper .form-row .col {
+  margin-left: 10%;
+}
+.ContributionsWrapper .plusDivContribitons {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  margin-top: 3%;
 }
 .SignInWrapper {
   margin-top: 52px;
