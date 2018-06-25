@@ -26,8 +26,10 @@ class AddJob extends Component {
       gotOffer: false,
       notes: '',
       companyName: '',
+      position: '',
       jobPostingLink: '',
-      pointOfContact : '',
+      pointOfContactName: '',
+      contactInfo: '',
       sourceOfJob: ['Met in Person', 'Referral', 'Applied Online'],
       sourceSelection: 'Source of Job',
     };
@@ -48,8 +50,6 @@ class AddJob extends Component {
   }
 
   handleSourceClick = (key, e) => {
-    const change = key;
-    console.log('change is', change);
     this.setState({ sourceSelection: key });
   }
 
@@ -73,32 +73,30 @@ class AddJob extends Component {
           <form>
             <Modal.Body>
               <div className="top-section-job-modal">
-                <ButtonToolbar>
-                  <div className="top-left-section">
-                    <ToggleButtonGroup 
-                      type="radio" 
-                      name="timeline" 
-                      value={[this.state.timelineSelection]} 
-                      onChange={this.handleTimelineRadioClick}
-                    >
-                      {this.state.list.slice(0, Math.ceil(this.state.list.length / 2)).map(e => {
-                        return <Radio value={e}>{e}</Radio>
-                      })}
-                    </ToggleButtonGroup>
-                  </div>
-                  <div className="top-middle-section">
-                    <ToggleButtonGroup 
-                      type="radio" 
-                      name="timeline" 
-                      value={[this.state.timelineSelection]} 
-                      onChange={this.handleTimelineRadioClick}
-                    >
-                      {this.state.list.slice(Math.ceil(this.state.list.length / 2)).map(e => {
-                        return <Radio value={e}>{e}</Radio>
-                      })}
-                    </ToggleButtonGroup>
-                  </div>
-                </ButtonToolbar>
+                <div className="top-left-section">
+                  <ToggleButtonGroup 
+                    type="radio" 
+                    name="timeline" 
+                    value={[this.state.timelineSelection]} 
+                    onChange={this.handleTimelineRadioClick}
+                  >
+                    {this.state.list.slice(0, Math.ceil(this.state.list.length / 2)).map(e => {
+                      return <Radio value={e}>{e}</Radio>
+                    })}
+                  </ToggleButtonGroup>
+                </div>
+                <div className="top-middle-section">
+                  <ToggleButtonGroup 
+                    type="radio" 
+                    name="timeline" 
+                    value={[this.state.timelineSelection]} 
+                    onChange={this.handleTimelineRadioClick}
+                  >
+                    {this.state.list.slice(Math.ceil(this.state.list.length / 2)).map(e => {
+                      return <Radio value={e}>{e}</Radio>
+                    })}
+                  </ToggleButtonGroup>
+                </div>
                 <div className="top-right-section">
                   <Checkbox 
                     checked={this.state.gotRejected} 
@@ -146,29 +144,35 @@ class AddJob extends Component {
                   />
                   <FormControl 
                     type="text" 
-                    placeholder="Link to Job Posting" 
-                    id='jobPostingLink'
+                    placeholder="Point of Contact Name" 
+                    id='pointOfContactName'
                     onChange={this.handleChange}
                   />
                   <FormControl 
                     type="text" 
-                    placeholder="Point of Contact" 
-                    id='pointOfContact'
+                    placeholder="Contact Info"
+                    id='contactInfo'
                     onChange={this.handleChange}
                   />
                 </div>
                 <div className="bottom-right-section">
+                  <FormControl 
+                    type="text" 
+                    placeholder="Position Applied For" 
+                    id='position'
+                    onChange={this.handleChange}
+                  />
                   <DropdownButton title={this.state.sourceSelection}>
                     {this.state.sourceOfJob.map(e => {
                       return <MenuItem eventKey={e} onSelect={this.handleSourceClick}>{e}</MenuItem>
                     })}
                   </DropdownButton>
-                  <Button>
-                    Resolution (Open/Closed)
-                  </Button>
-                  <Button>
-                    Upload Resume/CV
-                  </Button>
+                  <FormControl 
+                    type="text" 
+                    placeholder="Link to Job Posting" 
+                    id='jobPostingLink'
+                    onChange={this.handleChange}
+                  />
                 </div>
               </div>
             </Modal.Body>

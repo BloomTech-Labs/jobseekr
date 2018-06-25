@@ -3,7 +3,7 @@ const Users = require('./userModel');
 
 const JobSchema = mongoose.Schema(
   {
-    company: {
+    companyName: {
       type: String,
       required: true,
       minlength: 1,
@@ -24,27 +24,25 @@ const JobSchema = mongoose.Schema(
       ref: 'Users',
     },
     sourceOfJob: String,
-    linkToPosting: String,
+    jobPostingLink: String,
     pointOfContactName: {
       type: String,
       minlength: 1,
       maxlength: 50,
     },
-    pointOfContactType: String,
-    pointOfContact: {
+    contactInfo: {
       type: String,
       minlength: 1,
       maxlength: 50,
     },
     linkToResume: String,
     linkToCoverLetter: String,
-    resolution: Boolean,
     notes: {
       type: String,
       minlength: 1,
       maxlength: 500,
     },
-    gotRejection: Boolean,
+    gotRejected: Boolean,
     linkToRejection: String,
     gotOffer: Boolean,
     linkToOffer: String,
