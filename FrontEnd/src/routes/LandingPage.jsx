@@ -1,9 +1,7 @@
 import React from 'react';
-import { Jumbotron, Button } from 'react-bootstrap';
 import { Header, Team } from '../components/AllComponents';
 import JobSeekr from '../Images/jobSeekr.png';
-
-
+import CityScape from '../Images/CityScape.png';
 
 const LandingPage = () =>
   (
@@ -13,33 +11,24 @@ const LandingPage = () =>
       </head> */}
       <Header />
       <div className="gradient" alt="Job Seekr" id="one" >
+        <img src={CityScape} className="png2" alt="hello" />
         <div className="pngBox" >
           <img src={JobSeekr} className="png1" alt="hello" />
 
         </div>
-        <h3 className="titles" >JobSeekr
-        </h3>
         <p className="paragraphs">
           Sweating the small stuff, so you dont have to!
         </p>
+        <button className="LoginCTA1" >Login!</button>
       </div>
-      <Jumbotron className="AttentionDiv" id="two">
-        <h1 className="titles">JobSeekr!</h1>
-        <p className="paragraphs">
-        Find your next job quickly <br /> and in an organized fashion!
-        </p>
-        <p>
-          <Button bsStyle="primary">Buy Now!</Button>
-        </p>
-      </Jumbotron>
       <Team />
-      <Jumbotron className="AttentionDiv" id="two">
+      <div className="AttentionDiv1" id="two">
         <h1 className="titles">JobSeekr!</h1>
         <p className="paragraphs">Find your next job quickly and in an organized fashion!</p>
         <p>
-          <Button bsStyle="primary">Buy Now!</Button>
+          <button className="LoginCTA2" >Buy Now!</button>
         </p>
-      </Jumbotron>
+      </div>
     </div>
   );
 
