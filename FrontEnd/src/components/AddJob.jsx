@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { 
   ToggleButtonGroup, 
   DropdownButton,
-  ButtonToolbar, 
   Button, 
   Modal, 
   OverlayTrigger, 
@@ -13,6 +13,7 @@ import {
   Checkbox, 
   FormControl 
 } from 'react-bootstrap';
+import ROOT_URL from '../routes/config';
 
 class AddJob extends Component {
   constructor(props, context) {
@@ -35,6 +36,27 @@ class AddJob extends Component {
     };
   }
 
+  handleAddJob = e => {
+    e.preventDefault();
+    const body = this.state;
+    axios
+      .post(`${ROOT_URL}/jobs`, {
+        status: body.timelineSelection,
+        gotRejected: body.gotRejected,
+        gotOffer: body.gotOffer,
+        notes: body.notes,
+        companyName: body.companyName,
+        position: body.position,
+        jobPostingLink: body.jobPostingLink,
+        pointOfContactName: body.pointOfContactName,
+        contactInfo: body.contactInfo,
+        sourceOfJob: body.sourceSelection,
+      })
+      .then(() => this.props.getAllJobs())
+      .then(() => this.setState({ show: false }))
+      .catch(err => console.log({ error: err}));
+  };
+
   handleTimelineRadioClick = (selection) => {
     this.setState({ timelineSelection: selection });
   }
@@ -52,7 +74,7 @@ class AddJob extends Component {
   handleSourceClick = (key, e) => {
     this.setState({ sourceSelection: key });
   }
-
+  
   render() {
     const tooltip = <Tooltip id="modal-tooltip">Add a Job.</Tooltip>;
 
@@ -178,7 +200,7 @@ class AddJob extends Component {
             </Modal.Body>
           </form>
           <Modal.Footer>
-            <Button onClick={() => this.setState({ show: false })}>Add Job</Button>
+            <Button onClick={this.handleAddJob}>Add Job</Button>
           </Modal.Footer>
         </Modal>
       </div>

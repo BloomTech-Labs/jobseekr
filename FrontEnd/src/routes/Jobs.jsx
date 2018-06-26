@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { Well, Grid, Row, Col, PageHeader, Panel } from 'react-bootstrap';
 import { Header, AddJob, AddList } from '../components/AllComponents';
+import ROOT_URL from './config';
 
 class Jobs extends Component {
   constructor(props, context) {
@@ -15,8 +17,24 @@ class Jobs extends Component {
         { id: 5, category: 'Offer', jobs: [] },
         { id: 6, category: 'Rejected', jobs: [] },
       ],
+      jobs : [],
     };
   }
+  
+  getAllJobs = e => {
+    e.preventDefault();
+    const token = localStorage.getItem('token');
+    axios
+    .get(`${ROOT_URL}/jobs`, { token })
+    .then(jobs => {
+      this.setState({ jobs });
+    })
+    .catch(() => {
+      console.log('Error retrieving all the jobs');
+    });
+  }
+  
+  componentDidMount() { this.getAllJobs(); }
 
   render() {
     return (
@@ -33,7 +51,7 @@ class Jobs extends Component {
                       <Panel.Title componentClass="h3">{list.category}</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body>
-                      <AddJob />
+                      <AddJob getAllJobs={this.getAllJobs}/>
                       {list.jobs}
                     </Panel.Body>
                   </Panel>
