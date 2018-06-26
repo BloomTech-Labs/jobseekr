@@ -34,7 +34,25 @@ class MeetUps extends Component {
       }
     })
     .then(response => {
-      const gotMeetups = response.data;
+      const gotMeetups = response.data
+        // added to sort the meetups by date.
+        .sort((a, b) => a.dateOfEvent > b.dateOfEvent);
+        // added to turn links to absolute urls
+        gotMeetups.map(meetup => {
+          let test1 = meetup.linkToEvent.substring(0,7);
+          if (test1 !== "http://") {
+              if (test1.match(/\//) && !test1.match(/:/)) {
+                meetup.linkToEvent = meetup.linkToEvent.replace(/\/\//, "://")
+              }
+              if (!test1.match(/http/i)) {
+                meetup.linkToEvent = "http://" + meetup.linkToEvent;
+              }
+              if (test1.match(/:\//) && !test1.match(/\/\//)) {
+                meetup.linkToEvent = meetup.linkToEvent.replace(/:\//, "://")
+              }
+            } 
+          return meetup;
+        });
       this.setState({ meetups: gotMeetups });
     })
     .catch(err => console.log(err));
@@ -76,11 +94,11 @@ class MeetUps extends Component {
       })
   }
 
-  validateLink(link) {
-    if (link.substring(0,6) === "http://") return 'success';
-    else if (link.substring(0,7) === "https://") return 'success';
-    else return 'warning;'
-  }
+  // validateLink(link) {
+  //   if (link.substring(0,6) === "http://") return 'success';
+  //   else if (link.substring(0,7) === "https://") return 'success';
+  //   else return 'warning;'
+  // }
 
   render() {
     return (
@@ -146,11 +164,7 @@ class MeetUps extends Component {
                   type="text"
                   className="form-control" 
                   placeholder="Link" 
-                  onChange={e => {
-                    if (!e.target.value.match(/http/gi)) {
-                      e.target.value = "http".concat(e.target.value)
-                    }
-                    this.setState({ linkToEvent: e.target.value })}}
+                  onChange={e => this.setState({ linkToEvent: e.target.value })}
                     />
               </div>
               <div className="form-col">

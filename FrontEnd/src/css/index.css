@@ -51,6 +51,21 @@
 .list__btn {
   min-width: 327px;
 }
+.top-section-job-modal {
+  display: flex;
+  justify-content: space-between;
+}
+.bottom-section-job-modal {
+  display: flex;
+}
+.bottom-section-job-modal .bottom-left-section {
+  flex-grow: 1;
+}
+.bottom-section-job-modal .bottom-right-section {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
 .addListButton {
   width: 100%;
   margin-bottom: 10%;
