@@ -23,6 +23,19 @@ const getJob = (req, res) => {
   }
 };
 
+const editJob = (req, res) => {
+  const job = req.body;
+  const { _id } = job;
+  delete job._id;
+  if (_id) {
+    Job.findOneAndUpdate({ _id }, { ...job })
+      .then(job => res.json(job))
+      .catch(err => res.status(500).json({ error: 'Error updating the job', err }));
+  } else {
+    res.status(422).send('Please send valid company, position, status, and token');
+  }
+}
+
 const createJob = async (req, res) => {
   const job = req.body;
   delete job.token;
@@ -37,6 +50,7 @@ const createJob = async (req, res) => {
           .then(job => res.json(job))
           .catch(err => res.status(500).json({ error: 'Error saving the job', err }));
       })
+      .catch(err => res.status(500).json({ error: 'Error finding user', err }));
   } else {
     res.status(422).send('Please send valid company, position, status, and token');
   }
@@ -45,5 +59,6 @@ const createJob = async (req, res) => {
 module.exports = {
   getAllJobs,
   getJob,
+  editJob,
   createJob,
 };

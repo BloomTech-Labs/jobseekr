@@ -5,10 +5,9 @@ const {
   changePassword,
   changeEmail,
   createMeetup,
-  createJob
+  createJob,
+  editJob,
 } = require('../controllers');
-const path = require('path');
-
 
 module.exports = (server) => {
   // GET ROUTES
@@ -17,6 +16,7 @@ module.exports = (server) => {
   // PUT ROUTES
   server.route('/api/changepassword').put(changePassword);
   server.route('/api/changeemail').put(changeEmail);
+  server.route('/api/jobs').put(editJob);
   
   // DELETE ROUTES
   
