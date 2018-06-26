@@ -38,6 +38,7 @@ class AddJob extends Component {
 
   handleAddJob = e => {
     e.preventDefault();
+    const token = localStorage.getItem('token');
     const body = this.state;
     axios
       .post(`${ROOT_URL}/jobs`, {
@@ -51,6 +52,7 @@ class AddJob extends Component {
         pointOfContactName: body.pointOfContactName,
         contactInfo: body.contactInfo,
         sourceOfJob: body.sourceSelection,
+        token
       })
       .then(() => this.props.getAllJobs())
       .then(() => this.setState({ show: false }))

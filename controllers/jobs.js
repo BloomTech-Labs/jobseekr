@@ -1,4 +1,5 @@
 const Job = require('../models/jobModel');
+const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const mySecret = process.env.SECRET || "random";
 
@@ -22,14 +23,22 @@ const getJob = (req, res) => {
   }
 };
 
-const createJob = (req, res) => {
+const createJob = async (req, res) => {
   const job = req.body;
-  if (job.company && job.position && job.status && job.username) {
-    Job.save({ ...job })
-      .then(job => res.json(job))
-      .catch(err => res.status(500).json({ error: 'Error saving the job', err }));
+  delete job.token;
+  const { token } = req.body;
+  const storedPayload = await jwt.verify(token, mySecret);
+  const email = storedPayload.email;
+  if (job.companyName && job.position && job.status && email) {
+    User.find({ email })
+      .then(user => job.user = user._id)
+      .then(() => {
+        Job.save({ ...job })
+          .then(job => res.json(job))
+          .catch(err => res.status(500).json({ error: 'Error saving the job', err }));
+      })
   } else {
-    res.status(422).send('Please send valid company, position, status, username');
+    res.status(422).send('Please send valid company, position, status, and token');
   }
 };
 

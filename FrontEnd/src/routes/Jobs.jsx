@@ -22,7 +22,6 @@ class Jobs extends Component {
   }
   
   getAllJobs = e => {
-    e.preventDefault();
     const token = localStorage.getItem('token');
     axios
     .get(`${ROOT_URL}/jobs`, { token })
