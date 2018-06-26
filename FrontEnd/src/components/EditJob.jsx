@@ -34,7 +34,7 @@ class EditJob extends Component {
       pointOfContactName: this.props.job.pointOfContactName,
       contactInfo: this.props.job.contactInfo,
       sourceOfJob: ['Met in Person', 'Referral', 'Applied Online'],
-      sourceSelection: this.props.job.sourceOfJob,
+      sourceSelection: this.props.job.sourceOfJob || 'Source of Job',
       _id: this.props.job._id,
     };
   }

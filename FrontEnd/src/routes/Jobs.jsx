@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import shortid from 'shortid';
 import { Well, Grid, Row, Col, PageHeader, Panel } from 'react-bootstrap';
 import { Header, AddJob, AddList, EditJob } from '../components/AllComponents';
 import ROOT_URL from './config';
@@ -81,7 +82,6 @@ class Jobs extends Component {
             <Row className="board">
               {this.state.lists.map(list => (
                 <Col key={list.id} xs={6} md={4}>
-                  {console.log('list is', list)}
                   <Panel className="list">
                     <Panel.Heading>
                       <Panel.Title componentClass="h3">{list.status}</Panel.Title>
@@ -89,7 +89,7 @@ class Jobs extends Component {
                     <Panel.Body>
                       <AddJob getAllJobs={this.getAllJobs}/>
                       {list.jobs.map(job => {
-                          return <EditJob job={job} />
+                          return <EditJob key={shortid.generate()} job={job} />
                       })}
                     </Panel.Body>
                   </Panel>

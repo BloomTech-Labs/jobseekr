@@ -83,7 +83,6 @@ class AddJob extends Component {
 
     return (
       <div>
-        {console.log('state is', this.state)}
         <OverlayTrigger overlay={tooltip}>
           <Button bsStyle="primary" bsSize="large" onClick={() => this.setState({ show: true })}>
             <div className="list__btn">
