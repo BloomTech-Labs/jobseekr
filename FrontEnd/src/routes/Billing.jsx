@@ -4,15 +4,27 @@ import axios from 'axios';
 import ROOT_URL from './config';
 
 export default class Billing extends React.Component {
-  subscribe = null;
-  onToken = token => {
+  onTokenSingleDecision = token => {
+    let subscribe = false;
     axios
-      .post(`${ROOT_URL}/billing`, { token, email: token.email, subscribe: this.subscribe })
+      .post(`${ROOT_URL}/billing`, { token, email: token.email, subscribe })
       .then(res => {
-        alert('Payment Recieved');
+        return console.log(res.data.msg);
       })
       .catch(err => {
-        alert('Error with payment.');
+        return console.log(err);
+      });
+  };
+
+  onTokenSubscribe = token => {
+    let subscribe = true;
+    axios
+      .post(`${ROOT_URL}/billing`, { token, email: token.email, subscribe })
+      .then(res => {
+        return console.log(res.data.msg);
+      })
+      .catch(err => {
+        return console.log(err);
       });
   };
 
@@ -44,7 +56,7 @@ export default class Billing extends React.Component {
               //alipay // accept Alipay (default false)
               //bitcoin // accept Bitcoins (default false)
               allowRememberMe // "Remember Me" option (default true)
-              token={this.onToken} // submit callback
+              token={this.onTokenSingleDecision} // submit callback
               opened={this.onOpened} // called when the checkout popin is opened (no IE6/7)
               closed={this.onClosed} // called when the checkout popin is closed (no IE6/7)
               // Note: `reconfigureOnUpdate` should be set to true IFF, for some reason
@@ -54,12 +66,7 @@ export default class Billing extends React.Component {
               // useful if you're using React-Tap-Event-Plugin
               triggerEvent="onClick"
             >
-              <div
-                className="singleDecision"
-                onClick={() => {
-                  this.subscribe = false;
-                }}
-              >
+              <div className="singleDecision">
                 <h2>Single Decision</h2>
                 <p>You can choose to pay for one decision for 2 dollars.</p>
               </div>
@@ -83,7 +90,7 @@ export default class Billing extends React.Component {
               //alipay // accept Alipay (default false)
               //bitcoin // accept Bitcoins (default false)
               allowRememberMe // "Remember Me" option (default true)
-              token={this.onToken} // submit callback
+              token={this.onTokenSubscribe} // submit callback
               opened={this.onOpened} // called when the checkout popin is opened (no IE6/7)
               closed={this.onClosed} // called when the checkout popin is closed (no IE6/7)
               // Note: `reconfigureOnUpdate` should be set to true IFF, for some reason
@@ -93,12 +100,7 @@ export default class Billing extends React.Component {
               // useful if you're using React-Tap-Event-Plugin
               triggerEvent="onClick"
             >
-              <div
-                className="membership"
-                onClick={() => {
-                  this.subscribe = true;
-                }}
-              >
+              <div className="membership">
                 <h2>Membership</h2>
 
                 <p class="lead">
