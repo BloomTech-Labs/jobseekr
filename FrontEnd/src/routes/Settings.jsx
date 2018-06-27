@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import axios from 'axios'; 
 import {
   FormGroup,
   FormControl,
@@ -31,6 +31,7 @@ class Settings extends React.Component {
       changeEmail: false,
       currentPassword: 'password',
       currentEmail: 'email@example.com',
+      file: null,
     };
   }
 
@@ -70,6 +71,32 @@ class Settings extends React.Component {
       });
   }
 
+  handleFileUpload = (e) => {
+    this.setState({ file: e.target.files[0] })
+    console.log("file on change: ", this.state.file);
+    
+  }
+
+  // getSignedRequest(){
+  //   const file = this.state.files;
+  //   const xhr = new XMLHttpRequest();
+  //   xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
+  //   xhr.onreadystatechange = () => {
+  //     if(xhr.readyState === 4){
+  //       if(xhr.status === 200){
+  //         let response = JSON.stringify(xhr.responseText);
+  //         const { signedRequest, url } = response;
+  //         console.log({ response });
+  //         // uploadFile(file, response.signedRequest, response.url);
+  //       }
+  //       else{
+  //         alert('Could not get signed URL.');
+  //       }
+  //     }
+  //   };
+  //   xhr.send();
+  // }
+
   handlePasswordSubmit = (e) => {
     e.preventDefault();
     const body = { ...this.state };
@@ -88,7 +115,38 @@ class Settings extends React.Component {
       });
   }
 
+  handleFileSubmit = (e) => {
+    e.preventDefault();
+    const body = { ...this.state }
+    const { file } = this.state;
+    const name = file.name;
+    const size = file.size;
+    let formData = new FormData();
+    formData.append('file', file);
+    formData.append('name', name);
+    formData.append('size', size);
+    console.log("formData: ", formData);
+    for (var [key, value] of formData.entries()) { 
+      console.log(key, value);
+    }
+    axios
+      .post(`${ROOT_URL}/files`, { 
+        file: formData.file,
+        name: formData.name,
+        size: formData.size,
+       })
+      .then(result => {
+        console.log(result);
+        alert(`Your resume, ${body.name}, has been saved.`)
+      })
+      .catch(() => {
+        console.log('Error saving file');
+      });
+  }
+
   render() {
+    const { file } = this.state;
+    console.log("current state of files: ", file);
     return (
       <div className="settingsWrapper">
         <Header />
@@ -202,13 +260,18 @@ class Settings extends React.Component {
                 <div>
                   <Well>
                     <form>
-                      <FormGroup controlId="formControlsFile">
+                      <FormGroup>
                         <ControlLabel>Upload a copy of your Resume</ControlLabel>
-                        <FormControl type="file" />
+                        <FormControl
+                          id="resumeUplaod"
+                          type="file"
+                          accept=".pdf"
+                          onChange={this.handleFileUpload}
+                        />
                         <FormControl.Feedback />
-                        <HelpBlock>Submit a .docx or .pdf file</HelpBlock>
+                        <HelpBlock>Submit a .pdf file</HelpBlock>
                       </FormGroup>
-                      <Button type="submit">Submit</Button>
+                      <Button onClick={this.handleFileSubmit}>Submit</Button>
                     </form>
                   </Well>
                 </div>

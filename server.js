@@ -6,7 +6,6 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const routes = require('./routes/routes.js');
 
-
 const user = process.env.JOBSEEKR_USERNAME || "jobseekr";
 const pass = process.env.JOBSEEKR_PASSWORD || "job123";
 
