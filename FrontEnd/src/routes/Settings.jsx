@@ -31,7 +31,7 @@ class Settings extends React.Component {
       changeEmail: false,
       currentPassword: 'password',
       currentEmail: 'email@example.com',
-      file: null,
+      selectedFile: '',
     };
   }
 
@@ -72,9 +72,27 @@ class Settings extends React.Component {
   }
 
   handleFileUpload = (e) => {
-    this.setState({ file: e.target.files[0] })
-    console.log("file on change: ", this.state.file);
-    
+    switch (e.target.name) {
+      case 'selectedFile':
+        this.setState({ selectedFile: e.target.files[0] });
+        break;
+      default:
+        this.setState({ [e.target.name]: e.target.value });
+    }
+  }
+
+  handleFileSubmit = (e) => {
+    e.preventDefault();
+    const { selectedFile } = this.state;
+    let formData = new FormData();
+
+    formData.append('selectedFile', selectedFile);
+
+    axios.post('/api/files', formData)
+      .then(result => {
+        res.json(result);
+      })
+      .catch(err => res.send(500).json({ error: 'error uploading file', err}));
   }
 
   // getSignedRequest(){
@@ -115,34 +133,34 @@ class Settings extends React.Component {
       });
   }
 
-  handleFileSubmit = (e) => {
-    e.preventDefault();
-    const body = { ...this.state }
-    const { file } = this.state;
-    const name = file.name;
-    const size = file.size;
-    let formData = new FormData();
-    formData.append('file', file);
-    formData.append('name', name);
-    formData.append('size', size);
-    console.log("formData: ", formData);
-    for (var [key, value] of formData.entries()) { 
-      console.log(key, value);
-    }
-    axios
-      .post(`${ROOT_URL}/files`, { 
-        file: formData.file,
-        name: formData.name,
-        size: formData.size,
-       })
-      .then(result => {
-        console.log(result);
-        alert(`Your resume, ${body.name}, has been saved.`)
-      })
-      .catch(() => {
-        console.log('Error saving file');
-      });
-  }
+  // handleFileSubmit = (e) => {
+  //   e.preventDefault();
+  //   const body = { ...this.state }
+  //   const { file } = this.state;
+  //   const name = file.name;
+  //   const size = file.size;
+  //   let formData = new FormData();
+  //   formData.append('file', file);
+  //   formData.append('name', name);
+  //   formData.append('size', size);
+  //   console.log("formData: ", formData);
+  //   for (var [key, value] of formData.entries()) { 
+  //     console.log(key, value);
+  //   }
+  //   axios
+  //     .post(`${ROOT_URL}/files`, { 
+  //       file: formData.file,
+  //       name: formData.name,
+  //       size: formData.size,
+  //      })
+  //     .then(result => {
+  //       console.log(result);
+  //       alert(`Your resume, ${body.name}, has been saved.`)
+  //     })
+  //     .catch(() => {
+  //       console.log('Error saving file');
+  //     });
+  // }
 
   render() {
     const { file } = this.state;
@@ -260,18 +278,19 @@ class Settings extends React.Component {
                 <div>
                   <Well>
                     <form>
-                      <FormGroup>
+                      <FormGroup onSubmit={this.handleFileSubmit}>
                         <ControlLabel>Upload a copy of your Resume</ControlLabel>
                         <FormControl
                           id="resumeUplaod"
                           type="file"
                           accept=".pdf"
+                          name="selectedFile"
                           onChange={this.handleFileUpload}
                         />
                         <FormControl.Feedback />
                         <HelpBlock>Submit a .pdf file</HelpBlock>
                       </FormGroup>
-                      <Button onClick={this.handleFileSubmit}>Submit</Button>
+                      <Button type="submit">Submit</Button>
                     </form>
                   </Well>
                 </div>

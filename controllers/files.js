@@ -16,37 +16,29 @@ let s3 = new AWS.S3({apiVerson: '2006-03-01'});
 
 const uploadParams = { Bucket: BUCKET_NAME, Key: '', Body: ''};
 
-const uploadFile = async (req, res) => {
-  const { file } = await req.body;
-  console.log("reqest keys: ", Object.keys(req.body));
-  console.log("body", req.body);
-  console.log({ file });
 // configure storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    /*
-      Files will be saved in the 'uploads' directory. Make
-      sure this directory already exists!
-    */
+    // files saved to upload directory
     cb(null, './uploads');
   },
   filename: (req, file, cb) => {
-    /*
-      uuidv4() will generate a random ID that we'll use for the
-      new filename. We use path.extname() to get
-      the extension from the original file name and add that to the new
-      generated ID. These combined will create the file name used
-      to save the file on the server and will be available as
-      req.file.pathname in the router handler.
-    */
+    // random ID generated using uuidv4()
+    // path.extname() extracts file extension out
+    // filename available as req.file.pathname in route handler
     const newFilename = `${uuidv4()}${path.extname(file.originalname)}`;
     cb(null, newFilename);
   },
 });
 // create the multer instance that will be used to upload/save the file
 const upload = multer({ storage });
-  
 console.log({ upload });
+
+const uploadFile = (req, res) => {
+  upload.single('selectedFile');
+  const { file } = req;
+  console.log("reqest keys: ", Object.keys(req.body));
+  console.log({ file });
 };
 // // Create unique bucket name
 // const bucketName = 'jobseekr';
