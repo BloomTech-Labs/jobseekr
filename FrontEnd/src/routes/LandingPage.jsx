@@ -19,7 +19,9 @@ const LandingPage = () =>
         <p className="paragraphs">
           Sweating the small stuff, so you dont have to!
         </p>
-        <button className="LoginCTA1" >Login!</button>
+        <button className="LoginCTA1" >
+          Login!
+        </button>
       </div>
       <Team />
       <div className="AttentionDiv1" id="two">
