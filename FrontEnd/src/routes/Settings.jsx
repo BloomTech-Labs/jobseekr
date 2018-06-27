@@ -87,12 +87,12 @@ class Settings extends React.Component {
     let formData = new FormData();
 
     formData.append('selectedFile', selectedFile);
-
-    axios.post('/api/files', formData)
+    console.log('formData is', formData);
+    axios.post(`${ROOT_URL}/files`, formData)
       .then(result => {
-        res.json(result);
+        console.log('result of file upload is', result);
       })
-      .catch(err => res.send(500).json({ error: 'error uploading file', err}));
+      .catch(err => console.log({ error: 'error uploading file', err}));
   }
 
   // getSignedRequest(){
@@ -163,8 +163,6 @@ class Settings extends React.Component {
   // }
 
   render() {
-    const { file } = this.state;
-    console.log("current state of files: ", file);
     return (
       <div className="settingsWrapper">
         <Header />
@@ -277,8 +275,8 @@ class Settings extends React.Component {
               <Collapse in={this.state.resumeOpen}>
                 <div>
                   <Well>
-                    <form>
-                      <FormGroup onSubmit={this.handleFileSubmit}>
+                    <form onSubmit={this.handleFileSubmit}>
+                      <FormGroup>
                         <ControlLabel>Upload a copy of your Resume</ControlLabel>
                         <FormControl
                           id="resumeUplaod"
@@ -288,6 +286,7 @@ class Settings extends React.Component {
                           onChange={this.handleFileUpload}
                         />
                         <FormControl.Feedback />
+                        {console.log('selectedFile is', this.state.selectedFile)}
                         <HelpBlock>Submit a .pdf file</HelpBlock>
                       </FormGroup>
                       <Button type="submit">Submit</Button>

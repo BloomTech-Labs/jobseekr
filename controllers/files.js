@@ -2,6 +2,7 @@
 const AWS = require('aws-sdk');
 const uuid = require('uuid');
 require('dotenv').config();
+// const upload = require('../server');
 const multer = require('multer');
 const uuidv4 = require('uuid/v4');
 const path = require('path');
@@ -32,13 +33,13 @@ const storage = multer.diskStorage({
 });
 // create the multer instance that will be used to upload/save the file
 const upload = multer({ storage });
-console.log({ upload });
+console.log('upload is', { upload });
 
 const uploadFile = (req, res) => {
   upload.single('selectedFile');
   const { file } = req;
-  console.log("reqest keys: ", Object.keys(req.body));
-  console.log({ file });
+  console.log("request object keys are is", Object.keys(req));
+  console.log('file is', file);
 };
 // // Create unique bucket name
 // const bucketName = 'jobseekr';
