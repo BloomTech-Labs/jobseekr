@@ -120,21 +120,14 @@
   padding: .5%;
   width: 20%;
 }
-.MeetupsWrapper Button {
-  border-radius: 15px;
+.MeetupsWrapper .meetups--btn {
+  border-radius: 50%;
   font-size: 15;
 }
 .MeetupsWrapper .form-row {
-  justify-content: center;
-}
-.MeetupsWrapper .form-row .col {
-  margin-left: 10%;
-}
-.MeetupsWrapper .plusDiv {
   display: flex;
-  flex-flow: column;
-  justify-content: flex-start;
-  margin-top: 2%;
+  justify-content: center;
+  align-items: center;
 }
 .BillingWrapper {
   margin-top: 52px;
@@ -150,9 +143,14 @@
   padding: .5%;
   width: 20%;
 }
-.ContributionsWrapper Button {
+.ContributionsWrapper .contributions--btn {
   border-radius: 50%;
   font-size: 15;
+}
+.ContributionsWrapper .form-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .SignInWrapper {
   margin-top: 52px;

@@ -8,6 +8,7 @@
   padding: .5%;
   width: 20%;
 }
+<<<<<<< HEAD
 .MeetupsWrapper Button {
   border-radius: 15px;
   font-size: 15;
@@ -23,4 +24,14 @@
   flex-flow: column;
   justify-content: flex-start;
   margin-top: 2%;
+=======
+.MeetupsWrapper .meetups--btn {
+  border-radius: 50%;
+  font-size: 15;
+}
+.MeetupsWrapper .form-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+>>>>>>> d8a824a21023a9265a91d786606b3aead1db460e
 }
