@@ -87,36 +87,43 @@ class Settings extends React.Component {
   handleFileSubmit = (e) => {
     e.preventDefault();
     const { selectedFile } = this.state;
+    console.log("\n SELECTED FILE >>> ", selectedFile, "\n\n")
     // const upload = multer({ dest: '.uploads/'})
     const storage = multer.diskStorage({
-      destination: (req, file, cb) => {
+      destination: (req, selectedFile, cb) => {
         // files saved to upload directory
         cb(null, './uploads');
       },
-      filename: (req, file, cb) => {
+      filename: (req, selectedFile, cb) => {
         // random ID generated using uuidv4()
         // path.extname() extracts file extension out
         // filename available as req.file.pathname in route handler
-        const newFilename = `${uuidv4()}${path.extname(file.originalname)}`;
+        const newFilename = `${uuidv4()}${path.extname(selectedFile.originalname)}`;
         cb(null, newFilename);
       },
     });
     // create the multer instance that will be used to upload/save the file
     const upload = multer({ storage });
-    console.log('I got to here');
+    console.log("Hello???????");
+    console.log({upload});
     let formData = new FormData();
 
     formData.append('selectedFile', selectedFile);
     formData.append('name', selectedFile.name);
-    formData.append('size', selectedFile.size);
-    formData.append('type', selectedFile.type);
-    console.log('formData is', [...formData.entries()]);
+    // formData.append('size', selectedFile.size);
+    // formData.append('type', selectedFile.type);
     const body = {};
     for (let pair of formData.entries()) {
       body[pair[0]] = pair[1];
     }
     console.log("\n BODY >>> ", body, "\n\n")
-    axios.post(`${ROOT_URL}/files`, upload)
+    const config = {
+      headers: {
+          'content-type': 'multipart/form-data'
+      }
+    }
+    console.log("\nWHAT IS .single() MAKING HERE? >>>>>", upload.single(body.name));
+    axios.post(`${ROOT_URL}/files`, upload.single(body.name), config)
       .then(result => {
         console.log('result of file upload is', result);
       })

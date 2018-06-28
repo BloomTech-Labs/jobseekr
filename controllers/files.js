@@ -37,11 +37,10 @@ const upload = multer({ storage });
 // console.log('upload is', { upload });
 
 const uploadFile = (req, res) => {
-  upload.single(req.body.selectedFile);
+  // upload.single(req.body.selectedFile);
   // const { file } = req.data;
-  console.log("request object keys are is", Object.keys(req.body));
-  console.log("\n BODY>>>>>> ", req.body.storage, "\n\n");
-  console.log("\n REQ.NEXT >>> ", req.next(), "\n\n")
+  console.log("\nrequest object keys are is", Object.keys(req), "\n\n");
+  console.log("\n REQ>>>>> ", req, "\n\n");
   // console.log('file is', file);
 };
 // // Create unique bucket name
