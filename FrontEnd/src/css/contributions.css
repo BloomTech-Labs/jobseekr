@@ -10,10 +10,21 @@
 }
 .ContributionsWrapper .contributions--btn {
   border-radius: 50%;
-  font-size: 15;
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin: 10px;
+}
+.ContributionsWrapper .contributions--btn .contributions--btn__plus {
+  margin: -3px;
 }
 .ContributionsWrapper .form-row {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+}
+.ContributionsWrapper .form-row .form-col {
+  display: flex;
+  align-items: center;
+  margin-right: 1%;
+  margin-left: 1%;
 }

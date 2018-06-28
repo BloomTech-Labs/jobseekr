@@ -8,30 +8,23 @@
   padding: .5%;
   width: 20%;
 }
-<<<<<<< HEAD
-.MeetupsWrapper Button {
-  border-radius: 15px;
-  font-size: 15;
-}
-.MeetupsWrapper .form-row {
-  justify-content: center;
-}
-.MeetupsWrapper .form-row .col {
-  margin-left: 10%;
-}
-.MeetupsWrapper .plusDiv {
-  display: flex;
-  flex-flow: column;
-  justify-content: flex-start;
-  margin-top: 2%;
-=======
 .MeetupsWrapper .meetups--btn {
   border-radius: 50%;
-  font-size: 15;
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin: 10px;
+}
+.MeetupsWrapper .meetups--btn .meetups--btn__plus {
+  margin: -3px;
 }
 .MeetupsWrapper .form-row {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
->>>>>>> d8a824a21023a9265a91d786606b3aead1db460e
+}
+.MeetupsWrapper .form-row .form-col {
+  display: flex;
+  align-items: center;
+  margin-right: 1%;
+  margin-left: 1%;
 }

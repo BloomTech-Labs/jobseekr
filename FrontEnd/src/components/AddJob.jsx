@@ -82,9 +82,9 @@ class AddJob extends Component {
     const tooltip = <Tooltip id="modal-tooltip">Add a Job.</Tooltip>;
 
     return (
-      <div>
+      <div className='addJobModal'>
         <OverlayTrigger overlay={tooltip}>
-          <Button bsStyle="primary" bsSize="large" onClick={() => this.setState({ show: true })}>
+          <Button className='addJobButton' bsStyle="primary" bsSize="large" onClick={() => this.setState({ show: true })}>
             <div className="list__btn">
               Add a Job <Glyphicon glyph="">+</Glyphicon>
             </div>
