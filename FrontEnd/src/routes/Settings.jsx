@@ -246,7 +246,7 @@ class Settings extends React.Component {
         <Grid>
           <Row>
             <Col xs={8} md={4}>
-                {this.state.resumeTitle.length > 0 ? 
+                {this.state.resumeTitle ? 
                 <div className="resume--btn">
                   <a href={this.state.resumeUrl} target="_blank">
                   <Button>
@@ -258,7 +258,7 @@ class Settings extends React.Component {
                 <div className="resume--txt">
                   upload a resume
                 </div>}
-              {this.state.resumeTitle.length > 0 ? 
+              {this.state.resumeTitle ? 
               <Button onClick={() => this.setState({ resumeOpen: !this.state.resumeOpen })}>
                 Update Resume
               </Button> :
