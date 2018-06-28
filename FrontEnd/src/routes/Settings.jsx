@@ -12,7 +12,6 @@ import {
   PageHeader,
   Collapse,
   Well,
-  Badge,
 } from 'react-bootstrap';
 import { Header } from '../components/AllComponents';
 import ROOT_URL from './config';
@@ -32,7 +31,32 @@ class Settings extends React.Component {
       currentPassword: 'password',
       currentEmail: 'email@example.com',
       selectedFile: '',
+      token: localStorage.getItem('token'),
+      resumeTitle: '',
+      resumeUrl: '',
     };
+  }
+  
+  componentDidMount() {
+    this.getResume();
+  }
+
+  getResume = () => {
+    const token = this.state.token;
+    axios.get(`${ROOT_URL}/resume`,
+    {
+      headers: {
+        token
+      }
+    })
+    .then(response => {
+      const { title, url } = response.data;
+      this.setState({
+        resumeTitle: title,
+        resumeUrl: url
+      });
+    })
+    .catch(err => console.log(err));
   }
 
   validateLength() {
@@ -100,31 +124,21 @@ class Settings extends React.Component {
 
   handleFileSubmit = (e) => {
     e.preventDefault();
+    const token = localStorage.getItem('token');
+    const config = {
+      headers: {
+        token
+      }
+    }
     const data = new FormData();
     data.append('file', this.state.selectedFile);
     data.append('name', this.state.selectedFile.name);
-    axios.post(`${ROOT_URL}/files`, data)
-      .then(response => console.log('success'))
+    axios.post(`${ROOT_URL}/resume`, data, config)
+      .then(() => {
+        this.getResume()
+      })
       .catch(err => console.log(err));
-    // const { selectedFile } = this.state;
-    // console.log("\n SELECTED FILE >>> ", selectedFile, "\n\n")
-    // let formData = new FormData();
-    // formData.append('selectedFile', selectedFile);
-    // formData.append('name', selectedFile.name);
-    // const body = {};
-    // for (let pair of formData.entries()) {
-    //   body[pair[0]] = pair[1];
-    // }
-    // const config = {
-    //   headers: {
-    //       'content-type': 'multipart/form-data',
-    //   }
-    // }
-    // axios.post(`${ROOT_URL}/files`, { selectedFile: body.selectedFile, name: body.name }, config)
-    //   .then(result => {
-    //     console.log('result of file upload is', result);
-    //   })
-    //   .catch(err => console.log({ error: 'error uploading file', err}));
+
   }
 
 
@@ -232,12 +246,25 @@ class Settings extends React.Component {
         <Grid>
           <Row>
             <Col xs={8} md={4}>
-              <p>
-                documents <Badge>0</Badge>
-              </p>
+                {this.state.resumeTitle.length > 0 ? 
+                <div className="resume--btn">
+                  <a href={this.state.resumeUrl} target="_blank">
+                  <Button>
+                    view resume <br/>
+                    "{this.state.resumeTitle}"
+                  </Button>
+                  </a>
+                </div> :
+                <div className="resume--txt">
+                  upload a resume
+                </div>}
+              {this.state.resumeTitle.length > 0 ? 
+              <Button onClick={() => this.setState({ resumeOpen: !this.state.resumeOpen })}>
+                Update Resume
+              </Button> :
               <Button onClick={() => this.setState({ resumeOpen: !this.state.resumeOpen })}>
                 Add Resume
-              </Button>
+              </Button>}
               <Collapse in={this.state.resumeOpen}>
                 <div>
                   <Well>
@@ -252,7 +279,6 @@ class Settings extends React.Component {
                           onChange={this.handleFileUpload}
                         />
                         <FormControl.Feedback />
-                        {console.log('selectedFile is', this.state.selectedFile)}
                         <HelpBlock>Submit a .pdf file</HelpBlock>
                       </FormGroup>
                       <Button type="submit">Submit</Button>
