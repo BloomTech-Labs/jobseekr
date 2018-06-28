@@ -3,90 +3,59 @@ const User = require('../models/userModel');
 
 const billing = (req, res) => {
   const { token, email, subscribe } = req.body;
+
   User.findOne({ email })
     .then(user => {
-      if (user.stripeCustomerID === 'none') {
-        stripe.customers
-          .create({
-            description: `Membership for: ${email} `,
-            source: 'tok_visa' // obtained with Stripe.js
-          })
-          .then(stripeCustomer => {
-            User.findOneAndUpdate(
-              { email },
-              { stripeCustomerID: stripeCustomer.id }
-            )
-              .then(updatedUser => {
-                if (subscribe) {
-                  stripe.subscriptions
-                    .create({
-                      customer: updatedUser.stripeCustomerID,
-                      items: [
-                        {
-                          plan: 'plan_D7zcL7B1VE3NzY'
-                        }
-                      ]
-                    })
-                    .then(subConfirmation => {
-                      User.findOneAndUpdate(
-                        { email },
-                        {
-                          isMember: true
-                        }
-                      )
-                        .then(updatedUser => {
-                          res.status(200);
-                          res.json({ msg: 'Subscriptions created' });
-                        })
-                        .catch(err => {
-                          res.status(400);
-                          res.json({
-                            msg: 'Error creating Subscription',
-                            err
-                          });
-                        });
+      if (subscribe) {
+        if (user.stripeCustomerID === 'none') {
+          stripe.customers
+            .create({
+              description: `Membership for: ${email} `,
+              source: 'tok_visa' // obtained with Stripe.js
+            })
+            .then(stripeCustomer => {
+              stripe.subscriptions
+                .create({
+                  customer: stripeCustomer.id,
+                  items: [
+                    {
+                      plan: 'plan_D8IejHcFjlsg5E'
+                    }
+                  ]
+                })
+                .then(subConfirmation => {
+                  User.findOneAndUpdate(
+                    { email },
+                    {
+                      isMember: true,
+                      stripeCustomerID: stripeCustomer.id
+                    }
+                  )
+                    .then(updatedUser => {
+                      res.json({ msg: 'Subsctiption Created.' });
                     })
                     .catch(err => {
-                      res.send({ msg: 'Error updating User info' });
+                      res.json({ msg: 'Error updating User information' });
                     });
-                }
-              })
-              .catch(err => err);
-          })
-          .catch(err => err);
-      }
-      if (!subscribe) {
-        stripe.charges
-          .create({
-            amount: 199,
-            currency: 'usd',
-            source: 'tok_visa'
-          })
-          .then(chargeConfirm => {
-            User.findOneAndUpdate({ email }, { $inc: { singleDecisions: 1 } })
-              .then(user => {
-                res.status(200);
-                res.json({ msg: 'Single Decision added', user });
-              })
-              .catch(err => {
-                res.status(400);
-                res.json({ msg: 'Error Updating User' });
-              });
-          })
-          .catch(err => {
-            res.status(400);
-            res.json({ msg: 'Error with Stripe' });
-          });
-      }
-      if (subscribe && user.isMember === false) {
-        User.findOne({ email })
-          .then(user => {
+                })
+                .catch(err => {
+                  res.json({ msg: 'Error creating Subscription' });
+                });
+            })
+            .catch(err => {
+              res.status(400);
+              res.json({ msg: 'Error creating Stripe Customer' });
+            });
+        } else {
+          if (user.isMember) {
+            res.json({ msg: 'User is already a Subscriber' });
+          } else {
             stripe.subscriptions
               .create({
-                customer: user.stripeCustomerID,
+                customer: stripeCustomer.id,
                 items: [
                   {
-                    plan: 'plan_D7zcL7B1VE3NzY'
+                    plan: 'plan_D8IejHcFjlsg5E'
                   }
                 ]
               })
@@ -98,31 +67,44 @@ const billing = (req, res) => {
                   }
                 )
                   .then(updatedUser => {
-                    res.status(200);
-                    res.json({ msg: 'User sub Created', updatedUser });
+                    res.json({ msg: 'Subsctiption Created.' });
                   })
                   .catch(err => {
-                    res.status(400);
-                    res.json({ msg: 'Error updating User info', err });
+                    res.json({ msg: 'Error updating User information' });
                   });
               })
               .catch(err => {
+                res.json({ msg: 'Error creating subscription' });
+              });
+          }
+        }
+      } else {
+        stripe.charges
+          .create({
+            amount: 199,
+            currency: 'usd',
+            source: 'tok_visa'
+          })
+          .then(chargeConfirm => {
+            User.findOneAndUpdate({ email }, { $inc: { singleDecisions: 1 } })
+              .then(user => {
+                res.status(200);
+                res.json({ msg: 'Single Decision added' });
+              })
+              .catch(err => {
                 res.status(400);
-                res.json({ msg: 'Error creating Stripe Subscription', err });
+                res.json({ msg: 'Error Updating User' });
               });
           })
           .catch(err => {
             res.status(400);
-            res.json({ msg: 'Error finding user', err });
+            res.json({ msg: 'Error with Stripe Charge' });
           });
-      } else if (subscribe) {
-        res.status(200);
-        res.json({ msg: 'User is already subscribed' });
       }
     })
     .catch(err => {
       res.status(400);
-      res.json({ msg: 'User not found', err });
+      res.json({ msg: 'Error finding user.' });
     });
 };
 

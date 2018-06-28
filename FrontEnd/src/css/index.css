@@ -161,6 +161,12 @@
   margin-top: 52px;
   padding-top: 13px;
 }
+.BillingWrapper .checkoutSingle {
+  width: 40%;
+}
+.BillingWrapper .checkoutSub {
+  width: 40%;
+}
 .ContributionsWrapper {
   margin: 52px;
   padding-top: 13px;

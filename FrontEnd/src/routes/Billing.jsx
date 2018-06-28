@@ -38,6 +38,7 @@ export default class Billing extends React.Component {
           <div class="container">
             <h1 class="display-4">Billing</h1>
             <StripeCheckout
+              className="checkoutSingle"
               name="Jobseekr" // the pop-in header title
               description="Single Decision" // the pop-in header subtitle
               ComponentClass="div"
@@ -72,6 +73,7 @@ export default class Billing extends React.Component {
               </div>
             </StripeCheckout>{' '}
             <StripeCheckout
+              className="checkoutSub"
               name="Jobseekr" // the pop-in header title
               description="Making the job hunt enjoyable." // the pop-in header subtitle
               ComponentClass="div"
