@@ -92,7 +92,7 @@ class EditJob extends Component {
             </Panel.Heading>
             <Panel.Body>
               <Panel.Title componentClass='h4'>{this.state.job.position}</Panel.Title>
-              <Panel.Title componentClass='h6'>Last updated: {moment(this.state.job.createdAt).fromNow()}</Panel.Title>
+              <Panel.Title componentClass='h6'>Last updated: {moment(this.state.job.updatedAt).fromNow()}</Panel.Title>
             </Panel.Body>
           </Panel>
         </OverlayTrigger>
@@ -214,7 +214,7 @@ class EditJob extends Component {
             </Modal.Body>
           </form>
           <Modal.Footer>
-            <Button onClick={this.handleEditJob}>Edit Job</Button>
+            <Button onClick={this.handleEditJob}>Save Edits</Button>
           </Modal.Footer>
         </Modal>
       </div>

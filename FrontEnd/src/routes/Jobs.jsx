@@ -30,6 +30,7 @@ class Jobs extends Component {
       .then(jobs => {
         jobs = jobs.data;
         const newList = this.state.lists;
+        newList.forEach(list => list.jobs = [])
         jobs.forEach(job => {
           for (let i = 0; i < newList.length; i++) {
             if (newList[i].status === job.status) {
@@ -64,7 +65,7 @@ class Jobs extends Component {
                     <Panel.Body>
                       <AddJob currentStatus={list.status} getAllJobs={this.getAllJobs}/>
                       {list.jobs.map(job => {
-                          return <EditJob key={shortid.generate()} job={job} />
+                          return <EditJob key={shortid.generate()} job={job} getAllJobs={this.getAllJobs}/>
                       })}
                     </Panel.Body>
                   </Panel>
