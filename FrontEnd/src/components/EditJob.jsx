@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import shortid from 'shortid';
+import moment from 'moment';
 import { 
   ToggleButtonGroup, 
   DropdownButton,
@@ -37,11 +38,6 @@ class EditJob extends Component {
       sourceSelection: this.props.job.sourceOfJob || 'Source of Job',
       _id: this.props.job._id,
     };
-  }
-
-  elapsedTime = date => {
-    const elapsed = Date.now() - date;
-    return elapsed;
   }
 
   handleEditJob = e => {
@@ -96,7 +92,7 @@ class EditJob extends Component {
             </Panel.Heading>
             <Panel.Body>
               <Panel.Title componentClass='h4'>{this.state.job.position}</Panel.Title>
-              <Panel.Title componentClass='h6'>Last updated {this.elapsedTime(this.state.job.createdAt)} seconds ago</Panel.Title>
+              <Panel.Title componentClass='h6'>Last updated: {moment(this.state.job.createdAt).fromNow()}</Panel.Title>
             </Panel.Body>
           </Panel>
         </OverlayTrigger>
