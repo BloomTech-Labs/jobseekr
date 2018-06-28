@@ -37,5 +37,4 @@ module.exports = (server) => {
   server.route('/api/jobs').post(createJob);
   server.route('/api/contributions').post(createContribution);
   server.route("/api/billing").post(billing);
- 
 };

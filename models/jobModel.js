@@ -27,19 +27,19 @@ const JobSchema = mongoose.Schema(
     jobPostingLink: String,
     pointOfContactName: {
       type: String,
-      minlength: 1,
+      minlength: 0,
       maxlength: 50,
     },
     contactInfo: {
       type: String,
-      minlength: 1,
+      minlength: 0,
       maxlength: 50,
     },
     linkToResume: String,
     linkToCoverLetter: String,
     notes: {
       type: String,
-      minlength: 1,
+      minlength: 0,
       maxlength: 500,
     },
     gotRejected: Boolean,

@@ -41,6 +41,7 @@ class AddJob extends Component {
     e.preventDefault();
     const token = localStorage.getItem('token');
     const body = this.state;
+    console.log('body in handleAddJob is', body);
     axios
       .post(`${ROOT_URL}/jobs`, {
         status: body.timelineSelection,
@@ -55,8 +56,11 @@ class AddJob extends Component {
         sourceOfJob: body.sourceSelection,
         token
       })
-      .then(() => this.props.getAllJobs())
-      .then(() => this.setState({ show: false }))
+      .then(() => {
+        console.log('reaches here');
+        this.setState({ show: false });
+      })
+      // .then(() => this.props.getAllJobs())
       .catch(err => console.log({ error: err}));
   };
 

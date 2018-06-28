@@ -38,15 +38,19 @@ const editJob = (req, res) => {
 
 const createJob = async (req, res) => {
   const job = req.body;
-  delete job.token;
   const { token } = req.body;
   const storedPayload = await jwt.verify(token, mySecret);
+  console.log('storedPlayload is', storedPayload);
   const email = storedPayload.email;
+  delete job.token;
   if (job.companyName && job.position && job.status && email) {
     User.find({ email })
-      .then(user => job.user = user._id)
-      .then(() => {
-        Job.save({ ...job })
+      .then(user => {
+        job.user = user[0]._id
+        console.log('reaches inside find User', job);
+        const newJob = new Job({...job});
+        console.log('newJob is', newJob);
+        newJob.save()
           .then(job => res.json(job))
           .catch(err => res.status(500).json({ error: 'Error saving the job', err }));
       })
