@@ -4,6 +4,7 @@ const path = require('path');
 const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
+const fileUpload = require('express-fileupload');
 
 const routes = require('./routes/routes.js');
 
@@ -26,6 +27,7 @@ server.use(
     methods: ["GET", "PUT", "POST", "DELETE"]
   })
 );
+server.use(fileUpload());
 server.options('http://localhost:3000', cors());
 
 routes(server);

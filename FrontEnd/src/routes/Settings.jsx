@@ -16,9 +16,6 @@ import {
 } from 'react-bootstrap';
 import { Header } from '../components/AllComponents';
 import ROOT_URL from './config';
-import multer from 'multer';
-import uuidv4 from 'uuid';
-import path from 'path'
 
 class Settings extends React.Component {
   constructor(props, context) {
@@ -73,83 +70,6 @@ class Settings extends React.Component {
         console.log('Error changing email');
       });
   }
-
-  handleFileUpload = (e) => {
-    switch (e.target.name) {
-      case 'selectedFile':
-        this.setState({ selectedFile: e.target.files[0] });
-        break;
-      default:
-        this.setState({ [e.target.name]: e.target.value });
-    }
-  }
-
-  handleFileSubmit = (e) => {
-    e.preventDefault();
-    const { selectedFile } = this.state;
-    console.log("\n SELECTED FILE >>> ", selectedFile, "\n\n")
-    // const upload = multer({ dest: '.uploads/'})
-    const storage = multer.diskStorage({
-      destination: (req, selectedFile, cb) => {
-        // files saved to upload directory
-        cb(null, './uploads');
-      },
-      filename: (req, selectedFile, cb) => {
-        // random ID generated using uuidv4()
-        // path.extname() extracts file extension out
-        // filename available as req.file.pathname in route handler
-        const newFilename = `${uuidv4()}${path.extname(selectedFile.originalname)}`;
-        cb(null, newFilename);
-      },
-    });
-    // create the multer instance that will be used to upload/save the file
-    const upload = multer({ storage });
-    console.log("Hello???????");
-    console.log({upload});
-    let formData = new FormData();
-
-    formData.append('selectedFile', selectedFile);
-    formData.append('name', selectedFile.name);
-    // formData.append('size', selectedFile.size);
-    // formData.append('type', selectedFile.type);
-    const body = {};
-    for (let pair of formData.entries()) {
-      body[pair[0]] = pair[1];
-    }
-    console.log("\n BODY >>> ", body, "\n\n")
-    const config = {
-      headers: {
-          'content-type': 'multipart/form-data'
-      }
-    }
-    console.log("\nWHAT IS .single() MAKING HERE? >>>>>", upload.single(body.name));
-    axios.post(`${ROOT_URL}/files`, upload.single(body.name), config)
-      .then(result => {
-        console.log('result of file upload is', result);
-      })
-      .catch(err => console.log({ error: 'error uploading file', err}));
-  }
-
-  // getSignedRequest(){
-  //   const file = this.state.files;
-  //   const xhr = new XMLHttpRequest();
-  //   xhr.open('GET', `/sign-s3?file-name=${file.name}&file-type=${file.type}`);
-  //   xhr.onreadystatechange = () => {
-  //     if(xhr.readyState === 4){
-  //       if(xhr.status === 200){
-  //         let response = JSON.stringify(xhr.responseText);
-  //         const { signedRequest, url } = response;
-  //         console.log({ response });
-  //         // uploadFile(file, response.signedRequest, response.url);
-  //       }
-  //       else{
-  //         alert('Could not get signed URL.');
-  //       }
-  //     }
-  //   };
-  //   xhr.send();
-  // }
-
   handlePasswordSubmit = (e) => {
     e.preventDefault();
     const body = { ...this.state };
@@ -168,34 +88,45 @@ class Settings extends React.Component {
       });
   }
 
-  // handleFileSubmit = (e) => {
-  //   e.preventDefault();
-  //   const body = { ...this.state }
-  //   const { file } = this.state;
-  //   const name = file.name;
-  //   const size = file.size;
-  //   let formData = new FormData();
-  //   formData.append('file', file);
-  //   formData.append('name', name);
-  //   formData.append('size', size);
-  //   console.log("formData: ", formData);
-  //   for (var [key, value] of formData.entries()) { 
-  //     console.log(key, value);
-  //   }
-  //   axios
-  //     .post(`${ROOT_URL}/files`, { 
-  //       file: formData.file,
-  //       name: formData.name,
-  //       size: formData.size,
-  //      })
-  //     .then(result => {
-  //       console.log(result);
-  //       alert(`Your resume, ${body.name}, has been saved.`)
-  //     })
-  //     .catch(() => {
-  //       console.log('Error saving file');
-  //     });
-  // }
+  handleFileUpload = (e) => {
+    switch (e.target.name) {
+      case 'selectedFile':
+        this.setState({ selectedFile: e.target.files[0] });
+        break;
+      default:
+        this.setState({ [e.target.name]: e.target.value });
+    }
+  }
+
+  handleFileSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData();
+    data.append('file', this.state.selectedFile);
+    data.append('name', this.state.selectedFile.name);
+    axios.post(`${ROOT_URL}/files`, data)
+      .then(response => console.log('success'))
+      .catch(err => console.log(err));
+    // const { selectedFile } = this.state;
+    // console.log("\n SELECTED FILE >>> ", selectedFile, "\n\n")
+    // let formData = new FormData();
+    // formData.append('selectedFile', selectedFile);
+    // formData.append('name', selectedFile.name);
+    // const body = {};
+    // for (let pair of formData.entries()) {
+    //   body[pair[0]] = pair[1];
+    // }
+    // const config = {
+    //   headers: {
+    //       'content-type': 'multipart/form-data',
+    //   }
+    // }
+    // axios.post(`${ROOT_URL}/files`, { selectedFile: body.selectedFile, name: body.name }, config)
+    //   .then(result => {
+    //     console.log('result of file upload is', result);
+    //   })
+    //   .catch(err => console.log({ error: 'error uploading file', err}));
+  }
+
 
   render() {
     return (

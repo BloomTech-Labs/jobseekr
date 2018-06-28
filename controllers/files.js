@@ -17,62 +17,18 @@ let s3 = new AWS.S3({apiVerson: '2006-03-01'});
 
 const uploadParams = { Bucket: BUCKET_NAME, Key: '', Body: ''};
 
-// configure storage
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // files saved to upload directory
-    cb(null, './uploads');
-    console.log('hello????');
-  },
-  filename: (req, file, cb) => {
-    // random ID generated using uuidv4()
-    // path.extname() extracts file extension out
-    // filename available as req.file.pathname in route handler
-    const newFilename = `${uuidv4()}${path.extname(file.originalname)}`;
-    cb(null, newFilename);
-  },
-});
-// create the multer instance that will be used to upload/save the file
-const upload = multer({ storage });
-// console.log('upload is', { upload });
-
 const uploadFile = (req, res) => {
-  // upload.single(req.body.selectedFile);
-  // const { file } = req.data;
-  console.log("\nrequest object keys are is", Object.keys(req), "\n\n");
-  console.log("\n REQ>>>>> ", req, "\n\n");
+  
+  console.log("\nrequest object keys are>>>>>", Object.keys(req), "\n\n");
+  console.log("Is req.file defined?", req.files);
+  console.log("This is our file !!!!!", req.files.data)
+  console.log("\n REQ.BODY>>>>> ", req.body, "\n\n");
+  console.log("\n REQ.QUERY>>>>> ", req.query, "\n\n");
+  console.log("\n REQ.DATA>>>>> ", req.data, "\n\n");
+  console.log("\n REQ.PARAMS>>>>> ", req.params, "\n\n");
+  console.log("\n REQ.HEADERS>>>>> ", req.headers, "\n\n");
   // console.log('file is', file);
 };
-// // Create unique bucket name
-// const bucketName = 'jobseekr';
-// // Create name for uploaded object key
 
-// const uploadFile = (req, res) => {
-//   console.log("request keys: ", Object.keys(req));
-//   console.log("request data: ", req.data);
-
-//   const keyName = req.data.name;
-//   const { type } = req.data; 
-//   // Create a promise on S3 service object
-//   const upload = new AWS.S3.ManagedUpload({apiVersion: '2006-03-01'}, {
-//     params: { Bucket: bucketName, Key: keyName, Body: stream }
-//   })
-  
-//   // Handle promise fulfilled/rejected states
-//   upload
-//     .then((data) => {
-//       // Create params for putObject call
-//       var objectParams = {Bucket: bucketName, Key: keyName};
-//       // Create object upload promise
-//       var uploadPromise = new AWS.S3({apiVersion: '2006-03-01'}).putObject(objectParams).promise();
-//       uploadPromise
-//         .then((data) => {
-//           console.log("Successfully uploaded data to " + bucketName + "/" + keyName);
-//         });
-//       }).catch(
-//         function(err) {
-//           console.error(err, err.stack);
-//         });
-// }
 
 module.exports = uploadFile;
