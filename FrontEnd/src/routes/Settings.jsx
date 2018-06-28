@@ -16,6 +16,9 @@ import {
 } from 'react-bootstrap';
 import { Header } from '../components/AllComponents';
 import ROOT_URL from './config';
+import multer from 'multer';
+import uuidv4 from 'uuid';
+import path from 'path'
 
 class Settings extends React.Component {
   constructor(props, context) {
@@ -84,11 +87,36 @@ class Settings extends React.Component {
   handleFileSubmit = (e) => {
     e.preventDefault();
     const { selectedFile } = this.state;
+    // const upload = multer({ dest: '.uploads/'})
+    const storage = multer.diskStorage({
+      destination: (req, file, cb) => {
+        // files saved to upload directory
+        cb(null, './uploads');
+      },
+      filename: (req, file, cb) => {
+        // random ID generated using uuidv4()
+        // path.extname() extracts file extension out
+        // filename available as req.file.pathname in route handler
+        const newFilename = `${uuidv4()}${path.extname(file.originalname)}`;
+        cb(null, newFilename);
+      },
+    });
+    // create the multer instance that will be used to upload/save the file
+    const upload = multer({ storage });
+    console.log('I got to here');
     let formData = new FormData();
 
     formData.append('selectedFile', selectedFile);
-    console.log('formData is', formData);
-    axios.post(`${ROOT_URL}/files`, formData)
+    formData.append('name', selectedFile.name);
+    formData.append('size', selectedFile.size);
+    formData.append('type', selectedFile.type);
+    console.log('formData is', [...formData.entries()]);
+    const body = {};
+    for (let pair of formData.entries()) {
+      body[pair[0]] = pair[1];
+    }
+    console.log("\n BODY >>> ", body, "\n\n")
+    axios.post(`${ROOT_URL}/files`, upload)
       .then(result => {
         console.log('result of file upload is', result);
       })

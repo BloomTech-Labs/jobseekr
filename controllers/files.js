@@ -22,6 +22,7 @@ const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     // files saved to upload directory
     cb(null, './uploads');
+    console.log('hello????');
   },
   filename: (req, file, cb) => {
     // random ID generated using uuidv4()
@@ -33,13 +34,15 @@ const storage = multer.diskStorage({
 });
 // create the multer instance that will be used to upload/save the file
 const upload = multer({ storage });
-console.log('upload is', { upload });
+// console.log('upload is', { upload });
 
 const uploadFile = (req, res) => {
-  upload.single('selectedFile');
-  const { file } = req;
-  console.log("request object keys are is", Object.keys(req));
-  console.log('file is', file);
+  upload.single(req.body.selectedFile);
+  // const { file } = req.data;
+  console.log("request object keys are is", Object.keys(req.body));
+  console.log("\n BODY>>>>>> ", req.body.storage, "\n\n");
+  console.log("\n REQ.NEXT >>> ", req.next(), "\n\n")
+  // console.log('file is', file);
 };
 // // Create unique bucket name
 // const bucketName = 'jobseekr';
