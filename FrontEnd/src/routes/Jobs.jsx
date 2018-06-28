@@ -11,35 +11,9 @@ class Jobs extends Component {
 
     this.state = {
       lists: [
-        { id: 1, status: 'Want to Apply', jobs: [{ "_id": "5b2a93b6057c4a1a5ea3ed1d",
-        "status": "Want to Apply",
-        "companyName": "Google",
-        "position": "Jr. Developer",
-        "createdAt": {
-            "$date": "2018-06-20T17:49:42.322Z"
-        },
-        "updatedAt": {
-          "$date": "2018-06-20T17:49:42.322Z",
-        },
-        "__v": 0}] },
-        { id: 2, status: 'Submitted Job App', jobs: [{ "_id": "5b2a93b6057c4a1a5ea3ed1d",
-        "status": "Want to Apply",
-        "companyName": "Google",
-        "position": "Jr. Developer",
-        "createdAt": {
-            "$date": "2018-06-20T17:49:42.322Z"
-        },
-        "updatedAt": "2018-06-20T17:49:42.322Z",
-        "__v": 0}] },
-        { id: 3, status: 'Received Response', jobs: [{ "_id": "5b2a93b6057c4a1a5ea3ed1d",
-        "status": "Want to Apply",
-        "companyName": "Google",
-        "position": "Jr. Developer",
-        "createdAt": {
-            "$date": "2018-06-20T17:49:42.322Z"
-        },
-        "updatedAt": "2018-06-20T17:49:42.322Z",
-        "__v": 0}] },
+        { id: 1, status: 'Want to Apply', jobs: [] },
+        { id: 2, status: 'Submitted Job App', jobs: [] },
+        { id: 3, status: 'Received Response', jobs: [] },
         { id: 4, status: 'Phone Interview', jobs: [] },
         { id: 5, status: 'On Site Interview', jobs: [] },
         { id: 6, status: 'Technical Interview', jobs: [] },
@@ -49,25 +23,26 @@ class Jobs extends Component {
     };
   }
 
-  getAllJobs = e => {
+  getAllJobs = () => {
     const token = localStorage.getItem('token');
     axios
-    .get(`${ROOT_URL}/jobs`, { token })
-    .then(jobs => {
-      const newList = this.state.list;
-      jobs.forEach(job => {
-        for (let i = 0; i < newList.length; i++) {
-          if (newList[i].status === job.status) {
-            newList.jobs.push(job);
-            break;
+      .get(`${ROOT_URL}/jobs`, { headers: { "Authorization": token }})
+      .then(jobs => {
+        jobs = jobs.data;
+        const newList = this.state.lists;
+        jobs.forEach(job => {
+          for (let i = 0; i < newList.length; i++) {
+            if (newList[i].status === job.status) {
+              newList[i].jobs.push(job);
+              break;
+            }
           }
-        }
+        });
+        this.setState({ lists: newList });
+      })
+      .catch(() => {
+        console.log('Error retrieving all the jobs');
       });
-      this.setState({ list: newList });
-    })
-    .catch(() => {
-      console.log('Error retrieving all the jobs');
-    });
   }
   
   componentDidMount() { this.getAllJobs(); }
@@ -87,7 +62,7 @@ class Jobs extends Component {
                       <Panel.Title componentClass="h3">{list.status}</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body>
-                      <AddJob getAllJobs={this.getAllJobs}/>
+                      <AddJob currentStatus={list.status} getAllJobs={this.getAllJobs}/>
                       {list.jobs.map(job => {
                           return <EditJob key={shortid.generate()} job={job} />
                       })}
