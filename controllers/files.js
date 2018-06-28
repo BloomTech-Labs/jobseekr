@@ -1,33 +1,44 @@
-// Load the SDK and UUID
 const AWS = require('aws-sdk');
-const uuid = require('uuid');
 require('dotenv').config();
-// const upload = require('../server');
-const multer = require('multer');
-const uuidv4 = require('uuid/v4');
-const path = require('path');
 
-const AWS_ID = process.env.AWS_ACCESS_KEY_ID;
-const REGION = process.env.AWS_REGION;
-const BUCKET_NAME = process.env.S3_BUCKET_NAME;
+const region = process.env.AWS_REGION;
+const bucket = process.env.S3_BUCKET_NAME;
 
-AWS.config.update({ region: REGION });
-
-let s3 = new AWS.S3({apiVerson: '2006-03-01'});
-
-const uploadParams = { Bucket: BUCKET_NAME, Key: '', Body: ''};
+AWS.config.update({ region });
 
 const uploadFile = (req, res) => {
+  const file = req.files.file.data;
+  const type = req.files.file.mimetype;
+  const { name } = req.files.file;
   
-  console.log("\nrequest object keys are>>>>>", Object.keys(req), "\n\n");
-  console.log("Is req.file defined?", req.files);
-  console.log("This is our file !!!!!", req.files.data)
-  console.log("\n REQ.BODY>>>>> ", req.body, "\n\n");
-  console.log("\n REQ.QUERY>>>>> ", req.query, "\n\n");
-  console.log("\n REQ.DATA>>>>> ", req.data, "\n\n");
-  console.log("\n REQ.PARAMS>>>>> ", req.params, "\n\n");
-  console.log("\n REQ.HEADERS>>>>> ", req.headers, "\n\n");
-  // console.log('file is', file);
+  const s3 = new AWS.S3();
+  const s3Params = {
+    Body: file,
+    Bucket: bucket,
+    Key: name,
+    Expires: 60,
+    ContentType: type,
+    ACL: 'public-read'
+  };
+
+  s3.putObject(s3Params, (err, data) => {
+    if(err) console.log(err);
+    else console.log(data);
+  });
+
+  s3.getSignedUrl('putObject', s3Params, (err, data) => {
+    if(err){
+      console.log(err);
+      return res.end();
+    }
+    const returnData = {
+      signedRequest: data,
+      url: `https://s3-${region}.amazonaws.com/${bucket}/${name}`
+    };
+    res.write(JSON.stringify(returnData));
+    console.log("\nreturnData >>>", returnData);
+    res.end();
+  });
 };
 
 
