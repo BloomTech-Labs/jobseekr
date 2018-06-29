@@ -8,17 +8,15 @@ const bucket = process.env.S3_BUCKET_NAME;
 
 AWS.config.update({ region });
 
-const uploadResume = async (req, res) => {
-  console.log(req.headers.token)
-  const { token } = req.headers;
+const uploadFile = async (req, res) => {
+  const { token, userdocument } = req.headers;
+  console.log("headers >>>> ", req.headers);
   const storedPayload = await jwt.verify(token, mySecret);
   const id_check = storedPayload.email;
   const file = req.files.file.data; 
   const type = req.files.file.mimetype;
   const { name } = req.files.file;
 
-
-  
     const s3 = new AWS.S3();
     const s3Params = {
       Body: file,
@@ -47,23 +45,20 @@ const uploadResume = async (req, res) => {
       };
       res.write(JSON.stringify(returnData));
       const newURL = returnData.url;
-      console.log("\nreturnData >>>", returnData);
       User.findOneAndUpdate(
-        { email: id_check }, 
-        { resume:
-          {
-            title : name,
-            url: newURL,
-          }
-        })
-        .then(res => res.status(200).json(user.resume))
+      { email: id_check }, 
+      {[userdocument] : {
+        title : name,
+        url: newURL,
+      }})
+        .then(res => res.status(200).json(user[userdocument]))
         .catch(err => console.log(err));
       res.end();
       });
 };
 
-const getUserResume = async (req, res) => {
-  const { token } = req.headers;
+const getUserFile = async (req, res) => {
+  const { token, userdocument } = req.headers;
   const storedPayload = await jwt.verify(token, mySecret);
   const { email } = storedPayload;
   User.findOne({ email }, (err, user) => {
@@ -75,7 +70,7 @@ const getUserResume = async (req, res) => {
       res.status(422).json({ error: "No user with that email in our records" });
       return;
     }
-    res.status(200).json(user.resume);
+    res.status(200).json(user[userdocument]);
   })
   .then(res => console.log(res))
   .catch(err => console.log(err));
@@ -83,6 +78,6 @@ const getUserResume = async (req, res) => {
 
 
 module.exports = {
-  uploadResume,
-  getUserResume,
+  uploadFile,
+  getUserFile,
 };

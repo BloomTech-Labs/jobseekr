@@ -31,9 +31,9 @@ class Settings extends React.Component {
       currentPassword: 'password',
       currentEmail: 'email@example.com',
       selectedFile: '',
-      token: localStorage.getItem('token'),
       resumeTitle: '',
       resumeUrl: '',
+      userdocument: 'resume',
     };
   }
   
@@ -42,11 +42,13 @@ class Settings extends React.Component {
   }
 
   getResume = () => {
-    const token = this.state.token;
-    axios.get(`${ROOT_URL}/resume`,
+    const token = localStorage.getItem('token');
+    const { userdocument } = this.state;
+    axios.get(`${ROOT_URL}/files`,
     {
       headers: {
-        token
+        token,
+        userdocument,
       }
     })
     .then(response => {
@@ -125,15 +127,17 @@ class Settings extends React.Component {
   handleFileSubmit = (e) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
+    const { userdocument } = this.state;
     const config = {
       headers: {
-        token
+        token,
+        userdocument
       }
     }
     const data = new FormData();
     data.append('file', this.state.selectedFile);
     data.append('name', this.state.selectedFile.name);
-    axios.post(`${ROOT_URL}/resume`, data, config)
+    axios.post(`${ROOT_URL}/files`, data, config)
       .then(() => {
         this.getResume()
       })
