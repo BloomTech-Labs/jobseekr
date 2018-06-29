@@ -1,9 +1,11 @@
 .list__btn {
   min-width: 327px;
 }
+
 .addJobModal .btn-lg {
   margin-bottom: 15px;
 }
+
 .top-section-job-modal {
   display: flex;
   justify-content: space-between;

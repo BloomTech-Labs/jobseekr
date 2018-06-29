@@ -10,11 +10,16 @@ const Team = () =>
   (
     <div className="TeamWrapper">
       <Media>
+        <h3 className="teamh3">
+          <strong>
+          The Dream Team:
+          </strong>
+        </h3>
         <Media.Left align="top">
           <Image width={164} height={164} src={Team1} alt="thumbnail" circle />
         </Media.Left>
         <Media.Body>
-          <Media.Heading>Top aligned media</Media.Heading>
+          <Media.Heading>Daniel Lara - BackEnd Ninja</Media.Heading>
           <p>
             Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
             ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at,
@@ -34,7 +39,7 @@ const Team = () =>
           <Image width={164} height={164} src={Team2} alt="thumbnail" circle />
         </Media.Left>
         <Media.Body>
-          <Media.Heading>Top aligned media</Media.Heading>
+          <Media.Heading>Jonathan Bry - FrontEnd Wizard</Media.Heading>
           <p>
             Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
             ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at,
@@ -54,7 +59,7 @@ const Team = () =>
           <Image width={164} height={164} src={Team3} alt="thumbnail" circle />
         </Media.Left>
         <Media.Body>
-          <Media.Heading>Top aligned media</Media.Heading>
+          <Media.Heading>Aaron Berk - Epitome Of Fullstack </Media.Heading>
           <p>
             Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
             ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at,
@@ -74,7 +79,7 @@ const Team = () =>
           <Image width={164} height={164} src={Team4} alt="thumbnail" circle />
         </Media.Left>
         <Media.Body>
-          <Media.Heading>Top aligned media</Media.Heading>
+          <Media.Heading>Cliff Kang - Full Stack Superstar</Media.Heading>
           <p>
             Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
             ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at,
