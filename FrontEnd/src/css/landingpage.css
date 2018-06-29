@@ -93,6 +93,8 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin-right: 1%;
+  margin-left: 1%;
 }
 .MeetupsWrapper .form-row .form-col {
   display: flex;
@@ -109,6 +111,15 @@
 .BillingWrapper {
   margin-top: 52px;
   padding-top: 13px;
+}
+.BillingWrapper .container {
+  flex-direction: row;
+}
+.BillingWrapper .singleDecision:hover {
+  background-color: #11b611b0;
+}
+.BillingWrapper .checkoutSub:hover {
+  background-color: green;
 }
 .ContributionsWrapper {
   margin: 52px;
@@ -133,6 +144,12 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+.ContributionsWrapper .form-row .form-col {
+  display: flex;
+  align-items: center;
+  margin-right: 1%;
+  margin-left: 1%;
 }
 .ContributionsWrapper .form-row .form-col {
   display: flex;
