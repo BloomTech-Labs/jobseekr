@@ -96,6 +96,7 @@ class Settings extends React.Component {
         console.log('Error changing email');
       });
   }
+
   handlePasswordSubmit = (e) => {
     e.preventDefault();
     const body = { ...this.state };
@@ -143,7 +144,6 @@ class Settings extends React.Component {
       })
       .catch(err => console.log(err));
   }
-
 
   render() {
     return (

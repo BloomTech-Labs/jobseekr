@@ -61,9 +61,9 @@ class AddJob extends Component {
     data.append('file', this.state[fileName]);
     data.append('name', this.state[fileName].name);
     axios.post(`${ROOT_URL}/jobfiles`, data, config)
-      .then(() => {
+      .then(url => {
+        this.setState({ [jobdocument] : url });
         console.log('job file upload successful for', jobdocument);
-        // this.getResume()
       })
       .catch(err => console.log(err));
 
