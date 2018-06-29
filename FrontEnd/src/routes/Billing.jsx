@@ -9,10 +9,10 @@ export default class Billing extends React.Component {
     axios
       .post(`${ROOT_URL}/billing`, { token, email: token.email, subscribe })
       .then(res => {
-        return console.log(res.data.msg);
+        return alert(res.data.msg);
       })
       .catch(err => {
-        return console.log(err);
+        return alert(err);
       });
   };
 
@@ -21,10 +21,10 @@ export default class Billing extends React.Component {
     axios
       .post(`${ROOT_URL}/billing`, { token, email: token.email, subscribe })
       .then(res => {
-        return console.log(res.data.msg);
+        return alert(res.data.msg);
       })
       .catch(err => {
-        return console.log(err);
+        return alert(err);
       });
   };
 
@@ -38,7 +38,6 @@ export default class Billing extends React.Component {
           <div class="container">
             <h1 class="display-4">Billing</h1>
             <StripeCheckout
-              className="checkoutSingle"
               name="Jobseekr" // the pop-in header title
               description="Single Decision" // the pop-in header subtitle
               ComponentClass="div"
@@ -68,12 +67,13 @@ export default class Billing extends React.Component {
               triggerEvent="onClick"
             >
               <div className="singleDecision">
-                <h2>Single Decision</h2>
-                <p>You can choose to pay for one decision for 2 dollars.</p>
+                <div>
+                  <h2>Single Decision</h2>
+                  <p>You can choose to pay for one decision for 2 dollars.</p>
+                </div>
               </div>
             </StripeCheckout>{' '}
             <StripeCheckout
-              className="checkoutSub"
               name="Jobseekr" // the pop-in header title
               description="Making the job hunt enjoyable." // the pop-in header subtitle
               ComponentClass="div"
@@ -102,7 +102,7 @@ export default class Billing extends React.Component {
               // useful if you're using React-Tap-Event-Plugin
               triggerEvent="onClick"
             >
-              <div className="membership">
+              <div className="checkoutSub">
                 <h2>Membership</h2>
 
                 <p class="lead">
