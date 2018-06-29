@@ -19,6 +19,7 @@
     "react-scripts": "1.1.4",
     "react-stripe-checkout": "^2.6.3",
     "save": "^2.3.2"
+    "shortid": "^2.2.8"
   },
   "scripts": {
     "start": "react-scripts start",

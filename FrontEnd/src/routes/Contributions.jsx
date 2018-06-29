@@ -34,7 +34,25 @@ class Contributions extends Component {
       }
     })
     .then(response => {
-      const gotContributions = response.data;
+      const gotContributions = response.data
+      // added to sort the contributions by date.
+        .sort((a, b) => a.dateOfContribution > b.dateOfContribution);
+      // added to turn links to absolute urls
+      gotContributions.map(contrib => {
+        let test1 = contrib.linkToContribution.substring(0,7);
+        if (test1 !== "http://") {
+            if (test1.match(/\//) && !test1.match(/:/)) {
+              contrib.linkToContribution = contrib.linkToContribution.replace(/\/\//, "://")
+            }
+            if (!test1.match(/http/i)) {
+              contrib.linkToContribution = "http://" + contrib.linkToContribution;
+            }
+            if (test1.match(/:\//) && !test1.match(/\/\//)) {
+              contrib.linkToContribution = contrib.linkToContribution.replace(/:\//, "://")
+            }
+          } 
+        return contrib;
+      });
       this.setState({ contributions: gotContributions });
     })
     .catch(err => console.log(err));
@@ -141,12 +159,7 @@ class Contributions extends Component {
                   type="text"
                   className="form-control" 
                   placeholder="Link" 
-                  onChange={e => {
-                    if (!e.target.value.match(/http/gi)) {
-                      e.target.value = "http".concat(e.target.value)
-                    }
-                    this.setState({ linkToContribution: e.target.value })
-                  }}
+                  onChange={e => this.setState({ linkToContribution: e.target.value })}
                 />
               </div>
               <div className="form-col">
