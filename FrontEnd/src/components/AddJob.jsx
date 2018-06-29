@@ -66,7 +66,6 @@ class AddJob extends Component {
         console.log('job file upload successful for', jobdocument);
       })
       .catch(err => console.log(err));
-
   }
 
   handleAddJob = e => {
@@ -85,9 +84,16 @@ class AddJob extends Component {
         pointOfContactName: body.pointOfContactName,
         contactInfo: body.contactInfo,
         sourceOfJob: body.sourceSelection,
+        rejectionFile: body.rejectionFile,
+        rejectionUrl: body.rejectionUrl,
+        offerFile: body.offerFile,
+        offerUrl: body.offerUrl,
         token
       })
-      .then(job => this.setState({ currentJobId : job._id }))
+      .then(job => {
+        console.log('job in handleAddJob is', job);
+        this.setState({ currentJobId : job.data._id })
+      })
       .then(() => { if (this.state.rejectionFile) this.handleFileSubmit('rejectionUrl'); })
       .then(() => { if (this.state.offerFile) this.handleFileSubmit('offerUrl'); })
       .then(() => this.setState({ show: false }))

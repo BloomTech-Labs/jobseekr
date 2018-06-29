@@ -77,7 +77,7 @@ const getUserFile = async (req, res) => {
 }
 
 const uploadJobFile = async (req, res) => {
-  const { currentJobId, jobdocument } = req.headers;
+  const { currentjobid, jobdocument } = req.headers;
   const file = req.files.file.data; 
   const type = req.files.file.mimetype;
   const { name } = req.files.file;
@@ -110,9 +110,8 @@ const uploadJobFile = async (req, res) => {
       };
       res.write(JSON.stringify(returnData));
       const newURL = returnData.url;
-      Job.findOne({ _id: currentJobId })
-        .then(job => job[jobdocument] = newURL )
-        .then(res => res.status(200).json(job[jobdocument]))
+      Job.findOneAndUpdate({ _id: currentjobid }, { [jobdocument] : newURL }, { new: true })
+        .then(job => res.status(200).json(job[jobdocument]))
         .catch(err => console.log(err));
       res.end();
       });

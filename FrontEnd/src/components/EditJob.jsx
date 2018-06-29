@@ -13,7 +13,9 @@ import {
   Tooltip, 
   Checkbox, 
   FormControl,
-  Panel
+  Panel,
+  FormGroup,
+  ControlLabel,
 } from 'react-bootstrap';
 import ROOT_URL from '../routes/config';
 
@@ -37,7 +39,35 @@ class EditJob extends Component {
       sourceOfJob: ['Met in Person', 'Referral', 'Applied Online'],
       sourceSelection: this.props.job.sourceOfJob || 'Source of Job',
       _id: this.props.job._id,
+      rejectionFile: this.props.job.rejectionFile,
+      rejectionUrl: this.props.job.rejectionUrl,
+      offerFile: this.props.job.offerFile,
+      offerUrl: this.props.job.offerUrl,
     };
+  }
+
+  handleFileUpload = (e) => {
+    this.setState({ [e.target.name] : e.target.files[0] });
+  }
+  
+  handleFileSubmit = jobdocument => {
+    const fileName = jobdocument === 'offerUrl' ? 'offerFile' : 'rejectionFile';
+    const currentJobId = this.state._id;
+    const config = {
+      headers: {
+        currentJobId,
+        jobdocument
+      }
+    }
+    const data = new FormData();
+    data.append('file', this.state[fileName]);
+    data.append('name', this.state[fileName].name);
+    axios.post(`${ROOT_URL}/jobfiles`, data, config)
+      .then(url => {
+        this.setState({ [jobdocument] : url });
+        console.log('job file upload successful for', jobdocument);
+      })
+      .catch(err => console.log(err));
   }
 
   handleEditJob = e => {
@@ -57,6 +87,9 @@ class EditJob extends Component {
         sourceOfJob: body.sourceSelection,
         _id: body._id,
       })
+      .then(job => this.setState({ currentJobId : job.data._id }))
+      .then(() => { if (this.state.rejectionFile) this.handleFileSubmit('rejectionUrl'); })
+      .then(() => { if (this.state.offerFile) this.handleFileSubmit('offerUrl'); })
       .then(() => this.props.getAllJobs())
       .then(() => this.setState({ show: false }))
       .catch(err => console.log({ error: err}));
@@ -85,6 +118,7 @@ class EditJob extends Component {
 
     return (
       <div>
+        {console.log(this.state)}
         <OverlayTrigger overlay={tooltip}>
           <Panel key={this.state.job._id} className='job' onClick={() => this.setState({ show: true })}>
             <Panel.Heading>
@@ -137,9 +171,23 @@ class EditJob extends Component {
                   >
                     Got a Rejection
                   </Checkbox>
-                  <Button>
-                    Upload Rejection Letter
-                  </Button>
+                  {this.state.rejectionUrl ? 
+                    <Button
+                      type="click"
+                      value='rejectionUrl'
+                      onClick={this.handleFileView}
+                    >
+                      View Rejection Letter
+                    </Button> :
+                    <FormGroup>
+                      <ControlLabel>Upload a Rejection Letter</ControlLabel>
+                      <FormControl
+                        type="file"
+                        name="rejectionFile"
+                        onChange={this.handleFileUpload}
+                      />
+                    </FormGroup>
+                  }
                   <Checkbox 
                     checked={this.state.gotOffer} 
                     value={"gotOffer"}
@@ -148,9 +196,23 @@ class EditJob extends Component {
                   >
                     Got an Offer
                   </Checkbox>
-                  <Button>
-                    Upload Offer Letter
-                  </Button>
+                  {this.state.offerUrl ? 
+                    <Button
+                      type="click"
+                      value='offerUrl'
+                      onClick={this.handleFileView}
+                    >
+                      View Offer Letter
+                    </Button> :
+                    <FormGroup>
+                      <ControlLabel>Upload a Offer Letter</ControlLabel>
+                      <FormControl
+                        type="file"
+                        name="offerFile"
+                        onChange={this.handleFileUpload}
+                      />
+                    </FormGroup>
+                  }
                 </div>
               </div>
               <FormControl 
