@@ -1,14 +1,11 @@
 import React from 'react';
-import { Header, Team } from '../components/AllComponents';
+import { Header, Team, AppDescription } from '../components/AllComponents';
 import JobSeekr from '../Images/jobSeekr.png';
 import CityScape from '../Images/CityScape.png';
 
 const LandingPage = () =>
   (
     <div className="parent">
-      {/* <head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" />
-      </head> */}
       <Header />
       <div className="gradient" alt="Job Seekr" id="one" >
         <img src={CityScape} className="png2" alt="hello" />
@@ -23,6 +20,7 @@ const LandingPage = () =>
           Login!
         </button>
       </div>
+      <AppDescription />
       <Team />
       <div className="AttentionDiv1" id="two">
         <h1 className="titles">JobSeekr!</h1>

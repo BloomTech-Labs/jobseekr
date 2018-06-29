@@ -288,6 +288,39 @@ body {
   font-weight: thin;
   font-size: 35px;
 }
+.AppDescriptionWrapper {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 2.5%;
+  padding-bottom: 2.5%;
+}
+.AppDescriptionWrapper .ad__header {
+  align-self: flex-start;
+  color: #48ACF0;
+  text-shadow: 2.5px 2.5px #000;
+  font-weight: thin;
+  font-size: 35px;
+  padding: 2.5%, 5%, 2%, 5%;
+  height: 100px;
+}
+.AppDescriptionWrapper .carousel__wrapper {
+  max-width: 900px;
+}
+.AppDescriptionWrapper .carousel__wrapper .ad_carousel {
+  max-width: 900px;
+}
+.AppDescriptionWrapper .carousel__wrapper .carousel-txt {
+  color: black;
+}
+.AppDescriptionWrapper .carousel__wrapper .carousel-txt--addjob {
+  color: black;
+  background: white;
+}
 .AttentionDiv1 {
   background: linear-gradient(45deg, #594236 0.1%, #15100E);
   height: 100%;
