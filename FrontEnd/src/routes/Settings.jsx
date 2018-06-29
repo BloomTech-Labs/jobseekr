@@ -142,7 +142,6 @@ class Settings extends React.Component {
         this.getResume()
       })
       .catch(err => console.log(err));
-
   }
 
 
@@ -276,7 +275,7 @@ class Settings extends React.Component {
                       <FormGroup>
                         <ControlLabel>Upload a copy of your Resume</ControlLabel>
                         <FormControl
-                          id="resumeUplaod"
+                          id="resumeUpload"
                           type="file"
                           accept=".pdf"
                           name="selectedFile"

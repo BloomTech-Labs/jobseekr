@@ -43,9 +43,9 @@ const JobSchema = mongoose.Schema(
       maxlength: 500,
     },
     gotRejected: Boolean,
-    linkToRejection: String,
+    rejectionUrl: String,
     gotOffer: Boolean,
-    linkToOffer: String,
+    offerUrl: String,
   },
   { timestamps: true },
 );
