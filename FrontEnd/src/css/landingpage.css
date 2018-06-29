@@ -3,6 +3,9 @@
   margin-top: 52px;
   padding-top: 15px;
 }
+.settingsWrapper .resume--btn {
+  margin-bottom: 15px;
+}
 .board__container {
   min-width: 3000px;
   margin-top: 52px;
@@ -51,6 +54,9 @@
 .list__btn {
   min-width: 327px;
 }
+.addJobModal .btn-lg {
+  margin-bottom: 15px;
+}
 .top-section-job-modal {
   display: flex;
   justify-content: space-between;
@@ -93,14 +99,6 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-right: 1%;
-  margin-left: 1%;
-}
-.MeetupsWrapper .form-row .form-col {
-  display: flex;
-  align-items: center;
-  margin-right: 1%;
-  margin-left: 1%;
 }
 .MeetupsWrapper .form-row .form-col {
   display: flex;
@@ -113,13 +111,21 @@
   padding-top: 13px;
 }
 .BillingWrapper .container {
-  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 50px;
+  width: 100%;
 }
-.BillingWrapper .singleDecision:hover {
+.BillingWrapper .container .display-4 {
+  width: 100%;
+}
+.BillingWrapper .container .singleDecision:hover {
   background-color: #11b611b0;
+  cursor: pointer;
 }
-.BillingWrapper .checkoutSub:hover {
-  background-color: green;
+.BillingWrapper .container .checkoutSub:hover {
+  background-color: #11b611b0;
+  cursor: pointer;
 }
 .ContributionsWrapper {
   margin: 52px;
@@ -144,12 +150,6 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-}
-.ContributionsWrapper .form-row .form-col {
-  display: flex;
-  align-items: center;
-  margin-right: 1%;
-  margin-left: 1%;
 }
 .ContributionsWrapper .form-row .form-col {
   display: flex;
@@ -201,78 +201,43 @@ body {
   position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
   flex-direction: column;
   text-align: center;
-  padding-top: 2%;
-  margin: 0px;
-  min-width: 350px;
-  max-width: 2000px;
+  margin-top: 52px;
   width: 100%;
-  max-height: 700px;
-  min-height: 400px;
+  min-height: 608px;
   height: 100%;
   background: linear-gradient(45deg, #48ACF0 20%, #594236);
   z-index: 100;
 }
-.paragraphs {
-  position: relative;
-  z-index: 5;
-  padding: auto;
-  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+.gradient .LoginCTA1 {
+  position: absolute;
+  bottom: 70px;
+  text-align: center;
+  display: flex;
+  flex-flow: row;
+  z-index: 1;
+  justify-content: center;
+  border: none;
+  align-content: center;
+  height: 25px;
+  width: 100px;
+  border-radius: 5px;
+  background: #48ACF0;
+  color: white;
+}
+.gradient .LoginCTA1:hover {
+  text-decoration: none;
+  color: #CCDDE2;
+  height: 26px;
+  width: 101px;
+  cursor: pointer;
 }
 .titles {
   position: relative;
   z-index: 4;
   font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-.LoginCTA1 {
-  text-align: center;
-  flex-flow: row;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  background: #48ACF0;
-  border: none;
-  align-content: center;
-  height: 10%;
-  width: 33.3%;
-  border-radius: 50px;
-  padding-bottom: 2%;
-  margin-bottom: 3%;
-  margin-left: 33.3%;
-  margin-right: 33.3%;
-}
-.LoginCTA1 :hover {
-  height: 11%;
-  width: 33.6%;
-}
-@media only screen and (max-width: 479px) {
-  .LoginCTA1 {
-    position: relative;
-    justify-content: center;
-    margin-left: 25%;
-    margin-right: 25%;
-    height: 75px;
-    width: 50%;
-  }
-}
-.LoginCTA2 {
-  text-align: center;
-  flex-flow: row;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  background: #48ACF0;
-  border: none;
-  align-content: center;
-  width: 33.3%;
-  margin-bottom: 5%;
-  margin-left: 33.3%;
-  margin-right: 33.3%;
-}
-.LoginCTA2 :hover {
-  height: 11%;
-  width: 33.6%;
 }
 @keyframes tick-tock {
   to {
@@ -283,31 +248,18 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 25%;
-  margin-right: 25%;
-  margin-top: 5.7%;
-  position: relative;
-  padding: 10%;
   z-index: 10;
+  height: 200px;
+  margin: -10px;
 }
 .pngBox .png1 {
-  position: relative;
   animation: tick-tock 5s;
   animation-direction: alternate;
-  width: 100%;
-  height: 85%;
-  margin-right: 3.2%;
-  margin-top: 4.5%;
+  align-self: flex-end;
 }
 @media only screen and (max-width: 479px) {
   .pngBox {
-    margin-left: 5%;
-    margin-right: 4%;
-  }
-  .pngBox .png1 {
-    margin-top: 23%;
-    width: 95%;
-    height: 90%;
+    width: 50%;
   }
 }
 .titles {
@@ -319,14 +271,13 @@ body {
   padding-top: 5%;
 }
 .paragraphs {
+  position: relative;
+  z-index: 5;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 35px;
   font-family: Arial, Helvetica, sans-serif;
   display: flex;
   justify-content: center;
-  padding-left: 3%;
-  padding-right: 3%;
-  padding-top: 12%;
-  padding-bottom: 10%;
   color: white;
   text-shadow: 1px 1px black;
 }
@@ -336,31 +287,123 @@ body {
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  padding-top: 2%;
-  margin: 0px;
-  min-width: '300px';
-  max-width: '2000px';
   width: 100%;
-  max-height: 700px;
-  min-height: 400px;
-  height: 100%;
   background: linear-gradient(45deg, #48ACF0 20%, #594236);
   z-index: 1;
+  margin-bottom: 10px;
+  height: 100%;
 }
 .TeamWrapper {
   padding-left: 5%;
   padding-right: 5%;
   padding-top: 2.5%;
   padding-bottom: 2.5%;
+  display: flex;
+  flex-flow: column wrap;
 }
-.AttentionDiv1 {
-  background: linear-gradient(45deg, #594236 0.1%, #15100E);
-  height: 100%;
+.TeamWrapper .profiles__container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-flow: row wrap;
+  max-height: 550px;
 }
-.teamh3 {
+@media only screen and (max-width: 479px) {
+  .TeamWrapper .profiles__container {
+    min-height: 1100px;
+  }
+}
+.TeamWrapper .profiles__container .profiles__rt-container {
+  margin-left: 2%;
+  margin-right: 2%;
+}
+.TeamWrapper .profiles__container .profiles__lt-container {
+  margin-left: 2%;
+  margin-right: 2%;
+}
+.TeamWrapper .profiles__container .lp-profile-pic {
+  margin: 10px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.TeamWrapper .teamh3 {
   margin-bottom: 5%;
   color: #48ACF0;
   text-shadow: 2.5px 2.5px #000;
   font-weight: thin;
   font-size: 35px;
+}
+.AppDescriptionWrapper {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 85px;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 2.5%;
+  padding-bottom: 2.5%;
+}
+.AppDescriptionWrapper .ad__header {
+  align-self: flex-start;
+  color: #48ACF0;
+  text-shadow: 2.5px 2.5px #000;
+  font-weight: thin;
+  font-size: 35px;
+  padding: 2.5%, 5%, 2%, 5%;
+  height: 100px;
+}
+.AppDescriptionWrapper .carousel__wrapper {
+  max-width: 900px;
+}
+.AppDescriptionWrapper .carousel__wrapper .ad_carousel {
+  max-width: 900px;
+}
+.AppDescriptionWrapper .carousel__wrapper .carousel-txt {
+  color: black;
+  background: white;
+  opacity: 0.75;
+  width: 100%;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+}
+.AppDescriptionWrapper .carousel__wrapper .carousel-txt--addjob {
+  color: black;
+}
+.AttentionDiv1 {
+  position: relative;
+  background: linear-gradient(45deg, #594236 0.1%, #15100E);
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column nowrap;
+  min-height: 375px;
+}
+.AttentionDiv1 .LoginCTA2 {
+  position: absolute;
+  bottom: 5px;
+  text-align: center;
+  display: flex;
+  flex-flow: row;
+  z-index: 1;
+  justify-content: center;
+  border: none;
+  align-content: center;
+  height: 25px;
+  width: 100px;
+  border-radius: 5px;
+  background: #48ACF0;
+  color: white;
+}
+.AttentionDiv1 .LoginCTA2:hover {
+  text-decoration: none;
+  color: #CCDDE2;
+  height: 26px;
+  width: 101px;
+  cursor: pointer;
 }

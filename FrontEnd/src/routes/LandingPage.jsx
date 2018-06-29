@@ -33,24 +33,6 @@ const LandingPage = () =>
           <NavLink to="billing" className="LoginCTA2" >Buy Now!</NavLink>
       </div>
     </div>
-    <Jumbotron className="AttentionDiv" id="two">
-      <h1 className="titles">JobSeekr!</h1>
-      <p className="paragraphs">
-        Find your next job quickly <br /> and in an organized fashion!
-      </p>
-      <p>
-        <Button bsStyle="primary">Buy Now!</Button>
-      </p>
-    </Jumbotron>
-    <Team />
-    <Jumbotron className="AttentionDiv" id="two">
-      <h1 className="titles">JobSeekr!</h1>
-      <p className="paragraphs">Find your next job quickly and in an organized fashion!</p>
-      <p>
-        <Button bsStyle="primary">Buy Now!</Button>
-      </p>
-    </Jumbotron>
-  </div>
-);
+  );
 
 export default LandingPage;
