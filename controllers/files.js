@@ -10,7 +10,6 @@ AWS.config.update({ region });
 
 const uploadFile = async (req, res) => {
   const { token, userdocument } = req.headers;
-  console.log("headers >>>> ", req.headers);
   const storedPayload = await jwt.verify(token, mySecret);
   const id_check = storedPayload.email;
   const file = req.files.file.data; 
@@ -51,7 +50,10 @@ const uploadFile = async (req, res) => {
         title : name,
         url: newURL,
       }})
-        .then(res => res.status(200).json(user[userdocument]))
+        .then((res) => {
+          console.log('hello????');
+          res.status(200).json(user[userdocument])
+        })
         .catch(err => console.log(err));
       res.end();
       });
@@ -59,6 +61,7 @@ const uploadFile = async (req, res) => {
 
 const getUserFile = async (req, res) => {
   const { token, userdocument } = req.headers;
+  const { headers } = req;
   const storedPayload = await jwt.verify(token, mySecret);
   const { email } = storedPayload;
   User.findOne({ email }, (err, user) => {

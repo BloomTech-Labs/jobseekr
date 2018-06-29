@@ -29,7 +29,16 @@ const UserSchema = mongoose.Schema({
     type: Number,
     require: true,
     default: 0
-  }
+  },
+  resume:
+    {
+      title: {
+        type: String,
+      },
+      url: {
+        type: String,
+      }
+    }
 });
 
 UserSchema.pre('save', function(next) {
