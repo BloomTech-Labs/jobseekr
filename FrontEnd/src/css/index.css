@@ -3,6 +3,9 @@
   margin-top: 52px;
   padding-top: 15px;
 }
+.settingsWrapper .resume--btn {
+  margin-bottom: 15px;
+}
 .board__container {
   min-width: 3000px;
   margin-top: 52px;
