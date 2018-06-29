@@ -1,12 +1,13 @@
 const { createUser, changePassword, changeEmail } = require('./user');
 const login = require('./login');
-const { getAllJobs } = require('./jobs');
+const { getAllJobs, createJob, editJob } = require('./jobs');
 const { createMeetup, getAllMeetups, destroyMeetup } = require('./meetups');
 const {
   getAllContributions,
   createContribution,
   destroyContribution, } = require('./contributions')
 const { billing } = require("./billing");
+const { uploadFile, getUserFile } = require('./files');
 
 module.exports = {
   createUser,
@@ -15,10 +16,14 @@ module.exports = {
   changePassword,
   changeEmail,
   createMeetup,
+  createJob,
+  editJob,
   billing,
   getAllMeetups,
   destroyMeetup,
   getAllContributions,
   createContribution,
   destroyContribution,
+  uploadFile,
+  getUserFile,
 };

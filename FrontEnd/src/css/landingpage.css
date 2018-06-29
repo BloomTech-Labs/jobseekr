@@ -100,6 +100,12 @@
   margin-right: 1%;
   margin-left: 1%;
 }
+.MeetupsWrapper .form-row .form-col {
+  display: flex;
+  align-items: center;
+  margin-right: 1%;
+  margin-left: 1%;
+}
 .BillingWrapper {
   margin-top: 52px;
   padding-top: 13px;

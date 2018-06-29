@@ -1,10 +1,18 @@
 const Job = require('../models/jobModel');
+const User = require('../models/userModel');
+const jwt = require('jsonwebtoken');
+const mySecret = process.env.SECRET || "random";
 
-const getAllJobs = (req, res) => {
-  const { username } = req.body;
-  Job.find({ username })
-    .then(jobs => res.json(jobs))
-    .catch(err => res.status(500).json({ error: 'Error fetching Jobs' }));
+const getAllJobs = async (req, res) => {
+  const token = req.get('Authorization');
+  const storedPayload = await jwt.verify(token, mySecret);
+  const email = storedPayload.email;
+  User.findOne({ email })
+    .then(user => {
+      Job.find({ user: user._id })
+        .then(jobs => res.json(jobs))
+        .catch(err => res.status(500).json({ error: 'Error fetching Jobs', err }));
+    })
 };
 
 const getJob = (req, res) => {
@@ -18,19 +26,43 @@ const getJob = (req, res) => {
   }
 };
 
-const createJob = (req, res) => {
-  const job = req.body.job;
-  if (job.company && job.position && job.status && job.username) {
-    Job.save({ ...job })
+const editJob = (req, res) => {
+  const job = req.body;
+  const { _id } = job;
+  delete job._id;
+  if (_id) {
+    Job.findOneAndUpdate({ _id }, { ...job })
       .then(job => res.json(job))
-      .catch(err => res.status(500).json({ error: 'Error saving the job' }));
+      .catch(err => res.status(500).json({ error: 'Error updating the job', err }));
   } else {
-    res.status(422).send('Please send valid company, position, status, username');
+    res.status(422).send('Please send valid company, position, status, and token');
+  }
+}
+
+const createJob = async (req, res) => {
+  const job = req.body;
+  const { token } = req.body;
+  const storedPayload = await jwt.verify(token, mySecret);
+  const email = storedPayload.email;
+  delete job.token;
+  if (job.companyName && job.position && job.status && email) {
+    User.find({ email })
+      .then(user => {
+        job.user = user[0]._id
+        const newJob = new Job({...job});
+        newJob.save()
+          .then(job => res.json(job))
+          .catch(err => res.status(500).json({ error: 'Error saving the job', err }));
+      })
+      .catch(err => res.status(500).json({ error: 'Error finding user', err }));
+  } else {
+    res.status(422).send('Please send valid company, position, status, and token');
   }
 };
 
 module.exports = {
   getAllJobs,
   getJob,
+  editJob,
   createJob,
 };
