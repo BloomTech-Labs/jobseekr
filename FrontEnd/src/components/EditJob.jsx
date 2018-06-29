@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import shortid from 'shortid';
+import moment from 'moment';
 import { 
   ToggleButtonGroup, 
   DropdownButton,
@@ -9,40 +10,41 @@ import {
   OverlayTrigger, 
   Radio, 
   MenuItem, 
-  Glyphicon, 
   Tooltip, 
   Checkbox, 
-  FormControl 
+  FormControl,
+  Panel
 } from 'react-bootstrap';
 import ROOT_URL from '../routes/config';
 
-class AddJob extends Component {
+class EditJob extends Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
+      job: this.props.job,
       show: false,
-      timelineSelection: this.props.currentStatus,
-      list: ['Want to Apply', 'Submitted Job App', 'Received Response', 'Phone Interview', 'On Site Interview', 'Technical Interview', 'Offer', 'Rejected'],
-      gotRejected: false,
-      gotOffer: false,
-      notes: '',
-      companyName: '',
-      position: '',
-      jobPostingLink: '',
-      pointOfContactName: '',
-      contactInfo: '',
+      timelineSelection: this.props.job.status,
+      list: ['Want to Apply', 'Submitted Job App', 'Received Response', 'Phone Interview', 'On Site Interview', 'Technical Interview', 'Offer'],
+      gotRejected: this.props.job.gotRejected,
+      gotOffer: this.props.job.gotOffer,
+      notes: this.props.job.notes,
+      companyName: this.props.job.companyName,
+      position: this.props.job.position,
+      jobPostingLink: this.props.job.jobPostingLink,
+      pointOfContactName: this.props.job.pointOfContactName,
+      contactInfo: this.props.job.contactInfo,
       sourceOfJob: ['Met in Person', 'Referral', 'Applied Online'],
-      sourceSelection: 'Source of Job',
+      sourceSelection: this.props.job.sourceOfJob || 'Source of Job',
+      _id: this.props.job._id,
     };
   }
 
-  handleAddJob = e => {
+  handleEditJob = e => {
     e.preventDefault();
-    const token = localStorage.getItem('token');
     const body = this.state;
     axios
-      .post(`${ROOT_URL}/jobs`, {
+      .put(`${ROOT_URL}/jobs`, {
         status: body.timelineSelection,
         gotRejected: body.gotRejected,
         gotOffer: body.gotOffer,
@@ -53,10 +55,10 @@ class AddJob extends Component {
         pointOfContactName: body.pointOfContactName,
         contactInfo: body.contactInfo,
         sourceOfJob: body.sourceSelection,
-        token
+        _id: body._id,
       })
-      .then(() => this.setState({ show: false }))
       .then(() => this.props.getAllJobs())
+      .then(() => this.setState({ show: false }))
       .catch(err => console.log({ error: err}));
   };
 
@@ -79,16 +81,20 @@ class AddJob extends Component {
   }
   
   render() {
-    const tooltip = <Tooltip id="modal-tooltip">Add a Job.</Tooltip>;
+    const tooltip = <Tooltip id="modal-tooltip">Edit Job.</Tooltip>;
 
     return (
-      <div className='addJobModal'>
+      <div>
         <OverlayTrigger overlay={tooltip}>
-          <Button className='addJobButton' bsStyle="primary" bsSize="large" onClick={() => this.setState({ show: true })}>
-            <div className="list__btn">
-              Add a Job <Glyphicon glyph="">+</Glyphicon>
-            </div>
-          </Button>
+          <Panel key={this.state.job._id} className='job' onClick={() => this.setState({ show: true })}>
+            <Panel.Heading>
+              <Panel.Title componentClass='h4'>{this.state.job.companyName}</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body>
+              <Panel.Title componentClass='h4'>{this.state.job.position}</Panel.Title>
+              <Panel.Title componentClass='h6'>Last updated: {moment(this.state.job.updatedAt).fromNow()}</Panel.Title>
+            </Panel.Body>
+          </Panel>
         </OverlayTrigger>
 
         <Modal show={this.state.show} onHide={() => this.setState({ show: false })}>
@@ -165,18 +171,21 @@ class AddJob extends Component {
                     type="text" 
                     placeholder="Company Name" 
                     id='companyName'
+                    value={this.state.companyName}
                     onChange={this.handleChange}
                   />
                   <FormControl 
                     type="text" 
                     placeholder="Point of Contact Name" 
                     id='pointOfContactName'
+                    value={this.state.pointOfContactName}
                     onChange={this.handleChange}
                   />
                   <FormControl 
                     type="text" 
                     placeholder="Contact Info"
                     id='contactInfo'
+                    value={this.state.contactInfo}
                     onChange={this.handleChange}
                   />
                 </div>
@@ -185,6 +194,7 @@ class AddJob extends Component {
                     type="text" 
                     placeholder="Position Applied For" 
                     id='position'
+                    value={this.state.position}
                     onChange={this.handleChange}
                   />
                   <DropdownButton title={this.state.sourceSelection} id='source-of-job-dropdown'>
@@ -196,6 +206,7 @@ class AddJob extends Component {
                     type="text" 
                     placeholder="Link to Job Posting" 
                     id='jobPostingLink'
+                    value={this.state.jobPostingLink}
                     onChange={this.handleChange}
                   />
                 </div>
@@ -203,7 +214,7 @@ class AddJob extends Component {
             </Modal.Body>
           </form>
           <Modal.Footer>
-            <Button onClick={this.handleAddJob}>Add Job</Button>
+            <Button onClick={this.handleEditJob}>Save Edits</Button>
           </Modal.Footer>
         </Modal>
       </div>
@@ -211,4 +222,4 @@ class AddJob extends Component {
   }
 }
 
-export default AddJob;
+export default EditJob;

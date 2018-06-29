@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import shortid from 'shortid';
 import { Well, Grid, Row, Col, PageHeader, Panel } from 'react-bootstrap';
-import { Header, AddJob, AddList } from '../components/AllComponents';
+import { Header, AddJob, AddList, EditJob } from '../components/AllComponents';
+import ROOT_URL from './config';
 
 class Jobs extends Component {
   constructor(props, context) {
@@ -8,15 +11,42 @@ class Jobs extends Component {
 
     this.state = {
       lists: [
-        { id: 1, category: 'Wishlist', jobs: [] },
-        { id: 2, category: 'Applied', jobs: [] },
-        { id: 3, category: 'Phone', jobs: [] },
-        { id: 4, category: 'On Site', jobs: [] },
-        { id: 5, category: 'Offer', jobs: [] },
-        { id: 6, category: 'Rejected', jobs: [] },
+        { id: 1, status: 'Want to Apply', jobs: [] },
+        { id: 2, status: 'Submitted Job App', jobs: [] },
+        { id: 3, status: 'Received Response', jobs: [] },
+        { id: 4, status: 'Phone Interview', jobs: [] },
+        { id: 5, status: 'On Site Interview', jobs: [] },
+        { id: 6, status: 'Technical Interview', jobs: [] },
+        { id: 7, status: 'Offer', jobs: [] },
+        { id: 8, status: 'Rejected', jobs: [] },
       ],
     };
   }
+
+  getAllJobs = () => {
+    const token = localStorage.getItem('token');
+    axios
+      .get(`${ROOT_URL}/jobs`, { headers: { "Authorization": token }})
+      .then(jobs => {
+        jobs = jobs.data;
+        const newList = this.state.lists;
+        newList.forEach(list => list.jobs = [])
+        jobs.forEach(job => {
+          for (let i = 0; i < newList.length; i++) {
+            if (newList[i].status === job.status) {
+              newList[i].jobs.push(job);
+              break;
+            }
+          }
+        });
+        this.setState({ lists: newList });
+      })
+      .catch(() => {
+        console.log('Error retrieving all the jobs');
+      });
+  }
+  
+  componentDidMount() { this.getAllJobs(); }
 
   render() {
     return (
@@ -30,11 +60,13 @@ class Jobs extends Component {
                 <Col key={list.id} xs={6} md={4}>
                   <Panel className="list">
                     <Panel.Heading>
-                      <Panel.Title componentClass="h3">{list.category}</Panel.Title>
+                      <Panel.Title componentClass="h3">{list.status}</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body>
-                      <AddJob />
-                      {list.jobs}
+                      <AddJob currentStatus={list.status} getAllJobs={this.getAllJobs}/>
+                      {list.jobs.map(job => {
+                          return <EditJob key={shortid.generate()} job={job} getAllJobs={this.getAllJobs}/>
+                      })}
                     </Panel.Body>
                   </Panel>
                 </Col>

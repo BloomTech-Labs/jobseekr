@@ -21,6 +21,15 @@ const UserSchema = mongoose.Schema({
     expirationDate: Date,
     cvv: Number,
   },
+  resume:
+    {
+      title: {
+        type: String,
+      },
+      url: {
+        type: String,
+      }
+    }
 });
 
 UserSchema.pre('save', function (next) {
