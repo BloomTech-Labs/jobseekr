@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import axios from 'axios'; 
 import {
   FormGroup,
   FormControl,
@@ -12,7 +12,6 @@ import {
   PageHeader,
   Collapse,
   Well,
-  Badge,
 } from 'react-bootstrap';
 import { Header } from '../components/AllComponents';
 import ROOT_URL from './config';
@@ -31,7 +30,35 @@ class Settings extends React.Component {
       changeEmail: false,
       currentPassword: 'password',
       currentEmail: 'email@example.com',
+      selectedFile: '',
+      resumeTitle: '',
+      resumeUrl: '',
+      userdocument: 'resume',
     };
+  }
+  
+  componentDidMount() {
+    this.getResume();
+  }
+
+  getResume = () => {
+    const token = localStorage.getItem('token');
+    const { userdocument } = this.state;
+    axios.get(`${ROOT_URL}/files`,
+    {
+      headers: {
+        token,
+        userdocument,
+      }
+    })
+    .then(response => {
+      const { title, url } = response.data;
+      this.setState({
+        resumeTitle: title,
+        resumeUrl: url
+      });
+    })
+    .catch(err => console.log(err));
   }
 
   validateLength() {
@@ -69,7 +96,6 @@ class Settings extends React.Component {
         console.log('Error changing email');
       });
   }
-
   handlePasswordSubmit = (e) => {
     e.preventDefault();
     const body = { ...this.state };
@@ -87,6 +113,38 @@ class Settings extends React.Component {
         console.log('Error changing password');
       });
   }
+
+  handleFileUpload = (e) => {
+    switch (e.target.name) {
+      case 'selectedFile':
+        this.setState({ selectedFile: e.target.files[0] });
+        break;
+      default:
+        this.setState({ [e.target.name]: e.target.value });
+    }
+  }
+
+  handleFileSubmit = (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem('token');
+    const { userdocument } = this.state;
+    const config = {
+      headers: {
+        token,
+        userdocument
+      }
+    }
+    const data = new FormData();
+    data.append('file', this.state.selectedFile);
+    data.append('name', this.state.selectedFile.name);
+    axios.post(`${ROOT_URL}/files`, data, config)
+      .then(() => {
+        this.getResume()
+      })
+      .catch(err => console.log(err));
+
+  }
+
 
   render() {
     return (
@@ -192,21 +250,40 @@ class Settings extends React.Component {
         <Grid>
           <Row>
             <Col xs={8} md={4}>
-              <p>
-                documents <Badge>0</Badge>
-              </p>
+                {this.state.resumeTitle ? 
+                <div className="resume--btn">
+                  <a href={this.state.resumeUrl} target="_blank">
+                  <Button>
+                    view resume <br/>
+                    "{this.state.resumeTitle}"
+                  </Button>
+                  </a>
+                </div> :
+                <div className="resume--txt">
+                  upload a resume
+                </div>}
+              {this.state.resumeTitle ? 
+              <Button onClick={() => this.setState({ resumeOpen: !this.state.resumeOpen })}>
+                Update Resume
+              </Button> :
               <Button onClick={() => this.setState({ resumeOpen: !this.state.resumeOpen })}>
                 Add Resume
-              </Button>
+              </Button>}
               <Collapse in={this.state.resumeOpen}>
                 <div>
                   <Well>
-                    <form>
-                      <FormGroup controlId="formControlsFile">
+                    <form onSubmit={this.handleFileSubmit}>
+                      <FormGroup>
                         <ControlLabel>Upload a copy of your Resume</ControlLabel>
-                        <FormControl type="file" />
+                        <FormControl
+                          id="resumeUplaod"
+                          type="file"
+                          accept=".pdf"
+                          name="selectedFile"
+                          onChange={this.handleFileUpload}
+                        />
                         <FormControl.Feedback />
-                        <HelpBlock>Submit a .docx or .pdf file</HelpBlock>
+                        <HelpBlock>Submit a .pdf file</HelpBlock>
                       </FormGroup>
                       <Button type="submit">Submit</Button>
                     </form>

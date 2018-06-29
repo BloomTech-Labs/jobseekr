@@ -4,8 +4,9 @@ const path = require('path');
 const cors = require('cors');
 const morgan = require('morgan');
 const helmet = require('helmet');
-const routes = require('./routes/routes.js');
+const fileUpload = require('express-fileupload');
 
+const routes = require('./routes/routes.js');
 
 const user = process.env.JOBSEEKR_USERNAME || "jobseekr";
 const pass = process.env.JOBSEEKR_PASSWORD || "job123";
@@ -26,6 +27,7 @@ server.use(
     methods: ["GET", "PUT", "POST", "DELETE"]
   })
 );
+server.use(fileUpload());
 server.options('http://localhost:3000', cors());
 
 routes(server);
@@ -34,12 +36,12 @@ server.get('*', (req, res) => {
 });
 
 mongoose
-  .connect(`mongodb://${user}:${pass}@ds263520.mlab.com:63520/jobseekr`)
-  .then(result => {
-    console.log('Mongo Connected');
-  })
-  .catch(error => {
-    console.log('Error connecting to Mongo.', error);
-  });
+.connect(`mongodb://${user}:${pass}@ds263520.mlab.com:63520/jobseekr`)
+.then(result => {
+  console.log('Mongo Connected');
+})
+.catch(error => {
+  console.log('Error connecting to Mongo.', error);
+});
 
 server.listen(PORT, () => console.log(`Server is Listening on port: ${PORT}`));

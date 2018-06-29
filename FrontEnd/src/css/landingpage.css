@@ -93,6 +93,14 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin-right: 1%;
+  margin-left: 1%;
+}
+.MeetupsWrapper .form-row .form-col {
+  display: flex;
+  align-items: center;
+  margin-right: 1%;
+  margin-left: 1%;
 }
 .MeetupsWrapper .form-row .form-col {
   display: flex;
@@ -143,6 +151,12 @@
   margin-right: 1%;
   margin-left: 1%;
 }
+.ContributionsWrapper .form-row .form-col {
+  display: flex;
+  align-items: center;
+  margin-right: 1%;
+  margin-left: 1%;
+}
 .SignInWrapper {
   margin-top: 52px;
   padding-top: 13px;
@@ -164,60 +178,189 @@
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+body {
+  min-width: 350px;
+  max-width: 2000px;
+}
+@media only screen and (max-width: 479px) {
+  body {
+    min-width: 350px;
+    width: 100%;
+  }
+}
 .parent {
-  min-width: '420px';
-  max-width: '2000px';
+  min-width: 350px;
+  max-width: 2000px;
+}
+@media only screen and (max-width: 479px) {
+  .parent {
+    min-width: 350px;
+  }
 }
 .gradient {
+  position: relative;
   display: flex;
   justify-content: center;
   flex-direction: column;
   text-align: center;
   padding-top: 2%;
   margin: 0px;
-  min-width: '420px';
-  max-width: '2000px';
+  min-width: 350px;
+  max-width: 2000px;
   width: 100%;
   max-height: 700px;
   min-height: 400px;
   height: 100%;
   background: linear-gradient(45deg, #48ACF0 20%, #594236);
-}
-.titles {
-  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  z-index: 100;
 }
 .paragraphs {
+  position: relative;
+  z-index: 5;
+  padding: auto;
   font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.titles {
+  position: relative;
+  z-index: 4;
+  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.LoginCTA1 {
+  text-align: center;
+  flex-flow: row;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  background: #48ACF0;
+  border: none;
+  align-content: center;
+  height: 10%;
+  width: 33.3%;
+  border-radius: 50px;
+  padding-bottom: 2%;
+  margin-bottom: 3%;
+  margin-left: 33.3%;
+  margin-right: 33.3%;
+}
+.LoginCTA1 :hover {
+  height: 11%;
+  width: 33.6%;
+}
+@media only screen and (max-width: 479px) {
+  .LoginCTA1 {
+    position: relative;
+    justify-content: center;
+    margin-left: 25%;
+    margin-right: 25%;
+    height: 75px;
+    width: 50%;
+  }
+}
+.LoginCTA2 {
+  text-align: center;
+  flex-flow: row;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  background: #48ACF0;
+  border: none;
+  align-content: center;
+  width: 33.3%;
+  margin-bottom: 5%;
+  margin-left: 33.3%;
+  margin-right: 33.3%;
+}
+.LoginCTA2 :hover {
+  height: 11%;
+  width: 33.6%;
+}
+@keyframes tick-tock {
+  to {
+    transform: rotate(360deg);
+  }
 }
 .pngBox {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
-  background: #CCDDE2;
   margin-left: 25%;
   margin-right: 25%;
-  margin-top: 10%;
-  padding: 5%;
+  margin-top: 5.7%;
+  position: relative;
+  padding: 10%;
+  z-index: 10;
+}
+.pngBox .png1 {
+  position: relative;
+  animation: tick-tock 5s;
+  animation-direction: alternate;
+  width: 100%;
+  height: 85%;
+  margin-right: 3.2%;
+  margin-top: 4.5%;
 }
 @media only screen and (max-width: 479px) {
   .pngBox {
     margin-left: 5%;
-    margin-right: 5%;
+    margin-right: 4%;
   }
   .pngBox .png1 {
-    width: 75%;
+    margin-top: 23%;
+    width: 95%;
+    height: 90%;
   }
 }
 .titles {
   display: flex;
   justify-content: center;
   font-size: 40px;
+  color: white;
+  text-shadow: 2px 2px #000;
+  padding-top: 5%;
 }
 .paragraphs {
+  font-size: 35px;
+  font-family: Arial, Helvetica, sans-serif;
   display: flex;
   justify-content: center;
   padding-left: 3%;
   padding-right: 3%;
-  font-size: 24px;
+  padding-top: 12%;
+  padding-bottom: 10%;
+  color: white;
+  text-shadow: 1px 1px black;
+}
+.png2 {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding-top: 2%;
+  margin: 0px;
+  min-width: '300px';
+  max-width: '2000px';
+  width: 100%;
+  max-height: 700px;
+  min-height: 400px;
+  height: 100%;
+  background: linear-gradient(45deg, #48ACF0 20%, #594236);
+  z-index: 1;
+}
+.TeamWrapper {
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-top: 2.5%;
+  padding-bottom: 2.5%;
+}
+.AttentionDiv1 {
+  background: linear-gradient(45deg, #594236 0.1%, #15100E);
+  height: 100%;
+}
+.teamh3 {
+  margin-bottom: 5%;
+  color: #48ACF0;
+  text-shadow: 2.5px 2.5px #000;
+  font-weight: thin;
+  font-size: 35px;
 }
