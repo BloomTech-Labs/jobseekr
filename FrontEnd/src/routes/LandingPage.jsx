@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { Header, Team, AppDescription } from '../components/AllComponents';
 import JobSeekr from '../Images/jobSeekr.png';
 import CityScape from '../Images/CityScape.png';
@@ -10,24 +11,26 @@ const LandingPage = () =>
       <div className="gradient" alt="Job Seekr" id="one" >
         <img src={CityScape} className="png2" alt="hello" />
         <div className="pngBox" >
-          <img src={JobSeekr} className="png1" alt="hello" />
+          <img src={JobSeekr} className="png1" alt="hello" height="422" />
 
         </div>
-        <p className="paragraphs">
+        <div className="paragraphs">
           Sweating the small stuff, so you dont have to!
-        </p>
-        <button className="LoginCTA1" >
-          Login!
-        </button>
+        </div>
+        {localStorage.getItem('token') ?
+           null :
+          
+          <NavLink to="billing" className="LoginCTA1">
+             Buy Now!
+          </NavLink>
+          }
       </div>
       <AppDescription />
       <Team />
       <div className="AttentionDiv1" id="two">
         <h1 className="titles">JobSeekr!</h1>
-        <p className="paragraphs">Find your next job quickly and in an organized fashion!</p>
-        <p>
-          <button className="LoginCTA2" >Buy Now!</button>
-        </p>
+        <p className="paragraphs">Get organized and launch your next career move!</p>
+          <NavLink to="billing" className="LoginCTA2" >Buy Now!</NavLink>
       </div>
     </div>
   );
