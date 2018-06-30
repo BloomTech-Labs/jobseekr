@@ -53,12 +53,10 @@ class Settings extends React.Component {
     })
     .then(response => {
       const { title, url } = response.data;
-      console.log({title, url})
       this.setState({
         resumeTitle: title,
         resumeUrl: url
       });
-      console.log(this.state)
     })
     .catch(err => console.log(err));
   }
