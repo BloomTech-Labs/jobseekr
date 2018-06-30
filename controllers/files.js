@@ -51,7 +51,6 @@ const uploadFile = async (req, res) => {
         url: newURL,
       }})
         .then((res) => {
-          console.log('hello????');
           res.status(200).json(user[userdocument])
         })
         .catch(err => console.log(err));
