@@ -3,11 +3,19 @@
   padding-top: 13px;
 }
 .BillingWrapper .container {
-  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 50px;
+  width: 100%;
 }
-.BillingWrapper .singleDecision:hover {
+.BillingWrapper .container .display-4 {
+  width: 100%;
+}
+.BillingWrapper .container .singleDecision:hover {
   background-color: #11b611b0;
+  cursor: pointer;
 }
-.BillingWrapper .checkoutSub:hover {
-  background-color: green;
+.BillingWrapper .container .checkoutSub:hover {
+  background-color: #11b611b0;
+  cursor: pointer;
 }

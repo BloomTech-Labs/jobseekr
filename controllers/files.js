@@ -1,5 +1,6 @@
 const AWS = require('aws-sdk');
 require('dotenv').config();
+const uuidv4 = require('uuid/v4');
 const jwt = require("jsonwebtoken");
 const mySecret = process.env.SECRET || "random";
 const User = require("../models/userModel");
@@ -14,7 +15,9 @@ const uploadFile = async (req, res) => {
   const id_check = storedPayload.email;
   const file = req.files.file.data; 
   const type = req.files.file.mimetype;
-  const { name } = req.files.file;
+  let { name } = req.files.file;
+  const fileId = uuidv4();
+  name = fileId + name;
 
     const s3 = new AWS.S3();
     const s3Params = {

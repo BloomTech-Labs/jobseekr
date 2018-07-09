@@ -255,7 +255,9 @@ class Settings extends React.Component {
                   <a href={this.state.resumeUrl} target="_blank">
                   <Button>
                     view resume <br/>
-                    "{this.state.resumeTitle}"
+                    {/* using substr(36) to hide the uuid on the actual filename for 
+                    display */}
+                    {this.state.resumeTitle.substr(36)}
                   </Button>
                   </a>
                 </div> :
