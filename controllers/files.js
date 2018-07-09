@@ -112,7 +112,7 @@ const uploadJobFile = async (req, res) => {
       };
       res.write(JSON.stringify(returnData));
       const newURL = returnData.url;
-      Job.findOneAndUpdate({ _id: currentjobid }, { [jobdocument] : newURL }, { new: true })
+      Job.findOneAndUpdate({ _id: currentjobid }, { [jobdocument] : newURL })
         .then(job => res.status(200).json(job[jobdocument]))
         .catch(err => console.log(err));
       res.end();
