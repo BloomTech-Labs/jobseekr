@@ -15,6 +15,8 @@ const getAllJobs = async (req, res) => {
     })
 };
 
+const 
+
 const getJob = (req, res) => {
   const { username, _id } = req.body;
   if (username && _id) {

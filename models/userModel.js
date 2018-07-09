@@ -38,7 +38,10 @@ const UserSchema = mongoose.Schema({
       url: {
         type: String,
       }
-    }
+    },
+  jobslist: {
+    type: Array,
+  },
 });
 
 UserSchema.pre('save', function(next) {
