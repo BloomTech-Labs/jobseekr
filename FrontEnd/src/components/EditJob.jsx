@@ -11,7 +11,6 @@ import {
   Radio, 
   MenuItem, 
   Tooltip, 
-  Checkbox, 
   FormControl,
   Panel,
   FormGroup,
@@ -27,9 +26,7 @@ class EditJob extends Component {
       job: this.props.job,
       show: false,
       timelineSelection: this.props.job.status,
-      list: ['Want to Apply', 'Submitted Job App', 'Received Response', 'Phone Interview', 'On Site Interview', 'Technical Interview', 'Offer'],
-      gotRejected: this.props.job.gotRejected,
-      gotOffer: this.props.job.gotOffer,
+      list: ['Want to Apply', 'Submitted Job App', 'Received Response', 'Phone Interview', 'On Site Interview', 'Technical Interview', 'Offer', 'Rejected'],
       notes: this.props.job.notes,
       companyName: this.props.job.companyName,
       position: this.props.job.position,
@@ -47,7 +44,9 @@ class EditJob extends Component {
   }
 
   handleFileUpload = (e) => {
+    const newStatus = e.target.name === 'offerFile' ? 'Offer' : 'Rejected'
     this.setState({ [e.target.name] : e.target.files[0] });
+    this.setState({ timelineSelection: newStatus })
   }
   
   handleFileSubmit = jobdocument => {
@@ -63,10 +62,7 @@ class EditJob extends Component {
     data.append('file', this.state[fileName]);
     data.append('name', this.state[fileName].name);
     axios.post(`${ROOT_URL}/jobfiles`, data, config)
-      .then(url => {
-        this.setState({ [jobdocument] : url });
-        console.log('job file upload successful for', jobdocument);
-      })
+      .then(() => this.props.getAllJobs())
       .catch(err => console.log(err));
   }
 
@@ -163,22 +159,12 @@ class EditJob extends Component {
                   </ToggleButtonGroup>
                 </div>
                 <div className="top-right-section">
-                  <Checkbox 
-                    checked={this.state.gotRejected} 
-                    value={"gotRejected"}
-                    onChange={this.handleCheckbox} 
-                    readOnly
-                  >
-                    Got a Rejection
-                  </Checkbox>
                   {this.state.rejectionUrl ? 
-                    <Button
-                      type="click"
-                      value='rejectionUrl'
-                      onClick={this.handleFileView}
-                    >
-                      View Rejection Letter
-                    </Button> :
+                    <a href={this.state.rejectionUrl}>
+                      <Button>
+                        View Rejection Letter
+                      </Button>
+                    </a> :
                     <FormGroup>
                       <ControlLabel>Upload a Rejection Letter</ControlLabel>
                       <FormControl
@@ -188,22 +174,12 @@ class EditJob extends Component {
                       />
                     </FormGroup>
                   }
-                  <Checkbox 
-                    checked={this.state.gotOffer} 
-                    value={"gotOffer"}
-                    onChange={this.handleCheckbox} 
-                    readOnly
-                  >
-                    Got an Offer
-                  </Checkbox>
                   {this.state.offerUrl ? 
-                    <Button
-                      type="click"
-                      value='offerUrl'
-                      onClick={this.handleFileView}
-                    >
-                      View Offer Letter
-                    </Button> :
+                    <a href={this.state.offerUrl}>
+                      <Button>
+                        View Offer Letter
+                      </Button>
+                    </a> :
                     <FormGroup>
                       <ControlLabel>Upload a Offer Letter</ControlLabel>
                       <FormControl

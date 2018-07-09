@@ -1,5 +1,6 @@
 const AWS = require('aws-sdk');
 require('dotenv').config();
+const uuidv4 = require('uuid/v4');
 const jwt = require("jsonwebtoken");
 const mySecret = process.env.SECRET || "random";
 const User = require("../models/userModel");
@@ -76,11 +77,12 @@ const getUserFile = async (req, res) => {
   .catch(err => console.log(err));
 }
 
+
 const uploadJobFile = async (req, res) => {
   const { currentjobid, jobdocument } = req.headers;
   const file = req.files.file.data; 
   const type = req.files.file.mimetype;
-  const { name } = req.files.file;
+  const name = uuidv4() + req.files.file.name;
 
     const s3 = new AWS.S3();
     const s3Params = {
