@@ -7,6 +7,7 @@ const {
   billing,
   createMeetup,
   createJob,
+  createList,
   editJob,
   getList,
   getAllMeetups,
@@ -40,6 +41,7 @@ module.exports = (server) => {
   server.route('/api/login').post(login);
   server.route('/api/meetups').post(createMeetup);
   server.route('/api/jobs').post(createJob);
+  server.route('/api/jobslist').post(createList);
   server.route('/api/contributions').post(createContribution);
   server.route("/api/billing").post(billing);
   server.route("/api/files").post(uploadFile);

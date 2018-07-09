@@ -25,7 +25,7 @@ class EditJob extends Component {
       job: this.props.job,
       show: false,
       timelineSelection: this.props.job.status,
-      list: ['Want to Apply', 'Submitted Job App', 'Received Response', 'Phone Interview', 'On Site Interview', 'Technical Interview', 'Offer'],
+      // list: ['Want to Apply', 'Submitted Job App', 'Received Response', 'Phone Interview', 'On Site Interview', 'Technical Interview', 'Offer'],
       gotRejected: this.props.job.gotRejected,
       gotOffer: this.props.job.gotOffer,
       notes: this.props.job.notes,
@@ -111,7 +111,7 @@ class EditJob extends Component {
                     value={[this.state.timelineSelection]} 
                     onChange={this.handleTimelineRadioClick}
                   >
-                    {this.state.list.slice(0, Math.ceil(this.state.list.length / 2)).map(e => {
+                    {this.props.lists.slice(0, Math.ceil(this.props.lists.length / 2)).map(e => {
                       return <Radio key={shortid.generate()} value={e}>{e}</Radio>
                     })}
                   </ToggleButtonGroup>
@@ -123,7 +123,7 @@ class EditJob extends Component {
                     value={[this.state.timelineSelection]} 
                     onChange={this.handleTimelineRadioClick}
                   >
-                    {this.state.list.slice(Math.ceil(this.state.list.length / 2)).map(e => {
+                    {this.props.lists.slice(Math.ceil(this.props.lists.length / 2)).map(e => {
                       return <Radio key={shortid.generate()} value={e}>{e}</Radio>
                     })}
                   </ToggleButtonGroup>
