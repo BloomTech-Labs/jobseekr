@@ -17,13 +17,14 @@ const getAllJobs = async (req, res) => {
 
 const getList = async (req, res) => {
   console.log("hello");
-  const token = req.headers.Authorization;
+  const token = req.get('Authorization');
+  console.log({token})
   const storedPayload = await jwt.verify(token, mySecret);
   const email = storedPayload.email;
   console.log({email});
   User.findOne({ email })
     .then(user => {
-      res.json(user.josbslist);
+      res.json(user.jobslist);
     })
     .catch(err => console.log(err));
 };
