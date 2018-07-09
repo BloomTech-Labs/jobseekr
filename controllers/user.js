@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const mySecret = process.env.SECRET || 'random';
+const stripe = require('stripe')('sk_test_QAkzeAsF7YJpHPkmR2WvVd8v');
 
 const createUser = (req, res) => {
   const { email, password } = req.body;
@@ -107,7 +108,16 @@ const changeEmail = async (req, res) => {
   )
     .then(user => {
       user = { ...user, token };
-      res.status(200).json(user);
+      stripe.customers
+        .update(user._doc.stripeCustomerID, {
+          email: user._doc.email
+        })
+        .then(updatedUser => {
+          res.status(200).json(user);
+        })
+        .catch(err => {
+          res.status(422).json('Error updating Stripe Customer email');
+        });
     })
     .catch(err => {
       res.status(422).json({

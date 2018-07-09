@@ -10,7 +10,8 @@ const billing = (req, res) => {
         if (user.stripeCustomerID === 'none') {
           stripe.customers
             .create({
-              description: `Membership for: ${email} `,
+              email,
+              description: `Monthly Membership for: ${email} `,
               source: 'tok_visa' // obtained with Stripe.js
             })
             .then(stripeCustomer => {
@@ -19,7 +20,7 @@ const billing = (req, res) => {
                   customer: stripeCustomer.id,
                   items: [
                     {
-                      plan: 'plan_D8IejHcFjlsg5E'
+                      plan: 'plan_DCWMn3KADasiSl'
                     }
                   ]
                 })
