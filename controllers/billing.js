@@ -48,7 +48,7 @@ const billing = (req, res) => {
             });
         } else {
           if (user.isMember) {
-            res.json({ msg: 'User is already a Subscriber' });
+            res.json({ msg: 'User is already a member.' });
           } else {
             stripe.subscriptions
               .create({
