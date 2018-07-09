@@ -1,6 +1,6 @@
 const { createUser, changePassword, changeEmail } = require('./user');
 const login = require('./login');
-const { getAllJobs, createJob, editJob } = require('./jobs');
+const { getAllJobs, createJob, editJob, getList } = require('./jobs');
 const { createMeetup, getAllMeetups, destroyMeetup } = require('./meetups');
 const {
   getAllContributions,
@@ -18,6 +18,7 @@ module.exports = {
   createMeetup,
   createJob,
   editJob,
+  getList,
   billing,
   getAllMeetups,
   destroyMeetup,

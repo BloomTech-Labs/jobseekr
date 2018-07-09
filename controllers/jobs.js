@@ -15,7 +15,18 @@ const getAllJobs = async (req, res) => {
     })
 };
 
-const 
+const getList = async (req, res) => {
+  console.log("hello");
+  const token = req.headers.Authorization;
+  const storedPayload = await jwt.verify(token, mySecret);
+  const email = storedPayload.email;
+  console.log({email});
+  User.findOne({ email })
+    .then(user => {
+      res.json(user.josbslist);
+    })
+    .catch(err => console.log(err));
+};
 
 const getJob = (req, res) => {
   const { username, _id } = req.body;
@@ -67,4 +78,5 @@ module.exports = {
   getJob,
   editJob,
   createJob,
+  getList,
 };

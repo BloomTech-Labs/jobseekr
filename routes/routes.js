@@ -8,6 +8,7 @@ const {
   createMeetup,
   createJob,
   editJob,
+  getList,
   getAllMeetups,
   destroyMeetup,
   getAllContributions,
@@ -20,6 +21,7 @@ const {
 module.exports = (server) => {
   // GET ROUTES
   server.route('/api/jobs').get(getAllJobs);
+  server.route('api/jobslist').get(getList);
   server.route('/api/meetups').get(getAllMeetups);
   server.route('/api/contributions').get(getAllContributions);
   server.route('/api/files').get(getUserFile);
