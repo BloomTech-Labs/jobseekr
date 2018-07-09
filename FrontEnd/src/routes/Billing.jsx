@@ -2,6 +2,7 @@ import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
 import ROOT_URL from './config';
+import { Button } from 'react-bootstrap';
 
 export default class Billing extends React.Component {
   onTokenSingleDecision = token => {
@@ -34,9 +35,9 @@ export default class Billing extends React.Component {
     return (
       // ...
       <div className="BillingWrapper">
-        <div class="jumbotron jumbotron-fluid">
-          <div class="container">
-            <h1 class="display-4">Billing</h1>
+        <h1 className="display-4">Billing</h1>
+        <div className="container">
+          <Button className="btn btn-primary">
             <StripeCheckout
               name="Jobseekr" // the pop-in header title
               description="Single Decision" // the pop-in header subtitle
@@ -51,7 +52,7 @@ export default class Billing extends React.Component {
               // shippingAddress
               billingAddress={false}
               // Note: enabling both zipCode checks and billing or shipping address will
-              // cause zipCheck to be pulled from billing address (set to shipping if none provided).
+              // cause zipCheck to be pulled from billing address (set to hipping if none provided).
               zipCode={false}
               //alipay // accept Alipay (default false)
               //bitcoin // accept Bitcoins (default false)
@@ -66,13 +67,16 @@ export default class Billing extends React.Component {
               // useful if you're using React-Tap-Event-Plugin
               triggerEvent="onClick"
             >
-              <div className="singleDecision">
+              <div>
                 <div>
                   <h2>Single Decision</h2>
                   <p>You can choose to pay for one decision for 2 dollars.</p>
                 </div>
               </div>
             </StripeCheckout>{' '}
+          </Button>
+          <h1>or</h1>
+          <Button className="btn btn-primary">
             <StripeCheckout
               name="Jobseekr" // the pop-in header title
               description="Making the job hunt enjoyable." // the pop-in header subtitle
@@ -102,17 +106,12 @@ export default class Billing extends React.Component {
               // useful if you're using React-Tap-Event-Plugin
               triggerEvent="onClick"
             >
-              <div className="checkoutSub">
+              <div>
                 <h2>Membership</h2>
-
-                <p class="lead">
-                  Become a Member: Members get unlimited access to our full suite of jobhunting
-                  tools as well as early access to new tools to give you an edge. 20 bucks and
-                  handshake gets you a monthly membership.
-                </p>
+                <p>Get unlimited access for 20 bucks a month!</p>
               </div>
             </StripeCheckout>{' '}
-          </div>
+          </Button>
         </div>
       </div>
     );

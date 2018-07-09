@@ -11,11 +11,6 @@
 .BillingWrapper .container .display-4 {
   width: 100%;
 }
-.BillingWrapper .container .singleDecision:hover {
-  background-color: #11b611b0;
-  cursor: pointer;
-}
-.BillingWrapper .container .checkoutSub:hover {
-  background-color: #11b611b0;
-  cursor: pointer;
+.BillingWrapper .container button {
+  width: 100%;
 }
