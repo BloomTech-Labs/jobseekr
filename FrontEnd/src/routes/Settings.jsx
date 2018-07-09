@@ -88,7 +88,6 @@ class Settings extends React.Component {
       email: body.newEmail,
     };
     const token = jwt.sign(payload, mySecret.toString());
-    console.log(body, token);
     axios
       .put(`${ROOT_URL}/changeemail`, {
         oldEmail: body.oldEmail,
@@ -100,7 +99,6 @@ class Settings extends React.Component {
         alert(`Your new email is ${result.data._doc.email}`);
       })
       .catch(err => {
-        console.log(err);
         console.log('Error changing email');
       });
   };
