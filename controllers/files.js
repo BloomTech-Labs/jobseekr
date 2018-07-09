@@ -77,7 +77,7 @@ const getUserFile = async (req, res) => {
     }
     res.status(200).json(user[userdocument]);
   })
-  .then(res => console.log(res))
+  .then(res => res)
   .catch(err => console.log(err));
 }
 
