@@ -23,10 +23,8 @@ const createUser = (req, res) => {
         res.json({
           token
         });
-
       })
       .catch(err => {
-        console.log(err);
         res.status(422).send(err);
       });
   } else {
