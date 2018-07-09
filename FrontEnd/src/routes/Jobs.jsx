@@ -10,36 +10,37 @@ class Jobs extends Component {
     super(props, context);
 
     this.state = {
-      lists: [
-        { id: 1, status: 'Want to Apply', jobs: [] },
-        { id: 2, status: 'Submitted Job App', jobs: [] },
-        { id: 3, status: 'Received Response', jobs: [] },
-        { id: 4, status: 'Phone Interview', jobs: [] },
-        { id: 5, status: 'On Site Interview', jobs: [] },
-        { id: 6, status: 'Technical Interview', jobs: [] },
-        { id: 7, status: 'Offer', jobs: [] },
-        { id: 8, status: 'Rejected', jobs: [] },
-      ],
+      lists: [],
     };
   }
 
   getAllJobs = () => {
     const token = localStorage.getItem('token');
     axios
-      .get(`${ROOT_URL}/jobs`, { headers: { "Authorization": token }})
-      .then(jobs => {
-        jobs = jobs.data;
-        const newList = this.state.lists;
-        newList.forEach(list => list.jobs = [])
-        jobs.forEach(job => {
-          for (let i = 0; i < newList.length; i++) {
-            if (newList[i].status === job.status) {
-              newList[i].jobs.push(job);
-              break;
+    .get(`${ROOT_URL}/jobslist`, 
+    
+    { headers: { "Authorization": token }},
+    
+  )
+  .then(lists => {
+    console.log('hi')
+        const newList = lists.data
+        console.log({newList});
+        this.setState({lists: newList});
+        axios
+        .get(`${ROOT_URL}/jobs`, { headers: { "Authorization": token }})
+        .then(jobs => {
+          jobs = jobs.data;
+          newList.forEach(list => list.jobs = [])
+          jobs.forEach(job => {
+            for (let i = 0; i < newList.length; i++) {
+              if (newList[i].status === job.status) {
+                newList[i].jobs.push(job);
+                break;
+              }
             }
-          }
-        });
-        this.setState({ lists: newList });
+          });
+        })
       })
       .catch(() => {
         console.log('Error retrieving all the jobs');
@@ -49,6 +50,7 @@ class Jobs extends Component {
   componentDidMount() { this.getAllJobs(); }
 
   render() {
+    console.log(this.state);
     return (
       <div className="parent">
         <Header />
