@@ -160,7 +160,7 @@ class EditJob extends Component {
                 </div>
                 <div className="top-right-section">
                   {this.state.rejectionUrl ? 
-                    <a href={this.state.rejectionUrl}>
+                    <a href={this.state.rejectionUrl} target="_blank">
                       <Button>
                         View Rejection Letter
                       </Button>
@@ -175,7 +175,7 @@ class EditJob extends Component {
                     </FormGroup>
                   }
                   {this.state.offerUrl ? 
-                    <a href={this.state.offerUrl}>
+                    <a href={this.state.offerUrl} target="_blank">
                       <Button>
                         View Offer Letter
                       </Button>
