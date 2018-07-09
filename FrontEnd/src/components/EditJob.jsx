@@ -82,6 +82,8 @@ class EditJob extends Component {
   
   render() {
     const tooltip = <Tooltip id="modal-tooltip">Edit Job.</Tooltip>;
+    const statuses = [];
+    this.props.lists.forEach(list => statuses.push(list.status));
 
     return (
       <div>
@@ -111,7 +113,7 @@ class EditJob extends Component {
                     value={[this.state.timelineSelection]} 
                     onChange={this.handleTimelineRadioClick}
                   >
-                    {this.props.lists.slice(0, Math.ceil(this.props.lists.length / 2)).map(e => {
+                    {statuses.slice(0, Math.ceil(statuses.length / 2)).map(e => {
                       return <Radio key={shortid.generate()} value={e}>{e}</Radio>
                     })}
                   </ToggleButtonGroup>
@@ -123,7 +125,7 @@ class EditJob extends Component {
                     value={[this.state.timelineSelection]} 
                     onChange={this.handleTimelineRadioClick}
                   >
-                    {this.props.lists.slice(Math.ceil(this.props.lists.length / 2)).map(e => {
+                    {statuses.slice(Math.ceil(statuses.length / 2)).map(e => {
                       return <Radio key={shortid.generate()} value={e}>{e}</Radio>
                     })}
                   </ToggleButtonGroup>

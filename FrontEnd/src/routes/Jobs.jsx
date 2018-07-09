@@ -29,27 +29,31 @@ class Jobs extends Component {
 
   getAllJobs = () => {
     const token = localStorage.getItem('token');
-      axios
-        .get(`${ROOT_URL}/jobs`, { headers: { "Authorization": token }})
-        .then(jobs => {
-          jobs = jobs.data;
-          const { lists } = this.state;
-          lists.forEach(list => list.jobs = [])
-          jobs.forEach(job => {
-            for (let i = 0; i < lists.length; i++) {
-              if (newList[i].status === job.status) {
-                newList[i].jobs.push(job);
-                break;
-              }
+    axios
+      .get(`${ROOT_URL}/jobs`, { headers: { "Authorization": token }})
+      .then(jobs => {
+        jobs = jobs.data;
+        const newList = this.state.lists;
+        newList.forEach(list => list.jobs = [])
+        jobs.forEach(job => {
+          for (let i = 0; i < newList.length; i++) {
+            if (newList[i].status === job.status) {
+              newList[i].jobs.push(job);
+              break;
             }
-          });
-        })
-        .catch(() => {
+          }
+        });
+        this.setState({ lists: newList });
+      })
+      .catch(() => {
         console.log('Error retrieving all the jobs');
       });
   }
   
-  componentDidMount() { this.getAllJobs(); }
+  componentDidMount() {
+    this.getAllLists(); 
+    this.getAllJobs(); 
+  }
 
   render() {
     console.log(this.state);
@@ -61,7 +65,6 @@ class Jobs extends Component {
             <PageHeader className="board__header">Jobs List</PageHeader>
             <Row className="board">
               {this.state.lists.map(list => (
-                console.log("list item: ", list), 
                 <Col key={list.id} xs={6} md={4}>
                   <Panel className="list">
                     <Panel.Heading>
@@ -79,7 +82,7 @@ class Jobs extends Component {
             </Row>
             <Row>
               <div className="addlist__btn">
-                <AddList />
+                <AddList lists={this.state.lists}/>
               </div>
             </Row>
           </Well>
