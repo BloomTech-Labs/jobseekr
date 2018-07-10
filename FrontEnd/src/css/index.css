@@ -6,11 +6,9 @@
 .settingsWrapper .resume--btn {
   margin-bottom: 15px;
 }
-.outer-container {
-  margin-left: -18%;
-}
-.outer-container .jobs-well {
-  background: linear-gradient(45deg, #48ACF0 20%, #594236);
+.jobs-well {
+  background: linear-gradient(45deg, #3c82b1 20%, #594236);
+  margin-left: -11%;
 }
 .board__container {
   margin-top: 52px;
@@ -19,10 +17,7 @@
 }
 .board__container .board__header {
   color: #CCDDE2;
-  position: fixed;
-  bottom: 83%;
-  left: 3%;
-  z-index: 5000;
+  margin-left: .5%;
 }
 .board__container .board__row {
   margin-top: 5px;
@@ -37,7 +32,6 @@
 .board__container .list {
   display: flex;
   flex-direction: column;
-  max-height: 90%;
   min-height: 600px;
 }
 .board__container .list .job-title {
@@ -95,10 +89,6 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-}
-.addListButton {
-  width: 100%;
-  margin-bottom: 10%;
 }
 body {
   min-width: 350px;

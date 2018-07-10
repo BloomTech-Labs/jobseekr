@@ -59,7 +59,6 @@ class Jobs extends Component {
     return (
       <div className="parent">
         <Header />
-        <div className="outer-container">
         <Grid className="board__container">
           <Well className="jobs-well">
             <PageHeader>
@@ -93,7 +92,6 @@ class Jobs extends Component {
             </Row>
           </Well>
         </Grid>
-      </div>
       </div>
     );
   }

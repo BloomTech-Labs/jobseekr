@@ -1,21 +1,22 @@
 @import './mixins.less';
-  .outer-container {
-    margin-left: -18%;
+  // .outer-container {
+  //   background: red;
+    // margin-left: -18%;
     .jobs-well {
-      background: linear-gradient( 45deg, #48ACF0 20%, #594236);
+      background: linear-gradient( 45deg, rgb(60, 130, 177) 20%, #594236);
+      margin-left: -11%;
+      
     }
-  }
+  // }
   .board__container {
     margin-top: 52px;
     padding-top: 15px;
     display: flex;
     .board__header {
       color: @columbiaBlue;
-      position: fixed;
-      bottom: 83%;
-      left: 3%;
-      z-index: 5000;
+      margin-left: .5%;
     }
+
     
     .board__row {
       margin-top: 5px;
@@ -31,7 +32,7 @@
       .list {
         display: flex;
         flex-direction: column;
-        max-height: 90%;
+        // max-height: 90%;
         min-height: 600px;
         .job-title {
           background:linear-gradient( 45deg, SteelBlue 20%, LightSteelBlue);
