@@ -99,6 +99,13 @@ const createList = async (req, res) => {
   }
 };
 
+const updateStatus = (req, res) => {
+  const { _id, status } = req.body;
+  Job.findOneAndUpdate({ _id }, { status })
+    .then(job => res.status(200).json({ 'job successfully updated': job }))
+    .catch(err => res.status(500).json({ 'error updating status of job': err }));
+}
+
 module.exports = {
   getAllJobs,
   getJob,
@@ -106,4 +113,5 @@ module.exports = {
   createJob,
   createList,
   getList,
+  updateStatus,
 };
