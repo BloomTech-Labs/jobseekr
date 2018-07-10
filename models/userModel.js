@@ -25,20 +25,15 @@ const UserSchema = mongoose.Schema({
     required: true,
     default: false
   },
-  singleDecisions: {
+  singleDecisions: 
     type: Number,
     require: true,
     default: 0
   },
-  resume:
-    {
-      title: {
-        type: String,
-      },
-      url: {
-        type: String,
-      }
-    },
+  resume: {
+    title: String,
+    url: String,
+  },
   jobslist: {
     type: Array,
   },

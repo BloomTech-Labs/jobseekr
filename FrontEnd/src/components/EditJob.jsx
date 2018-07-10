@@ -11,9 +11,10 @@ import {
   Radio, 
   MenuItem, 
   Tooltip, 
-  Checkbox, 
   FormControl,
-  Panel
+  Panel,
+  FormGroup,
+  ControlLabel,
 } from 'react-bootstrap';
 import ROOT_URL from '../routes/config';
 
@@ -25,9 +26,6 @@ class EditJob extends Component {
       job: this.props.job,
       show: false,
       timelineSelection: this.props.job.status,
-      // list: ['Want to Apply', 'Submitted Job App', 'Received Response', 'Phone Interview', 'On Site Interview', 'Technical Interview', 'Offer'],
-      gotRejected: this.props.job.gotRejected,
-      gotOffer: this.props.job.gotOffer,
       notes: this.props.job.notes,
       companyName: this.props.job.companyName,
       position: this.props.job.position,
@@ -37,7 +35,34 @@ class EditJob extends Component {
       sourceOfJob: ['Met in Person', 'Referral', 'Applied Online'],
       sourceSelection: this.props.job.sourceOfJob || 'Source of Job',
       _id: this.props.job._id,
+      rejectionFile: this.props.job.rejectionFile,
+      rejectionUrl: this.props.job.rejectionUrl,
+      offerFile: this.props.job.offerFile,
+      offerUrl: this.props.job.offerUrl,
     };
+  }
+
+  handleFileUpload = (e) => {
+    const newStatus = e.target.name === 'offerFile' ? 'Offer' : 'Rejected'
+    this.setState({ [e.target.name] : e.target.files[0] });
+    this.setState({ timelineSelection: newStatus })
+  }
+  
+  handleFileSubmit = jobdocument => {
+    const fileName = jobdocument === 'offerUrl' ? 'offerFile' : 'rejectionFile';
+    const currentJobId = this.state._id;
+    const config = {
+      headers: {
+        currentJobId,
+        jobdocument
+      }
+    }
+    const data = new FormData();
+    data.append('file', this.state[fileName]);
+    data.append('name', this.state[fileName].name);
+    axios.post(`${ROOT_URL}/jobfiles`, data, config)
+      .then(() => this.props.getAllJobs())
+      .catch(err => console.log(err));
   }
 
   handleEditJob = e => {
@@ -57,6 +82,9 @@ class EditJob extends Component {
         sourceOfJob: body.sourceSelection,
         _id: body._id,
       })
+      .then(job => this.setState({ currentJobId : job.data._id }))
+      .then(() => { if (this.state.rejectionFile) this.handleFileSubmit('rejectionUrl'); })
+      .then(() => { if (this.state.offerFile) this.handleFileSubmit('offerUrl'); })
       .then(() => this.props.getAllJobs())
       .then(() => this.setState({ show: false }))
       .catch(err => console.log({ error: err}));
@@ -87,6 +115,7 @@ class EditJob extends Component {
 
     return (
       <div>
+        {console.log(this.state)}
         <OverlayTrigger overlay={tooltip}>
           <Panel key={this.state.job._id} className='job' onClick={() => this.setState({ show: true })}>
             <Panel.Heading>
@@ -131,28 +160,36 @@ class EditJob extends Component {
                   </ToggleButtonGroup>
                 </div>
                 <div className="top-right-section">
-                  <Checkbox 
-                    checked={this.state.gotRejected} 
-                    value={"gotRejected"}
-                    onChange={this.handleCheckbox} 
-                    readOnly
-                  >
-                    Got a Rejection
-                  </Checkbox>
-                  <Button>
-                    Upload Rejection Letter
-                  </Button>
-                  <Checkbox 
-                    checked={this.state.gotOffer} 
-                    value={"gotOffer"}
-                    onChange={this.handleCheckbox} 
-                    readOnly
-                  >
-                    Got an Offer
-                  </Checkbox>
-                  <Button>
-                    Upload Offer Letter
-                  </Button>
+                  {this.state.rejectionUrl ? 
+                    <a href={this.state.rejectionUrl} target="_blank">
+                      <Button>
+                        View Rejection Letter
+                      </Button>
+                    </a> :
+                    <FormGroup>
+                      <ControlLabel>Upload a Rejection Letter</ControlLabel>
+                      <FormControl
+                        type="file"
+                        name="rejectionFile"
+                        onChange={this.handleFileUpload}
+                      />
+                    </FormGroup>
+                  }
+                  {this.state.offerUrl ? 
+                    <a href={this.state.offerUrl} target="_blank">
+                      <Button>
+                        View Offer Letter
+                      </Button>
+                    </a> :
+                    <FormGroup>
+                      <ControlLabel>Upload a Offer Letter</ControlLabel>
+                      <FormControl
+                        type="file"
+                        name="offerFile"
+                        onChange={this.handleFileUpload}
+                      />
+                    </FormGroup>
+                  }
                 </div>
               </div>
               <FormControl 
