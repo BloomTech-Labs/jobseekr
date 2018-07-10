@@ -102,7 +102,8 @@ class Settings extends React.Component {
         console.log('Error changing email');
       });
   };
-  handlePasswordSubmit = e => {
+
+  handlePasswordSubmit = (e) => {
     e.preventDefault();
     const body = { ...this.state };
     const token = localStorage.getItem('token');
@@ -147,7 +148,7 @@ class Settings extends React.Component {
       .post(`${ROOT_URL}/files`, data, config)
       .then(() => {
         this.getResume();
-      })
+       })
       .catch(err => console.log(err));
   };
 
@@ -280,7 +281,7 @@ class Settings extends React.Component {
                       <FormGroup>
                         <ControlLabel>Upload a copy of your Resume</ControlLabel>
                         <FormControl
-                          id="resumeUplaod"
+                          id="resumeUpload"
                           type="file"
                           accept=".pdf"
                           name="selectedFile"
