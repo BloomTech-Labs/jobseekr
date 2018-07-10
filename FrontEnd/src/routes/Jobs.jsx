@@ -56,7 +56,6 @@ class Jobs extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="parent">
         <Header />
@@ -82,7 +81,7 @@ class Jobs extends Component {
             </Row>
             <Row>
               <div className="addlist__btn">
-                <AddList lists={this.state.lists}/>
+                <AddList lists={this.state.lists} getAllJobs={this.getAllJobs} getAllLists={this.getAllLists}/>
               </div>
             </Row>
           </Well>

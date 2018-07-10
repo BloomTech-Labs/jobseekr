@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { Button, Modal, OverlayTrigger, Glyphicon, Tooltip, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
+import ROOT_URL from '../routes/config';
 
 class AddList extends Component {
   constructor(props, context) {
@@ -7,13 +9,29 @@ class AddList extends Component {
 
     this.state = {
       show: false,
+      title: '',
     };
   }
 
+  handleAddList = e => {
+    e.preventDefault();
+    const token = localStorage.getItem('token');
+    const list = this.props.lists;
+    const { title } = this.state;
+    axios
+      .post(`${ROOT_URL}/jobslist`, {
+        list, title, token
+      })
+      .then(() => this.setState({ show: false }))
+      .then(() => this.props.getAllLists())
+      .then(() => this.props.getAllJobs())
+      .catch(err => console.log({ error: err}));
+  };
+
   handleChange = (e) => {
-    const change = e.target.value;
-    this.setState({ [e.target.id] : change });
+    this.setState({ title: e.target.value });
   }
+
 
   render() {
     const tooltip = <Tooltip id="modal-tooltip">Add a new category to the lists.</Tooltip>;
@@ -40,7 +58,7 @@ class AddList extends Component {
                 <ControlLabel>New Job Status</ControlLabel>
                 <FormControl
                   type="text"
-                  value={this.state.value}
+                  value={this.state.title}
                   placeholder="e.g. Interview Followup"
                   onChange={this.handleChange}
                 />
@@ -50,7 +68,7 @@ class AddList extends Component {
             </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={() => this.setState({ show: false })}>Close</Button>
+            <Button onClick={this.handleAddList}>Save</Button>
           </Modal.Footer>
         </Modal>
       </div>

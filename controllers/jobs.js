@@ -17,12 +17,9 @@ const getAllJobs = async (req, res) => {
 };
 
 const getList = async (req, res) => {
-  console.log("hello");
   const token = req.get('Authorization');
-  console.log({token})
   const storedPayload = await jwt.verify(token, mySecret);
   const email = storedPayload.email;
-  console.log({email});
   User.findOne({ email })
     .then(user => {
       res.json(user.jobslist);
@@ -87,7 +84,6 @@ const createList = async (req, res) => {
       jobs: []
     };
     list.push(newList);
-    console.log({list});
     User.findOneAndUpdate({ 
       email }, {
         jobslist: list
