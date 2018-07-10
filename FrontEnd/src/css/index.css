@@ -8,12 +8,14 @@
 }
 .jobs-well {
   background: linear-gradient(45deg, #3c82b1 20%, #594236);
-  margin-left: -11%;
+  margin-left: 0px;
 }
 .board__container {
   margin-top: 52px;
   padding-top: 15px;
   display: flex;
+  justify-content: flex-start;
+  width: 100%;
 }
 .board__container .board__header {
   color: #CCDDE2;
