@@ -95,6 +95,7 @@ class Settings extends React.Component {
         console.log('Error changing email');
       });
 <<<<<<< HEAD
+<<<<<<< HEAD
   };
   handlePasswordSubmit = e => {
 =======
@@ -102,6 +103,11 @@ class Settings extends React.Component {
 
   handlePasswordSubmit = (e) => {
 >>>>>>> origin
+=======
+  };
+
+  handlePasswordSubmit = (e) => {
+>>>>>>> aba9370a89476cbfec090fef447961ec44dbe6b7
     e.preventDefault();
     const body = { ...this.state };
     const token = localStorage.getItem('token');
@@ -146,13 +152,17 @@ class Settings extends React.Component {
       .post(`${ROOT_URL}/files`, data, config)
       .then(() => {
         this.getResume();
-      })
+       })
       .catch(err => console.log(err));
+<<<<<<< HEAD
 <<<<<<< HEAD
   };
 =======
   }
 >>>>>>> origin
+=======
+  };
+>>>>>>> aba9370a89476cbfec090fef447961ec44dbe6b7
 
   render() {
     return (
