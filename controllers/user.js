@@ -103,7 +103,6 @@ const changePassword = async (req, res) => {
 const changeEmail = async (req, res) => {
   let { oldEmail, newEmail, token } = req.body;
   oldEmail = oldEmail.toLowerCase();
-  newEmail = newEmail.toLowerCase();
   const storedPayload = await jwt.verify(token, mySecret);
   const email = storedPayload.email;
   if (email === oldEmail) {
