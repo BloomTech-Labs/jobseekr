@@ -1,34 +1,51 @@
 @import './mixins.less';
-
-.board__container {
-  min-width: 3000px;
-  margin-top: 52px;
-  padding-top: 15px;
-
-  .board {
-    display: flex;
-    flex-direction: row;
+  .outer-container {
+    margin-left: -18%;
+    .well {
+      color: white;
+      background: linear-gradient( 45deg, #48ACF0 20%, #594236);
+    }
   }
-
-  .list {
+  .board__container {
+    margin-top: 52px;
+    padding-top: 15px;
     display: flex;
-    flex-direction: column;
-    min-height: 500px;
-  }
-
-
-}
-
-.addlist__btn {
-    position: fixed;
-    top: 90%;
-    left: 75%;
-    bottom: 15%;
-    width: 20%;
-    margin-bottom: 4.7%;
-    @media @smartphones {
-      width: 50%;
-      left: 70%;
+    .board__header {
+      position: fixed;
+      bottom: 83%;
+      left: 3%;
+      z-index: 5000;
     }
     
-  }
+    .board__row {
+      margin-top: 5px;
+      display: flex;
+      flex-direction: row;
+      flex-grow: space-around;
+      .board {
+        min-width: 10.2%;
+        margin-right: -.25%;
+      }
+      }
+      
+      .list {
+        display: flex;
+        flex-direction: column;
+        max-height: 90%;
+        min-height: 600px;
+      }
+      
+      
+    }
+    
+    .addlist__btn--container {
+      position: fixed;
+      top: 12%;
+      left: 90%;
+      @media @smartphones {
+        width: 50%;
+        left: 70%;
+      }
+      
+    }
+  

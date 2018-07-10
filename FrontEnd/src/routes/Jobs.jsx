@@ -52,33 +52,39 @@ class Jobs extends Component {
     return (
       <div className="parent">
         <Header />
-        <Grid className="board__container">
-          <Well>
-            <PageHeader className="board__header">Jobs List</PageHeader>
-            <Row className="board">
-              {this.state.lists.map(list => (
-                <Col key={list.id} xs={6} md={4}>
-                  <Panel className="list">
-                    <Panel.Heading>
-                      <Panel.Title componentClass="h3">{list.status}</Panel.Title>
-                    </Panel.Heading>
-                    <Panel.Body>
-                      <AddJob currentStatus={list.status} getAllJobs={this.getAllJobs}/>
-                      {list.jobs.map(job => {
-                          return <EditJob key={shortid.generate()} job={job} getAllJobs={this.getAllJobs}/>
-                      })}
-                    </Panel.Body>
-                  </Panel>
-                </Col>
-              ))}
-            </Row>
-            <Row>
-              <div className="addlist__btn">
-                <AddList />
-              </div>
-            </Row>
-          </Well>
-        </Grid>
+        <div className="outer-container">
+          <Grid className="board__container">
+            <Well className="well">
+                <PageHeader>
+                  <Row>
+                  <div className="board__header">Jobs List</div>
+                  </Row>
+                  </PageHeader>
+                <Row className="board__row">
+                  {this.state.lists.map(list => (
+                    <Col key={list.id} xs={6} md={4} className="board">
+                      <Panel className="list">
+                        <Panel.Heading>
+                          <Panel.Title componentClass="h3">{list.status}</Panel.Title>
+                        </Panel.Heading>
+                        <Panel.Body>
+                          <AddJob currentStatus={list.status} getAllJobs={this.getAllJobs}/>
+                          {list.jobs.map(job => {
+                            return <EditJob key={shortid.generate()} job={job} getAllJobs={this.getAllJobs}/>
+                          })}
+                        </Panel.Body>
+                      </Panel>
+                    </Col>
+                  ))}
+                </Row>
+                <Row>
+                  <div className="addlist__btn--container">
+                    <AddList />
+                  </div>
+                </Row>
+            </Well>
+          </Grid>
+        </div>
       </div>
     );
   }

@@ -6,30 +6,47 @@
 .settingsWrapper .resume--btn {
   margin-bottom: 15px;
 }
+.outer-container {
+  margin-left: -18%;
+}
+.outer-container .well {
+  color: white;
+  background: linear-gradient(45deg, #48ACF0 20%, #594236);
+}
 .board__container {
-  min-width: 3000px;
   margin-top: 52px;
   padding-top: 15px;
+  display: flex;
 }
-.board__container .board {
+.board__container .board__header {
+  position: fixed;
+  bottom: 83%;
+  left: 3%;
+  z-index: 5000;
+}
+.board__container .board__row {
+  margin-top: 5px;
   display: flex;
   flex-direction: row;
+  flex-grow: space-around;
+}
+.board__container .board__row .board {
+  min-width: 10.2%;
+  margin-right: -0.25%;
 }
 .board__container .list {
   display: flex;
   flex-direction: column;
-  min-height: 500px;
+  max-height: 90%;
+  min-height: 600px;
 }
-.addlist__btn {
+.addlist__btn--container {
   position: fixed;
-  top: 90%;
-  left: 75%;
-  bottom: 15%;
-  width: 20%;
-  margin-bottom: 4.7%;
+  top: 12%;
+  left: 90%;
 }
 @media only screen and (max-width: 479px) {
-  .addlist__btn {
+  .addlist__btn--container {
     width: 50%;
     left: 70%;
   }
@@ -52,7 +69,7 @@
   background: #15100E;
 }
 .list__btn {
-  min-width: 327px;
+  min-width: 175px;
 }
 .addJobModal .btn-lg {
   margin-bottom: 15px;
@@ -77,7 +94,6 @@
   margin-bottom: 10%;
 }
 body {
-  min-width: 350px;
   max-width: 2000px;
 }
 @media only screen and (max-width: 479px) {
@@ -135,7 +151,7 @@ body {
 .titles {
   position: relative;
   z-index: 4;
-  font-family: Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Open Sans Light', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 @keyframes tick-tock {
   to {
@@ -248,7 +264,7 @@ body {
 .AppDescriptionWrapper .ad__header {
   align-self: flex-start;
   color: #48ACF0;
-  text-shadow: 2.5px 2.5px #000;
+  text-shadow: 1.5px 1.5px #000;
   font-weight: thin;
   font-size: 35px;
   padding: 2.5%, 5%, 2%, 5%;
