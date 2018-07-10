@@ -94,8 +94,14 @@ class Settings extends React.Component {
       .catch(err => {
         console.log('Error changing email');
       });
+<<<<<<< HEAD
   };
   handlePasswordSubmit = e => {
+=======
+  }
+
+  handlePasswordSubmit = (e) => {
+>>>>>>> origin
     e.preventDefault();
     const body = { ...this.state };
     const token = localStorage.getItem('token');
@@ -142,7 +148,11 @@ class Settings extends React.Component {
         this.getResume();
       })
       .catch(err => console.log(err));
+<<<<<<< HEAD
   };
+=======
+  }
+>>>>>>> origin
 
   render() {
     return (
@@ -273,7 +283,7 @@ class Settings extends React.Component {
                       <FormGroup>
                         <ControlLabel>Upload a copy of your Resume</ControlLabel>
                         <FormControl
-                          id="resumeUplaod"
+                          id="resumeUpload"
                           type="file"
                           accept=".pdf"
                           name="selectedFile"

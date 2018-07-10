@@ -31,7 +31,7 @@ const editJob = (req, res) => {
   const { _id } = job;
   delete job._id;
   if (_id) {
-    Job.findOneAndUpdate({ _id }, { ...job })
+    Job.findOneAndUpdate({ _id }, { ...job }, { returnNewDocument: true })
       .then(job => res.json(job))
       .catch(err => res.status(500).json({ error: 'Error updating the job', err }));
   } else {

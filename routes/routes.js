@@ -14,7 +14,9 @@ const {
   createContribution,
   destroyContribution,
   uploadFile,
-  getUserFile
+  getUserFile,
+  uploadJobFile,
+  getJobFile,
 } = require('../controllers');
 
 module.exports = (server) => {
@@ -23,6 +25,7 @@ module.exports = (server) => {
   server.route('/api/meetups').get(getAllMeetups);
   server.route('/api/contributions').get(getAllContributions);
   server.route('/api/files').get(getUserFile);
+  server.route('/api/jobfiles').get(getJobFile);
   
   // PUT ROUTES
   server.route('/api/changepassword').put(changePassword);
@@ -41,4 +44,5 @@ module.exports = (server) => {
   server.route('/api/contributions').post(createContribution);
   server.route("/api/billing").post(billing);
   server.route("/api/files").post(uploadFile);
+  server.route("/api/jobfiles").post(uploadJobFile);
 };
