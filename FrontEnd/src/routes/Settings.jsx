@@ -82,10 +82,12 @@ class Settings extends React.Component {
   handleEmailSubmit = e => {
     e.preventDefault();
     let body = { ...this.state };
+    let token = localStorage.getItem('token');
     axios
       .put(`${ROOT_URL}/changeemail`, {
         oldEmail: body.oldEmail,
         newEmail: body.newEmail,
+        token,
       })
       .then(result => {
         localStorage.setItem('token', result.data.token);

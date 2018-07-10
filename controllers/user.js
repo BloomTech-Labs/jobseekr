@@ -91,45 +91,53 @@ const changePassword = async (req, res) => {
 };
 
 const changeEmail = async (req, res) => {
-  let { oldEmail, newEmail } = req.body;
+  let { oldEmail, newEmail, token } = req.body;
   oldEmail = oldEmail.toLowerCase();
   newEmail = newEmail.toLowerCase();
-  User.findOneAndUpdate(
-    {
-      email: oldEmail
-    },
-    {
-      email: newEmail
-    },
-    {
-      new: true
-    }
-  )
-    .then(user => {
-      const payload = { email: newEmail };
-      const token = jwt.sign(payload, mySecret.toString());
-      let data = { user, token };
-      if (data.user.stripeCustomerID !== 'none') {
-        stripe.customers
-          .update(data.user.stripeCustomerID, {
-            email: data.user.email
-          })
-          .then(updatedUser => {
-            res.status(200).json(data);
-          })
-          .catch(err => {
-            res.status(422).json('Error updating Stripe Customer email');
-          });
-      } else {
-        res.status(200).json(data);
+  const storedPayload = await jwt.verify(token, mySecret);
+  const email = storedPayload.email;
+  if (email === oldEmail) {
+    User.findOneAndUpdate(
+      {
+        email: oldEmail
+      },
+      {
+        email: newEmail
+      },
+      {
+        new: true
       }
-    })
-    .catch(err => {
-      res.status(422).json({
-        error: 'error updating email',
-        err
+    )
+      .then(user => {
+        const payload = { email: newEmail };
+        token = jwt.sign(payload, mySecret.toString());
+        let data = { user, token };
+        if (data.user.stripeCustomerID !== 'none') {
+          stripe.customers
+            .update(data.user.stripeCustomerID, {
+              email: data.user.email
+            })
+            .then(updatedUser => {
+              res.status(200).json(data);
+            })
+            .catch(err => {
+              res.status(422).json('Error updating Stripe Customer email');
+            });
+        } else {
+          res.status(200).json(data);
+        }
+      })
+      .catch(err => {
+        res.status(422).json({
+          error: 'error updating email',
+          err
+        });
       });
-    });
+  } else {
+    res
+      .status(422)
+      .json({ error: `Please log in as ${oldEmail} to change your email` });
+  }
 };
 
 module.exports = {
