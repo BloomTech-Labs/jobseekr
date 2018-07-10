@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios'; 
+import axios from 'axios';
 import {
   FormGroup,
   FormControl,
@@ -36,7 +36,7 @@ class Settings extends React.Component {
       userdocument: 'resume',
     };
   }
-  
+
   componentDidMount() {
     this.getResume();
   }
@@ -44,22 +44,22 @@ class Settings extends React.Component {
   getResume = () => {
     const token = localStorage.getItem('token');
     const { userdocument } = this.state;
-    axios.get(`${ROOT_URL}/files`,
-    {
-      headers: {
-        token,
-        userdocument,
-      }
-    })
-    .then(response => {
-      const { title, url } = response.data;
-      this.setState({
-        resumeTitle: title,
-        resumeUrl: url
-      });
-    })
-    .catch(err => console.log(err));
-  }
+    axios
+      .get(`${ROOT_URL}/files`, {
+        headers: {
+          token,
+          userdocument,
+        },
+      })
+      .then(response => {
+        const { title, url } = response.data;
+        this.setState({
+          resumeTitle: title,
+          resumeUrl: url,
+        });
+      })
+      .catch(err => console.log(err));
+  };
 
   validateLength() {
     const { length } = this.state.newPassword;
@@ -79,10 +79,10 @@ class Settings extends React.Component {
     return 'warning';
   }
 
-  handleEmailSubmit = (e) => {
+  handleEmailSubmit = e => {
     e.preventDefault();
-    const body = { ...this.state };
-    const token = localStorage.getItem('token');
+    let body = { ...this.state };
+    let token = localStorage.getItem('token');
     axios
       .put(`${ROOT_URL}/changeemail`, {
         oldEmail: body.oldEmail,
@@ -90,14 +90,15 @@ class Settings extends React.Component {
         token,
       })
       .then(result => {
-        alert(`Your new email is ${result.data.email}`);
+        localStorage.setItem('token', result.data.token);
+        alert(`Your new email is ${result.data.user.email}`);
       })
-      .catch(() => {
+      .catch(err => {
         console.log('Error changing email');
       });
-  }
+  };
 
-  handlePasswordSubmit = (e) => {
+  handlePasswordSubmit = e => {
     e.preventDefault();
     const body = { ...this.state };
     const token = localStorage.getItem('token');
@@ -113,9 +114,9 @@ class Settings extends React.Component {
       .catch(() => {
         console.log('Error changing password');
       });
-  }
+  };
 
-  handleFileUpload = (e) => {
+  handleFileUpload = e => {
     switch (e.target.name) {
       case 'selectedFile':
         this.setState({ selectedFile: e.target.files[0] });
@@ -123,27 +124,28 @@ class Settings extends React.Component {
       default:
         this.setState({ [e.target.name]: e.target.value });
     }
-  }
+  };
 
-  handleFileSubmit = (e) => {
+  handleFileSubmit = e => {
     e.preventDefault();
     const token = localStorage.getItem('token');
     const { userdocument } = this.state;
     const config = {
       headers: {
         token,
-        userdocument
-      }
-    }
+        userdocument,
+      },
+    };
     const data = new FormData();
     data.append('file', this.state.selectedFile);
     data.append('name', this.state.selectedFile.name);
-    axios.post(`${ROOT_URL}/files`, data, config)
+    axios
+      .post(`${ROOT_URL}/files`, data, config)
       .then(() => {
-        this.getResume()
+        this.getResume();
       })
       .catch(err => console.log(err));
-  }
+  };
 
   render() {
     return (
@@ -185,12 +187,7 @@ class Settings extends React.Component {
                         <FormControl.Feedback />
                         <HelpBlock>Must use a valid email address.</HelpBlock>
                       </FormGroup>
-                      <Button 
-                        onClick={e => this.handleEmailSubmit(e)}
-                      >
-                          Save
-                      </Button>
-
+                      <Button onClick={e => this.handleEmailSubmit(e)}>Save</Button>
                     </form>
                   </Well>
                 </div>
@@ -249,27 +246,29 @@ class Settings extends React.Component {
         <Grid>
           <Row>
             <Col xs={8} md={4}>
-                {this.state.resumeTitle ? 
+              {this.state.resumeTitle ? (
                 <div className="resume--btn">
                   <a href={this.state.resumeUrl} target="_blank">
-                  <Button>
-                    view resume <br/>
-                    {/* using substr(36) to hide the uuid on the actual filename for 
+                    <Button>
+                      view resume <br />
+                      {/* using substr(36) to hide the uuid on the actual filename for 
                     display */}
-                    {this.state.resumeTitle.substr(36)}
-                  </Button>
+                      {this.state.resumeTitle.substr(36)}
+                    </Button>
                   </a>
-                </div> :
-                <div className="resume--txt">
-                  upload a resume
-                </div>}
-              {this.state.resumeTitle ? 
-              <Button onClick={() => this.setState({ resumeOpen: !this.state.resumeOpen })}>
-                Update Resume
-              </Button> :
-              <Button onClick={() => this.setState({ resumeOpen: !this.state.resumeOpen })}>
-                Add Resume
-              </Button>}
+                </div>
+              ) : (
+                <div className="resume--txt">upload a resume</div>
+              )}
+              {this.state.resumeTitle ? (
+                <Button onClick={() => this.setState({ resumeOpen: !this.state.resumeOpen })}>
+                  Update Resume
+                </Button>
+              ) : (
+                <Button onClick={() => this.setState({ resumeOpen: !this.state.resumeOpen })}>
+                  Add Resume
+                </Button>
+              )}
               <Collapse in={this.state.resumeOpen}>
                 <div>
                   <Well>
