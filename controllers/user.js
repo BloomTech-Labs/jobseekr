@@ -91,10 +91,9 @@ const changePassword = async (req, res) => {
 };
 
 const changeEmail = async (req, res) => {
-  // - get token, old email, and new email from the request
-  const { token, newEmail } = req.body;
-  let { oldEmail } = req.body;
+  let { oldEmail, newEmail } = req.body;
   oldEmail = oldEmail.toLowerCase();
+  newEmail = newEmail.toLowerCase();
   User.findOneAndUpdate(
     {
       email: oldEmail
@@ -107,17 +106,23 @@ const changeEmail = async (req, res) => {
     }
   )
     .then(user => {
-      user = { ...user, token };
-      stripe.customers
-        .update(user._doc.stripeCustomerID, {
-          email: user._doc.email
-        })
-        .then(updatedUser => {
-          res.status(200).json(user);
-        })
-        .catch(err => {
-          res.status(422).json('Error updating Stripe Customer email');
-        });
+      const payload = { email: newEmail };
+      const token = jwt.sign(payload, mySecret.toString());
+      let data = { user, token };
+      if (data.user.stripeCustomerID !== 'none') {
+        stripe.customers
+          .update(data.user.stripeCustomerID, {
+            email: data.user.email
+          })
+          .then(updatedUser => {
+            res.status(200).json(data);
+          })
+          .catch(err => {
+            res.status(422).json('Error updating Stripe Customer email');
+          });
+      } else {
+        res.status(200).json(data);
+      }
     })
     .catch(err => {
       res.status(422).json({

@@ -1,5 +1,4 @@
 import React from 'react';
-import jwt from 'jsonwebtoken';
 import axios from 'axios';
 import {
   FormGroup,
@@ -16,7 +15,6 @@ import {
 } from 'react-bootstrap';
 import { Header } from '../components/AllComponents';
 import ROOT_URL from './config';
-const mySecret = process.env.SECRET || 'random';
 
 class Settings extends React.Component {
   constructor(props, context) {
@@ -83,20 +81,15 @@ class Settings extends React.Component {
 
   handleEmailSubmit = e => {
     e.preventDefault();
-    const body = { ...this.state };
-    const payload = {
-      email: body.newEmail,
-    };
-    const token = jwt.sign(payload, mySecret.toString());
+    let body = { ...this.state };
     axios
       .put(`${ROOT_URL}/changeemail`, {
         oldEmail: body.oldEmail,
         newEmail: body.newEmail,
-        token,
       })
       .then(result => {
         localStorage.setItem('token', result.data.token);
-        alert(`Your new email is ${result.data._doc.email}`);
+        alert(`Your new email is ${result.data.user.email}`);
       })
       .catch(err => {
         console.log('Error changing email');
