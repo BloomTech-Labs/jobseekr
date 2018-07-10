@@ -9,7 +9,17 @@ const createUser = (req, res) => {
   if (email && password) {
     const newUser = new User({
       email,
-      password
+      password,
+      jobslist: [
+        { id: 1, status: 'Want to Apply', jobs: [] },
+        { id: 2, status: 'Submitted Job App', jobs: [] },
+        { id: 3, status: 'Received Response', jobs: [] },
+        { id: 4, status: 'Phone Interview', jobs: [] },
+        { id: 5, status: 'On Site Interview', jobs: [] },
+        { id: 6, status: 'Technical Interview', jobs: [] },
+        { id: 7, status: 'Offer', jobs: [] },
+        { id: 8, status: 'Rejected', jobs: [] },
+      ], 
     });
     newUser
       .save()

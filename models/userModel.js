@@ -25,7 +25,7 @@ const UserSchema = mongoose.Schema({
     required: true,
     default: false
   },
-  singleDecisions: {
+  singleDecisions:{ 
     type: Number,
     require: true,
     default: 0
@@ -33,6 +33,9 @@ const UserSchema = mongoose.Schema({
   resume: {
     title: String,
     url: String,
+  },
+  jobslist: {
+    type: Array,
   },
 });
 

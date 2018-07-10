@@ -26,16 +26,6 @@ class EditJob extends Component {
       job: this.props.job,
       show: false,
       timelineSelection: this.props.job.status,
-      list: [
-        'Want to Apply',
-        'Submitted Job App',
-        'Received Response',
-        'Phone Interview',
-        'On Site Interview',
-        'Technical Interview',
-        'Offer',
-        'Rejected',
-      ],
       notes: this.props.job.notes,
       companyName: this.props.job.companyName,
       position: this.props.job.position,
@@ -125,6 +115,8 @@ class EditJob extends Component {
 
   render() {
     const tooltip = <Tooltip id="modal-tooltip">Edit Job.</Tooltip>;
+    const statuses = [];
+    this.props.lists.forEach(list => statuses.push(list.status));
 
     return (
       <div>
@@ -160,13 +152,9 @@ class EditJob extends Component {
                     value={[this.state.timelineSelection]}
                     onChange={this.handleTimelineRadioClick}
                   >
-                    {this.state.list.slice(0, Math.ceil(this.state.list.length / 2)).map(e => {
-                      return (
-                        <Radio key={shortid.generate()} value={e}>
-                          {e}
-                        </Radio>
-                      );
-                    })}
+                  {statuses.slice(0, Math.ceil(statuses.length / 2)).map(e => {
+                    return <Radio key={shortid.generate()} value={e}>{e}</Radio>
+                  })}
                   </ToggleButtonGroup>
                 </div>
                 <div className="top-middle-section">
@@ -176,13 +164,9 @@ class EditJob extends Component {
                     value={[this.state.timelineSelection]}
                     onChange={this.handleTimelineRadioClick}
                   >
-                    {this.state.list.slice(Math.ceil(this.state.list.length / 2)).map(e => {
-                      return (
-                        <Radio key={shortid.generate()} value={e}>
-                          {e}
-                        </Radio>
-                      );
-                    })}
+                  {statuses.slice(Math.ceil(statuses.length / 2)).map(e => {
+                    return <Radio key={shortid.generate()} value={e}>{e}</Radio>
+                  })}
                   </ToggleButtonGroup>
                 </div>
                 <div className="top-right-section">
