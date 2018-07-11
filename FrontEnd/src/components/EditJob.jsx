@@ -126,10 +126,10 @@ class EditJob extends Component {
             className="job"
             onClick={() => this.setState({ show: true })}
           >
-            <Panel.Heading>
+            <Panel.Heading className="job-title">
               <Panel.Title componentClass="h4">{this.state.job.companyName}</Panel.Title>
             </Panel.Heading>
-            <Panel.Body>
+            <Panel.Body className="job-content">
               <Panel.Title componentClass="h4">{this.state.job.position}</Panel.Title>
               <Panel.Title componentClass="h6">
                 Last updated: {moment(this.state.job.updatedAt).fromNow()}
