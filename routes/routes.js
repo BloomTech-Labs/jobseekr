@@ -19,6 +19,7 @@ const {
   getUserFile,
   uploadJobFile,
   getJobFile,
+  updateStatus,
 } = require('../controllers');
 
 module.exports = (server) => {
@@ -34,6 +35,7 @@ module.exports = (server) => {
   server.route('/api/changepassword').put(changePassword);
   server.route('/api/changeemail').put(changeEmail);
   server.route('/api/jobs').put(editJob);
+  server.route('/api/updateStatus').put(updateStatus);
   
   // DELETE ROUTES
   server.route('/api/meetups').delete(destroyMeetup);
