@@ -7,4 +7,4 @@ export { default as Contributions } from './Contributions';
 export { default as Billing } from './Billing';
 export { default as SignOut } from './SignOut';
 export { default as Settings } from './Settings';
-
+export { default as DraggableJobs } from './DraggableJobs';

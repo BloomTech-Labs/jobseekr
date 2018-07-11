@@ -18,8 +18,13 @@ const createUser = (req, res) => {
         { id: 5, status: 'On Site Interview', jobs: [] },
         { id: 6, status: 'Technical Interview', jobs: [] },
         { id: 7, status: 'Offer', jobs: [] },
+<<<<<<< HEAD
         { id: 8, status: 'Rejected', jobs: [] }
       ]
+=======
+        { id: 8, status: 'Rejected', jobs: [] },
+      ], 
+>>>>>>> af9b7812cafb1a352c0edd2a3e65c404a725abe0
     });
     newUser
       .save()
@@ -103,6 +108,7 @@ const changePassword = async (req, res) => {
 const changeEmail = (req, res) => {
   let { oldEmail, newEmail, token } = req.body;
   oldEmail = oldEmail.toLowerCase();
+<<<<<<< HEAD
   if (token === null) {
     res.status(422).json({
       msg: `You must login as ${oldEmail} to make these changes.`,
@@ -154,6 +160,33 @@ const changeEmail = (req, res) => {
                   .status(200)
                   .json({ msg: 'Succesfully update email.', user, token });
               }
+=======
+  const storedPayload = await jwt.verify(token, mySecret);
+  const email = storedPayload.email;
+  if (email === oldEmail) {
+    User.findOneAndUpdate(
+      {
+        email: oldEmail
+      },
+      {
+        email: newEmail
+      },
+      {
+        new: true
+      }
+    )
+      .then(user => {
+        const payload = { email: newEmail };
+        token = jwt.sign(payload, mySecret.toString());
+        let data = { user, token };
+        if (data.user.stripeCustomerID !== 'none') {
+          stripe.customers
+            .update(data.user.stripeCustomerID, {
+              email: data.user.email
+            })
+            .then(updatedUser => {
+              res.status(200).json(data);
+>>>>>>> af9b7812cafb1a352c0edd2a3e65c404a725abe0
             })
             .catch(err => {
               res.status(500).json({

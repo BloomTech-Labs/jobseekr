@@ -24,7 +24,6 @@ class AddJob extends Component {
     this.state = {
       show: false,
       timelineSelection: this.props.currentStatus,
-      list: ['Want to Apply', 'Submitted Job App', 'Received Response', 'Phone Interview', 'On Site Interview', 'Technical Interview', 'Offer', 'Rejected'],
       notes: '',
       companyName: '',
       position: '',
@@ -117,6 +116,8 @@ class AddJob extends Component {
   
   render() {
     const tooltip = <Tooltip id="modal-tooltip">Add a Job.</Tooltip>;
+    const statuses = [];
+    this.props.lists.forEach(list => statuses.push(list.status));
 
     return (
       <div className='addJobModal'>
@@ -142,7 +143,7 @@ class AddJob extends Component {
                     value={[this.state.timelineSelection]} 
                     onChange={this.handleTimelineRadioClick}
                   >
-                    {this.state.list.slice(0, Math.ceil(this.state.list.length / 2)).map(e => {
+                    {statuses.slice(0, Math.ceil(statuses.length / 2)).map(e => {
                       return <Radio key={shortid.generate()} value={e}>{e}</Radio>
                     })}
                   </ToggleButtonGroup>
@@ -154,7 +155,7 @@ class AddJob extends Component {
                     value={[this.state.timelineSelection]} 
                     onChange={this.handleTimelineRadioClick}
                   >
-                    {this.state.list.slice(Math.ceil(this.state.list.length / 2)).map(e => {
+                    {statuses.slice(Math.ceil(statuses.length / 2)).map(e => {
                       return <Radio key={shortid.generate()} value={e}>{e}</Radio>
                     })}
                   </ToggleButtonGroup>

@@ -10,17 +10,21 @@ class Jobs extends Component {
     super(props, context);
 
     this.state = {
-      lists: [
-        { id: 1, status: 'Want to Apply', jobs: [] },
-        { id: 2, status: 'Submitted Job App', jobs: [] },
-        { id: 3, status: 'Received Response', jobs: [] },
-        { id: 4, status: 'Phone Interview', jobs: [] },
-        { id: 5, status: 'On Site Interview', jobs: [] },
-        { id: 6, status: 'Technical Interview', jobs: [] },
-        { id: 7, status: 'Offer', jobs: [] },
-        { id: 8, status: 'Rejected', jobs: [] },
-      ],
+      lists: [],
     };
+  }
+
+  getAllLists = () => {
+    const token = localStorage.getItem('token');
+    axios
+    .get(`${ROOT_URL}/jobslist`, 
+    { headers: { "Authorization": token }},
+    )
+    .then(lists => {
+      const newList = lists.data
+      this.setState({lists: newList});
+    })
+    .catch(err => console.log(err));
   }
 
   getAllJobs = () => {
@@ -46,16 +50,25 @@ class Jobs extends Component {
       });
   }
   
-  componentDidMount() { this.getAllJobs(); }
+  componentDidMount() {
+    this.getAllLists(); 
+    this.getAllJobs(); 
+  }
 
   render() {
     return (
       <div className="parent">
         <Header />
         <Grid className="board__container">
-          <Well>
-            <PageHeader className="board__header">Jobs List</PageHeader>
-            <Row className="board">
+          <Well className="jobs-well">
+            <PageHeader>
+              <Row>
+                <div className="board__header">
+                  Jobs List
+                </div>
+              </Row>
+            </PageHeader>
+            <Row className="board__row">
               {this.state.lists.map(list => (
                 <Col key={list.id} xs={6} md={4}>
                   <Panel className="list">
@@ -63,9 +76,9 @@ class Jobs extends Component {
                       <Panel.Title componentClass="h3">{list.status}</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body>
-                      <AddJob currentStatus={list.status} getAllJobs={this.getAllJobs}/>
+                      <AddJob lists={this.state.lists} currentStatus={list.status} getAllJobs={this.getAllJobs}/>
                       {list.jobs.map(job => {
-                          return <EditJob key={shortid.generate()} job={job} getAllJobs={this.getAllJobs}/>
+                          return <EditJob lists={this.state.lists} key={shortid.generate()} job={job} getAllJobs={this.getAllJobs}/>
                       })}
                     </Panel.Body>
                   </Panel>
@@ -73,8 +86,8 @@ class Jobs extends Component {
               ))}
             </Row>
             <Row>
-              <div className="addlist__btn">
-                <AddList />
+              <div className="addlist__btn--container">
+                <AddList lists={this.state.lists} getAllJobs={this.getAllJobs} getAllLists={this.getAllLists}/>
               </div>
             </Row>
           </Well>

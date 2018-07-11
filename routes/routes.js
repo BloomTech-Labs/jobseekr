@@ -7,7 +7,9 @@ const {
   billing,
   createMeetup,
   createJob,
+  createList,
   editJob,
+  getList,
   getAllMeetups,
   destroyMeetup,
   getAllContributions,
@@ -17,11 +19,13 @@ const {
   getUserFile,
   uploadJobFile,
   getJobFile,
+  updateStatus,
 } = require('../controllers');
 
 module.exports = (server) => {
   // GET ROUTES
   server.route('/api/jobs').get(getAllJobs);
+  server.route('/api/jobslist').get(getList);
   server.route('/api/meetups').get(getAllMeetups);
   server.route('/api/contributions').get(getAllContributions);
   server.route('/api/files').get(getUserFile);
@@ -31,6 +35,7 @@ module.exports = (server) => {
   server.route('/api/changepassword').put(changePassword);
   server.route('/api/changeemail').put(changeEmail);
   server.route('/api/jobs').put(editJob);
+  server.route('/api/updateStatus').put(updateStatus);
   
   // DELETE ROUTES
   server.route('/api/meetups').delete(destroyMeetup);
@@ -41,6 +46,7 @@ module.exports = (server) => {
   server.route('/api/login').post(login);
   server.route('/api/meetups').post(createMeetup);
   server.route('/api/jobs').post(createJob);
+  server.route('/api/jobslist').post(createList);
   server.route('/api/contributions').post(createContribution);
   server.route("/api/billing").post(billing);
   server.route("/api/files").post(uploadFile);

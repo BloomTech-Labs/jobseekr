@@ -5,7 +5,8 @@ import {
   LandingPage,
   Billing,
   Contributions,
-  Jobs,
+  // Jobs,
+  DraggableJobs,
   MeetUps,
   Settings,
   Login,
@@ -21,7 +22,7 @@ const JobSeeker = () => (
       <Route path="/addjob" component={AddJob} />
       <Route path="/billing" component={Billing} />
       <Route path="/contributions" component={Contributions} />
-      <Route path="/jobs" component={Jobs} />
+      <Route path="/jobs" component={DraggableJobs} />
       <Route path="/meetups" component={MeetUps} />
       <Route path="/settings" component={Settings} />
       <Route path="/login" component={Login} />

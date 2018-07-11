@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Popover, Button, Modal, OverlayTrigger, Glyphicon, Tooltip } from 'react-bootstrap';
+import axios from 'axios';
+import { Button, Modal, OverlayTrigger, Glyphicon, Tooltip, FormGroup, ControlLabel, FormControl, HelpBlock } from 'react-bootstrap';
+import ROOT_URL from '../routes/config';
 
 class AddList extends Component {
   constructor(props, context) {
@@ -7,16 +9,34 @@ class AddList extends Component {
 
     this.state = {
       show: false,
+      title: '',
     };
   }
 
+  handleAddList = e => {
+    e.preventDefault();
+    const token = localStorage.getItem('token');
+    const list = this.props.lists;
+    const { title } = this.state;
+    axios
+      .post(`${ROOT_URL}/jobslist`, {
+        list, title, token
+      })
+      .then(() => this.setState({ show: false }))
+      .then(() => this.props.getAllLists())
+      .then(() => this.props.getAllJobs())
+      .catch(err => console.log({ error: err}));
+  };
+
+  handleChange = (e) => {
+    this.setState({ title: e.target.value });
+  }
+
+
   render() {
-    const popover = (
-      <Popover id="modal-popover" title="Add List">
-        Add a new list to the list.
-      </Popover>
-    );
     const tooltip = <Tooltip id="modal-tooltip">Add a new category to the lists.</Tooltip>;
+    const statuses = [];
+    this.props.lists.forEach(list => statuses.push(list.status));
 
     return (
       <div>
@@ -28,78 +48,27 @@ class AddList extends Component {
 
         <Modal show={this.state.show} onHide={() => this.setState({ show: false })}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Add list</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4>Text in a modal</h4>
-            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
-
-            <h4>Popover in a modal</h4>
-            <p>
-              there is a{' '}
-              <OverlayTrigger overlay={popover}>
-                <a href="#popover">popover</a>
-              </OverlayTrigger>{' '}
-              here
-            </p>
-
-            <h4>Tooltips in a modal</h4>
-            <p>
-              there is a{' '}
-              <OverlayTrigger overlay={tooltip}>
-                <a href="#tooltip">tooltip</a>
-              </OverlayTrigger>{' '}
-              here
-            </p>
-
-            <hr />
-
-            <h4>Overflowing text to show scroll behavior</h4>
-            <p>
-              Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-              facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
-              at eros.
-            </p>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-              lacus vel augue laoreet rutrum faucibus dolor auctor.
-            </p>
-            <p>
-              Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-              scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-              auctor fringilla.
-            </p>
-            <p>
-              Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-              facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
-              at eros.
-            </p>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-              lacus vel augue laoreet rutrum faucibus dolor auctor.
-            </p>
-            <p>
-              Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-              scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-              auctor fringilla.
-            </p>
-            <p>
-              Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-              facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum
-              at eros.
-            </p>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-              lacus vel augue laoreet rutrum faucibus dolor auctor.
-            </p>
-            <p>
-              Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-              scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-              auctor fringilla.
-            </p>
+            <form>
+              <FormGroup
+                controlId="formBasicText"
+              >
+                <ControlLabel>New Job Status</ControlLabel>
+                <FormControl
+                  type="text"
+                  value={this.state.title}
+                  placeholder="e.g. Interview Followup"
+                  onChange={this.handleChange}
+                />
+                <FormControl.Feedback />
+                <HelpBlock>Add a new status to the list.</HelpBlock>
+              </FormGroup>
+            </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={() => this.setState({ show: false })}>Close</Button>
+            <Button onClick={this.handleAddList}>Save</Button>
           </Modal.Footer>
         </Modal>
       </div>

@@ -6,30 +6,48 @@
 .settingsWrapper .resume--btn {
   margin-bottom: 15px;
 }
+.jobs-well {
+  background: linear-gradient(45deg, #3c82b1 20%, #594236);
+  width: 100%;
+}
 .board__container {
-  min-width: 3000px;
   margin-top: 52px;
   padding-top: 15px;
+  display: flex;
 }
-.board__container .board {
+.board__container .board__header {
+  color: #CCDDE2;
+  margin-left: .5%;
+}
+.board__container .board__row {
+  margin-top: 5px;
   display: flex;
   flex-direction: row;
+  flex-grow: space-around;
+}
+.board__container .board__row .board {
+  min-width: 10.2%;
+  margin-right: -0.25%;
 }
 .board__container .list {
   display: flex;
   flex-direction: column;
-  min-height: 500px;
+  min-height: 600px;
 }
-.addlist__btn {
+.board__container .list .job-title {
+  background: linear-gradient(45deg, SteelBlue 20%, LightSteelBlue);
+  color: white;
+}
+.board__container .list .job-content {
+  background: linear-gradient(45deg, #e0e0e0 20%, white);
+}
+.addlist__btn--container {
   position: fixed;
-  top: 90%;
-  left: 75%;
-  bottom: 15%;
-  width: 20%;
-  margin-bottom: 4.7%;
+  top: 12%;
+  left: 90%;
 }
 @media only screen and (max-width: 479px) {
-  .addlist__btn {
+  .addlist__btn--container {
     width: 50%;
     left: 70%;
   }
@@ -52,7 +70,7 @@
   background: #15100E;
 }
 .list__btn {
-  min-width: 327px;
+  min-width: 175px;
 }
 .addJobModal .btn-lg {
   margin-bottom: 15px;
@@ -71,10 +89,6 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-}
-.addListButton {
-  width: 100%;
-  margin-bottom: 10%;
 }
 .MeetupsWrapper {
   margin: 52px;
@@ -107,20 +121,28 @@
   margin-left: 1%;
 }
 .BillingWrapper {
-  margin-top: 52px;
-  padding-top: 13px;
+  margin: 52px;
 }
-.BillingWrapper .container {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 50px;
+.BillingWrapper .display-4 {
+  font-size: 6rem;
+  padding: 13px;
+  border-bottom-style: solid;
   width: 100%;
 }
-.BillingWrapper .container .display-4 {
+.BillingWrapper .container {
+  padding: 0px;
+  margin: 0px;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
   width: 100%;
 }
 .BillingWrapper .container button {
-  width: 100%;
+  font-size: 2rem;
+  margin-top: 15px;
+  padding: 20px;
+  width: 45%;
 }
 .ContributionsWrapper {
   margin: 52px;

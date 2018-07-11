@@ -11,6 +11,7 @@ API expects data of type `JSON`.
 | 'GET'  > '/meetups'           | `headers: { token }`                        | `{[...meetups]}`
 | 'GET'  > '/contributions'           | `headers: { token }`                        | `{[...contributions]}`
 | 'GET'  > '/resume' .       | `headers: { token }`  | `{title, url}` |
+| 'GET'  > '/jobslist' .       | `headers: { token }`  | `{jobslist}` |
 | 'PUT'  > '/changeemail'    | `body: { token, oldEmail, newEmail }`       | `{user}`
 | 'PUT'  > '/changepassword' | `body: { token, oldPassword, newPassword }` | `{user}` 
 | 'DELETE' > '/meetups'      | `body: { id }`                             | `{success message}`
@@ -20,6 +21,7 @@ API expects data of type `JSON`.
 | 'POST' > '/meetups'          | `body: { dateOfEvent, eventName, linkToEvent*, notes*, token }`| `{meetup}`
 | 'POST' > '/contributions'          | `body: { dateOfContribution, contributionName, linkToContribution*, notes*, token }`| `{contribution}`
 | 'POST' > '/resume'          | `data, headers: { token }`| `{title, url}`|
+| 'POST' > '/jobslist'          | `body: { list, token, title }`| `{jobslist}`|
 `* - optional`
 
 
