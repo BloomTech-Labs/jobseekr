@@ -9,7 +9,17 @@ const createUser = (req, res) => {
   if (email && password) {
     const newUser = new User({
       email,
-      password
+      password,
+      jobslist: [
+        { id: 1, status: 'Want to Apply', jobs: [] },
+        { id: 2, status: 'Submitted Job App', jobs: [] },
+        { id: 3, status: 'Received Response', jobs: [] },
+        { id: 4, status: 'Phone Interview', jobs: [] },
+        { id: 5, status: 'On Site Interview', jobs: [] },
+        { id: 6, status: 'Technical Interview', jobs: [] },
+        { id: 7, status: 'Offer', jobs: [] },
+        { id: 8, status: 'Rejected', jobs: [] }
+      ]
     });
     newUser
       .save()
@@ -90,53 +100,77 @@ const changePassword = async (req, res) => {
   );
 };
 
-const changeEmail = async (req, res) => {
+const changeEmail = (req, res) => {
   let { oldEmail, newEmail, token } = req.body;
   oldEmail = oldEmail.toLowerCase();
-  newEmail = newEmail.toLowerCase();
-  const storedPayload = await jwt.verify(token, mySecret);
-  const email = storedPayload.email;
-  if (email === oldEmail) {
-    User.findOneAndUpdate(
-      {
-        email: oldEmail
-      },
-      {
-        email: newEmail
-      },
-      {
-        new: true
-      }
-    )
-      .then(user => {
-        const payload = { email: newEmail };
-        token = jwt.sign(payload, mySecret.toString());
-        let data = { user, token };
-        if (data.user.stripeCustomerID !== 'none') {
-          stripe.customers
-            .update(data.user.stripeCustomerID, {
-              email: data.user.email
-            })
-            .then(updatedUser => {
-              res.status(200).json(data);
-            })
-            .catch(err => {
-              res.status(422).json('Error updating Stripe Customer email');
-            });
-        } else {
-          res.status(200).json(data);
-        }
-      })
-      .catch(err => {
+  if (token === null) {
+    res.status(422).json({
+      msg: `You must login as ${oldEmail} to make these changes.`,
+      devmsg: 'No token provided'
+    });
+  } else {
+    jwt.verify(token, mySecret, (err, decoded) => {
+      if (err) {
         res.status(422).json({
-          error: 'error updating email',
+          msg: `You must login as ${oldEmail} to make these changes.`,
+          devmsg:
+            'Token provided does not match email you are attempting to change',
           err
         });
-      });
-  } else {
-    res
-      .status(422)
-      .json({ error: `Please log in as ${oldEmail} to change your email` });
+      } else {
+        if (decoded.email === oldEmail) {
+          User.findOneAndUpdate(
+            {
+              email: oldEmail
+            },
+            {
+              email: newEmail
+            },
+            {
+              new: true
+            }
+          )
+            .then(user => {
+              token = jwt.sign({ email: newEmail }, mySecret.toString());
+              if (user.stripeCustomerID !== 'none') {
+                stripe.customers
+                  .update(user.stripeCustomerID, {
+                    email: user.email
+                  })
+                  .then(updatedUser => {
+                    res
+                      .status(200)
+                      .json({ msg: 'Succesfully updated email', user, token });
+                  })
+                  .catch(err => {
+                    res.status(422).json({
+                      msg: 'Error updating email',
+                      devmsg: 'Error updating Stripe Customer account',
+                      err
+                    });
+                  });
+              } else {
+                res
+                  .status(200)
+                  .json({ msg: 'Succesfully update email.', user, token });
+              }
+            })
+            .catch(err => {
+              res.status(500).json({
+                msg: 'Error updating Email, please contact support',
+                devmsg: 'Error updating MongoDB',
+                err
+              });
+            });
+        } else {
+          res.status(422).json({
+            msg: `You must login as ${oldEmail} to make these changes.`,
+            devmsg: 'Token does not match email provided.',
+            err
+          });
+        }
+      }
+    });
   }
 };
 
