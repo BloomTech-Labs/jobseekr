@@ -40,6 +40,9 @@ const getJob = (req, res) => {
 
 const editJob = (req, res) => {
   const job = req.body;
+  if (job.jobPostingLink) {
+    if (!job.jobPostingLink.match(/^http/)) job.jobPostingLink = 'http://' + job.jobPostingLink;
+  }
   const { _id } = job;
   delete job._id;
   if (_id) {
@@ -53,6 +56,9 @@ const editJob = (req, res) => {
 
 const createJob = async (req, res) => {
   const job = req.body;
+  if (job.jobPostingLink) {
+    if (!job.jobPostingLink.match(/^http/)) job.jobPostingLink = 'http://' + job.jobPostingLink;
+  }
   const { token } = req.body;
   const storedPayload = await jwt.verify(token, mySecret);
   const email = storedPayload.email;
@@ -106,6 +112,13 @@ const updateStatus = (req, res) => {
     .catch(err => res.status(500).json({ 'error updating status of job': err }));
 }
 
+const deleteJob = (req, res) => {
+  const { _id } = req.query;
+  Job.findByIdAndRemove({ _id })
+    .then(job => res.status(200).json({ 'job successfully deleted': job }))
+    .catch(err => res.status(500).json({ 'error deleting status of job': err }));
+}
+
 module.exports = {
   getAllJobs,
   getJob,
@@ -114,4 +127,5 @@ module.exports = {
   createList,
   getList,
   updateStatus,
+  deleteJob,
 };
