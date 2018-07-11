@@ -287,7 +287,7 @@ class EditJob extends Component {
               </div>
             </Modal.Body>
           </form>
-          <Modal.Footer>
+          <Modal.Footer style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Button onClick={this.handleDeleteJob}>Delete Job</Button>
             <Button onClick={this.handleEditJob}>Save Edits</Button>
           </Modal.Footer>
