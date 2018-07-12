@@ -152,7 +152,7 @@ const changeEmail = (req, res) => {
               } else {
                 res
                   .status(200)
-                  .json({ msg: 'Succesfully update email.', user, token });
+                  .json({ msg: 'Succesfully updated email.', user, token });
               }
             })
             .catch(err => {
