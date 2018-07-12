@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const mySecret = process.env.SECRET || 'random';
-const stripe = require('stripe')('sk_test_QAkzeAsF7YJpHPkmR2WvVd8v');
+const stripe = require('stripe')(process.env.STRIPE_KEY);
 
 const createUser = (req, res) => {
   const { email, password } = req.body;
@@ -18,8 +18,8 @@ const createUser = (req, res) => {
         { id: 5, status: 'On Site Interview', jobs: [] },
         { id: 6, status: 'Technical Interview', jobs: [] },
         { id: 7, status: 'Offer', jobs: [] },
-        { id: 8, status: 'Rejected', jobs: [] },
-      ], 
+        { id: 8, status: 'Rejected', jobs: [] }
+      ]
     });
     newUser
       .save()
