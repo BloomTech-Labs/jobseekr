@@ -3,6 +3,7 @@ import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
 import ROOT_URL from './config';
 import { Button } from 'react-bootstrap';
+import Dialog from 'react-bootstrap-dialog';
 
 export default class Billing extends React.Component {
   onTokenSingleDecision = token => {
@@ -10,10 +11,10 @@ export default class Billing extends React.Component {
     axios
       .post(`${ROOT_URL}/billing`, { token, email: token.email, subscribe })
       .then(res => {
-        return alert(res.data.msg);
+        return this.dialog.showAlert(res.data.msg);
       })
       .catch(err => {
-        return alert(err);
+        return this.dialog.showAlert(err);
       });
   };
 
@@ -22,10 +23,10 @@ export default class Billing extends React.Component {
     axios
       .post(`${ROOT_URL}/billing`, { token, email: token.email, subscribe })
       .then(res => {
-        return alert(res.data.msg);
+        return this.dialog.showAlert(res.data.msg);
       })
       .catch(err => {
-        return alert(err);
+        return this.dialog.showAlert(err);
       });
   };
 
@@ -35,6 +36,11 @@ export default class Billing extends React.Component {
     return (
       // ...
       <div className="BillingWrapper">
+        <Dialog
+          ref={el => {
+            this.dialog = el;
+          }}
+        />
         <h1 className="display-4">Billing</h1>
         <div className="container">
           <Button className="btn btn-primary">
