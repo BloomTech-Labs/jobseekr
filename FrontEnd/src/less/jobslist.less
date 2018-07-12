@@ -1,39 +1,60 @@
 @import './mixins.less';
-
-.board__container {
-  min-width: 3000px;
-  margin-top: 52px;
-  padding-top: 15px;
-
-  .board {
-    display: flex;
-    flex-direction: row;
+  .jobs-well {
+    background: linear-gradient( 45deg, rgb(60, 130, 177) 20%, #594236);
+    margin-left: 0px;
   }
-
-  .list {
+  .board__container {
+    margin-top: 52px;
+    padding-top: 15px;
     display: flex;
-    flex-direction: column;
-    min-height: 500px;
-    .job-title {
-      display: flex; 
-      justify-content: space-between;
-      align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    .board__header {
+      color: @columbiaBlue;
+      margin-left: .5%;
+
     }
-  }
 
-
-}
-
-.addlist__btn {
-    position: fixed;
-    top: 90%;
-    left: 75%;
-    bottom: 15%;
-    width: 20%;
-    margin-bottom: 4.7%;
-    @media @smartphones {
-      width: 50%;
-      left: 70%;
+    
+    .board__row {
+      margin-top: 5px;
+      display: flex;
+      flex-direction: row;
+      flex-grow: space-around;
+      .board {
+        min-width: 10.2%;
+        margin-right: -.25%;
+      }
+      }
+      
+      .list {
+        display: flex;
+        flex-direction: column;
+        // max-height: 90%;
+        min-height: 600px;
+        .job-title {
+          background:linear-gradient( 45deg, SteelBlue 20%, LightSteelBlue);
+          color: white;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .job-content {
+          background: linear-gradient( 45deg, #e0e0e0 20%, white);
+        }
+      }
+      
+      
     }
     
-  }
+    .addlist__btn--container {
+      position: fixed;
+      top: 12%;
+      left: 90%;
+      @media @smartphones {
+        width: 50%;
+        left: 70%;
+      }
+      
+    }
+  

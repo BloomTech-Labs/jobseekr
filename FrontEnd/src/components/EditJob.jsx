@@ -152,7 +152,7 @@ class EditJob extends Component {
                 </Button>
               </div>
             </Panel.Heading>
-            <Panel.Body>
+            <Panel.Body className="job-content">
               <Panel.Title componentClass="h4">{this.state.job.position}</Panel.Title>
               <Panel.Title componentClass="h6">
                 Last updated: {moment(this.state.job.updatedAt).fromNow()}
