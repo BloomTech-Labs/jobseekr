@@ -21,6 +21,8 @@ server.use(helmet());
 server.use(
   cors({
     origin: ('https://ls-jobseekr1.herokuapp.com',
+    'https://www.jobseekr.app',
+    'https://jobseekr.app',
     'https://m.stripe.network',
     'http://localhost:3000'),
     credentials: true,
