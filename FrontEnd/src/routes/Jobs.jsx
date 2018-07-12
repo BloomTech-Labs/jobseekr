@@ -60,11 +60,18 @@ class Jobs extends Component {
       <div className="parent">
         <Header />
         <Grid className="board__container">
-          <Well>
-            <PageHeader className="board__header">Jobs List</PageHeader>
-            <Row className="board">
-              {this.state.lists.map(list => (
-                <Col key={list.id} xs={6} md={4}>
+            <Well>
+              <div className="jobs-well">
+              <PageHeader>
+                <Row>
+                  <div className="board__header">
+                    Jobs List
+                  </div>
+                </Row>
+              </PageHeader>
+              <Row className="board__row">
+                {this.state.lists.map(list => (
+                  <Col key={list.id} xs={6} md={4}>
                   <Panel className="list">
                     <Panel.Heading>
                       <Panel.Title componentClass="h3">{list.status}</Panel.Title>
@@ -72,7 +79,7 @@ class Jobs extends Component {
                     <Panel.Body>
                       <AddJob lists={this.state.lists} currentStatus={list.status} getAllJobs={this.getAllJobs}/>
                       {list.jobs.map(job => {
-                          return <EditJob lists={this.state.lists} key={shortid.generate()} job={job} getAllJobs={this.getAllJobs}/>
+                        return <EditJob lists={this.state.lists} key={shortid.generate()} job={job} getAllJobs={this.getAllJobs}/>
                       })}
                     </Panel.Body>
                   </Panel>
@@ -80,10 +87,11 @@ class Jobs extends Component {
               ))}
             </Row>
             <Row>
-              <div className="addlist__btn">
+              <div className="addlist__btn--container">
                 <AddList lists={this.state.lists} getAllJobs={this.getAllJobs} getAllLists={this.getAllLists}/>
               </div>
             </Row>
+              </div>
           </Well>
         </Grid>
       </div>
