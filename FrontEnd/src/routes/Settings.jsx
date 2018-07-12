@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Dialog from 'react-bootstrap-dialog';
 import {
   FormGroup,
   FormControl,
@@ -38,7 +39,9 @@ class Settings extends React.Component {
   }
 
   componentDidMount() {
-    this.getResume();
+    if (localStorage.getItem('token')) {
+      this.getResume();
+    }
   }
 
   getResume = () => {
@@ -58,7 +61,7 @@ class Settings extends React.Component {
           resumeUrl: url,
         });
       })
-      .catch(err => console.log(err));
+      .catch(err => {});
   };
 
   validateLength() {
@@ -91,10 +94,10 @@ class Settings extends React.Component {
       })
       .then(result => {
         localStorage.setItem('token', result.data.token);
-        alert(`Your new email is ${result.data.user.email}`);
+        this.dialog.showAlert(`${result.data.msg}`);
       })
       .catch(err => {
-        console.log('Error changing email');
+        this.dialog.showAlert(`${err.response.data.msg}`);
       });
   };
 
@@ -109,10 +112,10 @@ class Settings extends React.Component {
         token,
       })
       .then(result => {
-        alert(`Your new password has been saved`);
+        this.dialog.showAlert('Your new password has been saved');
       })
       .catch(() => {
-        console.log('Error changing password');
+        this.dialog.showAlert('Error changing password');
       });
   };
 
@@ -150,6 +153,11 @@ class Settings extends React.Component {
   render() {
     return (
       <div className="settingsWrapper">
+        <Dialog
+          ref={el => {
+            this.dialog = el;
+          }}
+        />
         <Header />
         <Grid>
           <Row>
