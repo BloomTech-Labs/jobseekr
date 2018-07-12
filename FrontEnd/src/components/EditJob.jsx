@@ -98,6 +98,7 @@ class EditJob extends Component {
 
   handleDeleteJob = e => {
     e.preventDefault();
+    e.stopPropagation();
     const { _id } = this.state;
     axios
       .delete(`${ROOT_URL}/jobs`, { params: { _id }})
