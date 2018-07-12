@@ -40,6 +40,9 @@
 .board__container .board__row .job-title {
   background: linear-gradient(45deg, SteelBlue 20%, LightSteelBlue);
   color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .board__container .board__row .job-content {
   background: linear-gradient(45deg, #e0e0e0 20%, white);

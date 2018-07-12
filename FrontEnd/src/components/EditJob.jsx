@@ -10,6 +10,7 @@ import {
   OverlayTrigger,
   Radio,
   MenuItem,
+  Glyphicon,
   Tooltip,
   FormControl,
   Panel,
@@ -95,6 +96,18 @@ class EditJob extends Component {
       .catch(err => console.log({ error: err }));
   };
 
+  handleDeleteJob = e => {
+    e.preventDefault();
+    const { _id } = this.state;
+    axios
+      .delete(`${ROOT_URL}/jobs`, { params: { _id }})
+      .then(() => {
+        this.props.getAllJobs();
+        console.log('job successfully deleted');
+      })
+      .catch(err => console.log({ 'error deleting job': err }));
+  }
+
   handleTimelineRadioClick = selection => {
     this.setState({ timelineSelection: selection });
   };
@@ -128,6 +141,16 @@ class EditJob extends Component {
           >
             <Panel.Heading className="job-title">
               <Panel.Title componentClass="h4">{this.state.job.companyName}</Panel.Title>
+              <div className='icons'>
+                {this.state.jobPostingLink ? <a href={this.state.jobPostingLink} target='blank'>
+                  <Button>
+                    <Glyphicon glyph='link' />
+                  </Button>
+                </a> : null}
+                <Button onClick={this.handleDeleteJob}>
+                  <Glyphicon glyph='trash' />
+                </Button>
+              </div>
             </Panel.Heading>
             <Panel.Body className="job-content">
               <Panel.Title componentClass="h4">{this.state.job.position}</Panel.Title>
@@ -264,7 +287,8 @@ class EditJob extends Component {
               </div>
             </Modal.Body>
           </form>
-          <Modal.Footer>
+          <Modal.Footer style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Button onClick={this.handleDeleteJob}>Delete Job</Button>
             <Button onClick={this.handleEditJob}>Save Edits</Button>
           </Modal.Footer>
         </Modal>
