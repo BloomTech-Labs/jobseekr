@@ -60,18 +60,17 @@ class Jobs extends Component {
       <div className="parent">
         <Header />
         <Grid className="board__container">
-            <Well>
-              <div className="jobs-well">
-              <PageHeader>
-                <Row>
-                  <div className="board__header">
-                    Jobs List
-                  </div>
-                </Row>
-              </PageHeader>
-              <Row className="board__row">
-                {this.state.lists.map(list => (
-                  <Col key={list.id} xs={6} md={4}>
+          <Well className="jobs-well">
+            <PageHeader>
+              <Row>
+                <div className="board__header">
+                  Jobs List
+                </div>
+              </Row>
+            </PageHeader>
+            <Row className="board__row">
+              {this.state.lists.map(list => (
+                <Col key={list.id} xs={6} md={4}>
                   <Panel className="list">
                     <Panel.Heading>
                       <Panel.Title componentClass="h3">{list.status}</Panel.Title>

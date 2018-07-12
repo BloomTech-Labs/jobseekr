@@ -8,18 +8,16 @@
 }
 .jobs-well {
   background: linear-gradient(45deg, #3c82b1 20%, #594236);
-  margin-left: 0px;
+  width: 100%;
 }
 .board__container {
   margin-top: 52px;
   padding-top: 15px;
   display: flex;
-  justify-content: flex-start;
-  width: 100%;
 }
 .board__container .board__header {
   color: #CCDDE2;
-  margin: -10px 0 20px 0.5%;
+  margin-left: .5%;
 }
 .board__container .board__row {
   margin-top: 5px;
@@ -34,11 +32,7 @@
 .board__container .list {
   display: flex;
   flex-direction: column;
-  width: 300px;
-  min-height: 700px;
-}
-.board__container .list .job {
-  width: 100%;
+  min-height: 600px;
 }
 .board__container .list .job-title {
   background: linear-gradient(45deg, SteelBlue 20%, LightSteelBlue);
@@ -49,7 +43,7 @@
 }
 .addlist__btn--container {
   position: fixed;
-  top: 100px;
+  top: 12%;
   left: 90%;
 }
 @media only screen and (max-width: 479px) {
@@ -76,11 +70,10 @@
   background: #15100E;
 }
 .list__btn {
-  min-width: 100%;
+  min-width: 175px;
 }
 .addJobModal .btn-lg {
   margin-bottom: 15px;
-  width: 100%;
 }
 .top-section-job-modal {
   display: flex;
@@ -96,6 +89,111 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+}
+.MeetupsWrapper {
+  margin: 52px;
+  padding-top: 13px;
+}
+.MeetupsWrapper .col {
+  display: inline-flex;
+  flex-wrap: wrap;
+  padding: .5%;
+  width: 20%;
+}
+.MeetupsWrapper .meetups--btn {
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin: 10px;
+}
+.MeetupsWrapper .meetups--btn .meetups--btn__plus {
+  margin: -3px;
+}
+.MeetupsWrapper .form-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.MeetupsWrapper .form-row .form-col {
+  display: flex;
+  align-items: center;
+  margin-right: 1%;
+  margin-left: 1%;
+}
+.BillingWrapper {
+  margin: 52px;
+}
+.BillingWrapper .display-4 {
+  font-size: 6rem;
+  padding: 13px;
+  border-bottom-style: solid;
+  width: 100%;
+}
+.BillingWrapper .container {
+  padding: 0px;
+  margin: 0px;
+  align-items: center;
+  justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+.BillingWrapper .container button {
+  font-size: 2rem;
+  margin-top: 15px;
+  padding: 20px;
+  width: 45%;
+}
+.ContributionsWrapper {
+  margin: 52px;
+  padding-top: 13px;
+}
+.ContributionsWrapper .col {
+  display: inline-flex;
+  flex-wrap: wrap;
+  padding: .5%;
+  width: 20%;
+}
+.ContributionsWrapper .contributions--btn {
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin: 10px;
+}
+.ContributionsWrapper .contributions--btn .contributions--btn__plus {
+  margin: -3px;
+}
+.ContributionsWrapper .form-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.ContributionsWrapper .form-row .form-col {
+  display: flex;
+  align-items: center;
+  margin-right: 1%;
+  margin-left: 1%;
+}
+.SignInWrapper {
+  margin-top: 52px;
+  padding-top: 13px;
+}
+.SignUpWrapper {
+  margin-top: 52px;
+  padding-top: 13px;
+}
+.react-date-picker__button {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 body {
   min-width: 350px;
@@ -325,109 +423,4 @@ body {
   height: 26px;
   width: 101px;
   cursor: pointer;
-}
-.MeetupsWrapper {
-  margin: 52px;
-  padding-top: 13px;
-}
-.MeetupsWrapper .col {
-  display: inline-flex;
-  flex-wrap: wrap;
-  padding: .5%;
-  width: 20%;
-}
-.MeetupsWrapper .meetups--btn {
-  border-radius: 50%;
-  font-size: 1.5rem;
-  font-weight: 900;
-  margin: 10px;
-}
-.MeetupsWrapper .meetups--btn .meetups--btn__plus {
-  margin: -3px;
-}
-.MeetupsWrapper .form-row {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-.MeetupsWrapper .form-row .form-col {
-  display: flex;
-  align-items: center;
-  margin-right: 1%;
-  margin-left: 1%;
-}
-.BillingWrapper {
-  margin: 52px;
-}
-.BillingWrapper .display-4 {
-  font-size: 6rem;
-  padding: 13px;
-  border-bottom-style: solid;
-  width: 100%;
-}
-.BillingWrapper .container {
-  padding: 0px;
-  margin: 0px;
-  align-items: center;
-  justify-content: space-between;
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-}
-.BillingWrapper .container button {
-  font-size: 2rem;
-  margin-top: 15px;
-  padding: 20px;
-  width: 45%;
-}
-.ContributionsWrapper {
-  margin: 52px;
-  padding-top: 13px;
-}
-.ContributionsWrapper .col {
-  display: inline-flex;
-  flex-wrap: wrap;
-  padding: .5%;
-  width: 20%;
-}
-.ContributionsWrapper .contributions--btn {
-  border-radius: 50%;
-  font-size: 1.5rem;
-  font-weight: 900;
-  margin: 10px;
-}
-.ContributionsWrapper .contributions--btn .contributions--btn__plus {
-  margin: -3px;
-}
-.ContributionsWrapper .form-row {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-.ContributionsWrapper .form-row .form-col {
-  display: flex;
-  align-items: center;
-  margin-right: 1%;
-  margin-left: 1%;
-}
-.SignInWrapper {
-  margin-top: 52px;
-  padding-top: 13px;
-}
-.SignUpWrapper {
-  margin-top: 52px;
-  padding-top: 13px;
-}
-.react-date-picker__button {
-  display: block;
-  width: 100%;
-  height: 34px;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.42857143;
-  color: #555;
-  background-color: #fff;
-  background-image: none;
-  border: 1px solid #ccc;
-  border-radius: 4px;
 }
