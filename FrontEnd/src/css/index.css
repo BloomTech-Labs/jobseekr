@@ -19,7 +19,7 @@
 }
 .board__container .board__header {
   color: #CCDDE2;
-  margin-left: .5%;
+  margin: -10px 0 20px 0.5%;
 }
 .board__container .board__row {
   margin-top: 5px;
@@ -34,7 +34,11 @@
 .board__container .list {
   display: flex;
   flex-direction: column;
-  min-height: 600px;
+  width: 300px;
+  min-height: 700px;
+}
+.board__container .list .job {
+  width: 100%;
 }
 .board__container .list .job-title {
   background: linear-gradient(45deg, SteelBlue 20%, LightSteelBlue);
@@ -45,8 +49,8 @@
 }
 .addlist__btn--container {
   position: fixed;
-  top: 12%;
-  left: 90%;
+  top: 100px;
+  right: 10px;
 }
 @media only screen and (max-width: 479px) {
   .addlist__btn--container {
@@ -72,10 +76,11 @@
   background: #15100E;
 }
 .list__btn {
-  min-width: 175px;
+  min-width: 100%;
 }
 .addJobModal .btn-lg {
   margin-bottom: 15px;
+  width: 100%;
 }
 .top-section-job-modal {
   display: flex;

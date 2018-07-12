@@ -43,7 +43,6 @@ class Jobs extends Component {
             }
           }
         });
-        console.log('this setState is executed in getAllJobs', newList);
         this.setState({ lists: newList });
       })
       .catch(() => {
@@ -80,13 +79,13 @@ class Jobs extends Component {
       <div className="parent">
         <Header />
         <Grid className="board__container">
-          <Well>
-            <PageHeader className="board__header">Jobs List</PageHeader>
-            <Row className="board">
+          <Well className="jobs-well">
+          <PageHeader className="board__header">Jobs List</PageHeader>
+              <Row className="board__row">
               {this.state.lists.map(list => (
                 <Col key={list.id} xs={6} md={4} >
                   <div 
-                    className="droppable"
+                    className="droppable list"
                     name={list.status}
                     onDragOver={(e) => this.onDragOver(e)}
                     onDrop={(e) => this.onDrop(e, list.status)}>
@@ -117,7 +116,7 @@ class Jobs extends Component {
               ))}
             </Row>
             <Row>
-              <div className="addlist__btn">
+              <div className="addlist__btn--container">
                 <AddList lists={this.state.lists} getAllJobs={this.getAllJobs} getAllLists={this.getAllLists}/>
               </div>
             </Row>

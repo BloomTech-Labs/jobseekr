@@ -78,7 +78,7 @@ class Jobs extends Component {
                     <Panel.Body>
                       <AddJob lists={this.state.lists} currentStatus={list.status} getAllJobs={this.getAllJobs}/>
                       {list.jobs.map(job => {
-                          return <EditJob lists={this.state.lists} key={shortid.generate()} job={job} getAllJobs={this.getAllJobs}/>
+                        return <EditJob lists={this.state.lists} key={shortid.generate()} job={job} getAllJobs={this.getAllJobs}/>
                       })}
                     </Panel.Body>
                   </Panel>
