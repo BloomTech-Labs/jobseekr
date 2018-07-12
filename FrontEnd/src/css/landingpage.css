@@ -8,12 +8,14 @@
 }
 .jobs-well {
   background: linear-gradient(45deg, #3c82b1 20%, #594236);
-  width: 100%;
+  margin-left: 0px;
 }
 .board__container {
   margin-top: 52px;
   padding-top: 15px;
   display: flex;
+  justify-content: flex-start;
+  width: 100%;
 }
 .board__container .board__header {
   color: #CCDDE2;
@@ -37,6 +39,9 @@
 .board__container .list .job-title {
   background: linear-gradient(45deg, SteelBlue 20%, LightSteelBlue);
   color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .board__container .list .job-content {
   background: linear-gradient(45deg, #e0e0e0 20%, white);
