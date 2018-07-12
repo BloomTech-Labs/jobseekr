@@ -139,7 +139,7 @@ class EditJob extends Component {
             className="job"
             onClick={() => this.setState({ show: true })}
           >
-            <Panel.Heading style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Panel.Heading className="job-title">
               <Panel.Title componentClass="h4">{this.state.job.companyName}</Panel.Title>
               <div className='icons'>
                 {this.state.jobPostingLink ? <a href={this.state.jobPostingLink} target='blank'>
