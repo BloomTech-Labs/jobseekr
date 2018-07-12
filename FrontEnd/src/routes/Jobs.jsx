@@ -90,7 +90,6 @@ class Jobs extends Component {
                 <AddList lists={this.state.lists} getAllJobs={this.getAllJobs} getAllLists={this.getAllLists}/>
               </div>
             </Row>
-              </div>
           </Well>
         </Grid>
       </div>
