@@ -120,8 +120,8 @@ const uploadJobFile = async (req, res) => {
     const newURL = returnData.url;
     Job.findOneAndUpdate({ _id: currentjobid }, { [jobdocument]: newURL })
       .then(job => res.status(200).json(job[jobdocument]))
-      .catch(err => console.log(err));
-    res.end();
+      .catch(err => res.status(500).json({ 'error': err }));
+    // res.end();
   });
 };
 
