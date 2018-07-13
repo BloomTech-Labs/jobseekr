@@ -18,6 +18,7 @@ API expects data of type `JSON`.
 | 'DELETE' > '/jobs'         | `body: { _id }`                             | `{success message}`
 | 'DELETE' > '/meetups'      | `body: { id }`                             | `{success message}`
 | 'DELETE' > '/contributions'      | `body: { id }`                              | `{success message}`
+| 'DELETE' > '/lists'        | `body: { id, lists, token }`               | `{success message}`
 | 'POST' > '/signup'         | `body: { username, password }`             | `{newUser}`
 | 'POST' > '/login'          | `body: { username, password }`              | `{token}`
 | 'POST' > '/meetups'          | `body: { dateOfEvent, eventName, linkToEvent*, notes*, token }`| `{meetup}`
