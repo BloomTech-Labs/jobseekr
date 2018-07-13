@@ -47,6 +47,12 @@
   min-height: 700px;
   width: 300px;
 }
+.board__container .list .list__heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
 .board__container .list .job {
   width: 100%;
 }
@@ -73,6 +79,14 @@
     width: 50%;
     left: 70%;
   }
+}
+.delete-modal-button {
+  display: flex;
+  justify-content: center;
+}
+.delete-modal-button .actual-delete-button {
+  background-color: #C21807;
+  color: white;
 }
 /* The .Header class adds tyling to the Header div containing the navbar
  * so that it doesn't slide to the left when scrolling right horizontally

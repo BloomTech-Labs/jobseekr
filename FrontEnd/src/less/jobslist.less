@@ -42,6 +42,13 @@
         flex-direction: column;
         min-height:700px;
         width: 300px;
+        .list__heading {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+        }
+
         .job {
           width: 100%;
         }
@@ -72,3 +79,12 @@
       left: 70%;
     }
   }
+
+.delete-modal-button {
+  display: flex;
+  justify-content: center;
+  .actual-delete-button {
+    background-color: #C21807;
+    color: white;
+  }
+}
