@@ -119,6 +119,19 @@ const deleteJob = (req, res) => {
     .catch(err => res.status(500).json({ 'error deleting status of job': err }));
 }
 
+const deleteList = async (req, res) => {
+  const { id, lists, token } = req.query;
+  const storedPayload = await jwt.verify(token, mySecret);
+  const email = storedPayload.email;
+  const newList = lists.map(e => JSON.parse(e))
+    .filter(e => {
+      return String(e.id) !== id
+    });
+  User.findOneAndUpdate({ email }, { jobslist: newList })
+    .then(list => res.status(200).json({ 'list successfully deleted': list }))
+    .catch(err => res.status(500).json({ 'error deleting list': err }));
+}
+
 module.exports = {
   getAllJobs,
   getJob,
@@ -128,4 +141,5 @@ module.exports = {
   getList,
   updateStatus,
   deleteJob,
+  deleteList,
 };
