@@ -5,7 +5,7 @@ import Team2 from '../Images/Jon.png';
 import Team3 from '../Images/AaronProfile.png';
 import Team4 from '../Images/Cliff.png';
 import GitCat from '../Images/Ei-sc-github.svg';
-import LinkedIn from '../Images/li-icon.png';
+import LinkedIn from '../Images/In-2C-41px-TM.png';
 
 
 const Team = () =>
@@ -27,8 +27,6 @@ const Team = () =>
                 <a href="https://github.com/cliffkang" target="_blank" rel="noopener noreferrer">
                   <img src={GitCat} width="32px" alt="Github Logo" />
                 </a>
-              </li>
-              <li>
                 <a href="https://www.linkedin.com/in/cliff-kang-70bb6011/" target="_blank" rel="noopener noreferrer">
                   <img src={LinkedIn} width="20px" alt="Linked In Logo" />
                 </a>
@@ -44,8 +42,6 @@ const Team = () =>
                 <a href="https://github.com/Arkoma" target="_blank" rel="noopener noreferrer">
                   <img src={GitCat} width="32px" alt="Github Logo" />
                 </a>
-              </li>
-              <li>
                 <a href="https://www.linkedin.com/in/aarondburk/" target="_blank" rel="noopener noreferrer">
                   <img src={LinkedIn} width="20px" alt="Linked In Logo" />
                 </a>
@@ -63,8 +59,6 @@ const Team = () =>
                 <a href="https://github.com/Dan-Lara" target="_blank" rel="noopener noreferrer">
                   <img src={GitCat} width="32px" alt="Github Logo" />
                 </a>
-              </li>
-              <li>
                 <a href="https://www.linkedin.com/in/daniel-lara-59755610a/" target="_blank" rel="noopener noreferrer">
                   <img src={LinkedIn} width="20px" alt="Linked In Logo" />
                 </a>
@@ -80,8 +74,6 @@ const Team = () =>
                 <a href="https://github.com/Jbry123" target="_blank" rel="noopener noreferrer">
                   <img src={GitCat} width="32px" alt="Github Logo" />
                 </a>
-              </li>
-              <li>
                 <a href="https://www.linkedin.com/in/jonathanbry/" target="_blank" rel="noopener noreferrer">
                   <img src={LinkedIn} width="20px" alt="Linked In Logo" />
                 </a>
@@ -92,5 +84,5 @@ const Team = () =>
       </div>
     </div>
   );
-// add href to people's websites
+
 export default Team;

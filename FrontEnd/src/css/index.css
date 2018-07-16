@@ -201,7 +201,7 @@ body {
 }
 .TeamWrapper .team-links {
   list-style: none;
-  text-align: left;
+  text-align: center;
   padding-left: 0px;
 }
 .TeamWrapper .team-links .team-links__slug {
