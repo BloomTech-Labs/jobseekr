@@ -12,6 +12,7 @@
     "react": "^16.4.0",
     "react-bootstrap": "^0.32.1",
     "react-bootstrap-dialog": "^0.10.0",
+    "react-cursor-position": "^2.5.0",
     "react-date-picker": "^6.10.4",
     "react-datepicker": "^1.5.0",
     "react-dom": "^16.4.0",
