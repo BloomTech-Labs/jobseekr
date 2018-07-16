@@ -2,6 +2,9 @@
   "name": "jobseekr",
   "version": "0.1.0",
   "private": true,
+  "jest": {
+    "setupTestFrameworkScriptFile": "./tests/jobs_tests.js"
+  },
   "dependencies": {
     "ajv": "^6.5.1",
     "aws-sdk": "^2.265.1",
@@ -26,7 +29,7 @@
     "start": "node server.js",
     "heroku-postbuild": "cd FrontEnd && npm install && npm run build",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "jest",
     "eject": "react-scripts eject",
     "lint": "eslint"
   },
@@ -39,6 +42,7 @@
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.9.1",
+    "jest": "^23.4.1",
     "sinon": "^6.1.3"
   }
 }
