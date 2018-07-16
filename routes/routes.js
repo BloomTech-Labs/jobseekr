@@ -20,6 +20,8 @@ const {
   uploadJobFile,
   getJobFile,
   updateStatus,
+  deleteJob,
+  deleteList,
 } = require('../controllers');
 
 module.exports = (server) => {
@@ -40,6 +42,8 @@ module.exports = (server) => {
   // DELETE ROUTES
   server.route('/api/meetups').delete(destroyMeetup);
   server.route('/api/contributions').delete(destroyContribution);
+  server.route('/api/jobs').delete(deleteJob);
+  server.route('/api/lists').delete(deleteList);
   
   // POST ROUTES
   server.route('/api/signup').post(createUser);

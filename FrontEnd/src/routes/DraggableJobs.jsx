@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import shortid from 'shortid';
 import { Well, Grid, Row, Col, PageHeader, Panel } from 'react-bootstrap';
-import { Header, AddJob, AddList, EditJob } from '../components/AllComponents';
+import { Header, AddJob, AddList, EditJob, DeleteList } from '../components/AllComponents';
 import ROOT_URL from './config';
 
 class Jobs extends Component {
@@ -33,6 +33,7 @@ class Jobs extends Component {
       .get(`${ROOT_URL}/jobs`, { headers: { "Authorization": token }})
       .then(jobs => {
         jobs = jobs.data;
+        console.log('reaches inside getAllJobs', jobs);
         const newList = this.state.lists;
         newList.forEach(list => list.jobs = [])
         jobs.forEach(job => {
@@ -43,7 +44,6 @@ class Jobs extends Component {
             }
           }
         });
-        console.log('this setState is executed in getAllJobs', newList);
         this.setState({ lists: newList });
       })
       .catch(() => {
@@ -78,21 +78,27 @@ class Jobs extends Component {
   render() {
     return (
       <div className="parent">
+        {console.log('state.list in DraggableJobs', this.state.lists)}
         <Header />
         <Grid className="board__container">
-          <Well>
-            <PageHeader className="board__header">Jobs List</PageHeader>
-            <Row className="board">
+          <Well className="jobs-well">
+          <PageHeader className="board__header">Jobs List</PageHeader>
+              <Row className="board__row">
               {this.state.lists.map(list => (
                 <Col key={list.id} xs={6} md={4} >
                   <div 
-                    className="droppable"
+                    className="droppable list"
                     name={list.status}
                     onDragOver={(e) => this.onDragOver(e)}
                     onDrop={(e) => this.onDrop(e, list.status)}>
                     <Panel className="list">
-                      <Panel.Heading>
+                      <Panel.Heading className="list__heading">
                         <Panel.Title componentClass="h3">{list.status}</Panel.Title>
+                        <DeleteList 
+                          lists={this.state.lists} 
+                          id={list.id} 
+                          getAllJobs={this.getAllJobs} 
+                          getAllLists={this.getAllLists}/>
                       </Panel.Heading>
                       <Panel.Body>
                         <AddJob lists={this.state.lists} currentStatus={list.status} getAllJobs={this.getAllJobs}/>
@@ -117,7 +123,7 @@ class Jobs extends Component {
               ))}
             </Row>
             <Row>
-              <div className="addlist__btn">
+              <div className="addlist__btn--container">
                 <AddList lists={this.state.lists} getAllJobs={this.getAllJobs} getAllLists={this.getAllLists}/>
               </div>
             </Row>

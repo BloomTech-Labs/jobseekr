@@ -14,8 +14,11 @@ API expects data of type `JSON`.
 | 'GET'  > '/jobslist' .       | `headers: { token }`  | `{jobslist}` |
 | 'PUT'  > '/changeemail'    | `body: { token, oldEmail, newEmail }`       | `{user}`
 | 'PUT'  > '/changepassword' | `body: { token, oldPassword, newPassword }` | `{user}` 
+| 'PUT'  > '/updatestatus'   | `body: { _id, status } `                    | `{success message}`
+| 'DELETE' > '/jobs'         | `body: { _id }`                             | `{success message}`
 | 'DELETE' > '/meetups'      | `body: { id }`                             | `{success message}`
 | 'DELETE' > '/contributions'      | `body: { id }`                              | `{success message}`
+| 'DELETE' > '/lists'        | `body: { id, lists, token }`               | `{success message}`
 | 'POST' > '/signup'         | `body: { username, password }`             | `{newUser}`
 | 'POST' > '/login'          | `body: { username, password }`              | `{token}`
 | 'POST' > '/meetups'          | `body: { dateOfEvent, eventName, linkToEvent*, notes*, token }`| `{meetup}`
