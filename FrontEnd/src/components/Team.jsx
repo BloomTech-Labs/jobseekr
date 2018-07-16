@@ -19,6 +19,36 @@ const Team = () =>
       <div className="profiles__container">
         <div className="profiles__rt-container">
           <div className="lp-profile-pic">
+            <Image width={164} height={164} src={Team4} alt="thumbnail" circle />
+            <h3>Cliff Kang</h3>
+            <ul className="team-links">
+              <li className="team-links__slug">Epitome of FullStack</li>
+              <li><img src={GitCat} width="32px" alt="Github Logo" />
+                <a href="https://github.com/cliffkang" target="_blank" rel="noopener noreferrer">github.com/cliffkang</a></li>
+              <li>&nbsp;<img src={LinkedIn} width="20px" alt="Linked In Logo" />
+                <a href="https://www.linkedin.com/in/cliff-kang-70bb6011/" target="_blank" rel="noopener noreferrer">
+                  &nbsp;linkedin.com/in/cliff-kang-70bb6011/
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className="lp-profile-pic">
+            <Image width={164} height={164} src={Team3} alt="thumbnail" circle />
+            <h3>Aaron Burk</h3>
+            <ul className="team-links">
+              <li className="team-links__slug">Epitome of FullStack</li>
+              <li><img src={GitCat} width="32px" alt="Github Logo" />
+                <a href="https://github.com/Arkoma" target="_blank" rel="noopener noreferrer">github.com/Arkoma</a></li>
+              <li>&nbsp;<img src={LinkedIn} width="20px" alt="Linked In Logo" />
+                <a href="https://www.linkedin.com/in/aarondburk/" target="_blank" rel="noopener noreferrer">
+                  &nbsp;linkedin.com/in/aarondburk/
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="profiles__lt-container">
+          <div className="lp-profile-pic">
             <Image width={164} height={164} src={Team1} alt="thumbnail" circle />
             <h3>Daniel Lara</h3>
             <ul className="team-links">
@@ -42,36 +72,6 @@ const Team = () =>
               <li>&nbsp;<img src={LinkedIn} width="20px" alt="Linked In Logo" />
                 <a href="https://www.linkedin.com/in/jonathanbry/" target="_blank" rel="noopener noreferrer">
                   &nbsp;linkedin.com/in/jonathanbry/
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div className="profiles__lt-container">
-          <div className="lp-profile-pic">
-            <Image width={164} height={164} src={Team3} alt="thumbnail" circle />
-            <h3>Aaron Burk</h3>
-            <ul className="team-links">
-              <li className="team-links__slug">Epitome of FullStack</li>
-              <li><img src={GitCat} width="32px" alt="Github Logo" />
-                <a href="https://github.com/Arkoma" target="_blank" rel="noopener noreferrer">github.com/Arkoma</a></li>
-              <li>&nbsp;<img src={LinkedIn} width="20px" alt="Linked In Logo" />
-                <a href="https://www.linkedin.com/in/aarondburk/" target="_blank" rel="noopener noreferrer">
-                  &nbsp;linkedin.com/in/aarondburk/
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className="lp-profile-pic">
-            <Image width={164} height={164} src={Team4} alt="thumbnail" circle />
-            <h3>Cliff Kang</h3>
-            <ul className="team-links">
-              <li className="team-links__slug">Epitome of FullStack</li>
-              <li><img src={GitCat} width="32px" alt="Github Logo" />
-                <a href="https://github.com/cliffkang" target="_blank" rel="noopener noreferrer">github.com/cliffkang</a></li>
-              <li>&nbsp;<img src={LinkedIn} width="20px" alt="Linked In Logo" />
-                <a href="https://www.linkedin.com/in/cliff-kang-70bb6011/" target="_blank" rel="noopener noreferrer">
-                  &nbsp;linkedin.com/in/cliff-kang-70bb6011/
                 </a>
               </li>
             </ul>
