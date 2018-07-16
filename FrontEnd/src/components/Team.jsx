@@ -22,7 +22,7 @@ const Team = () =>
             <Image width={164} height={164} src={Team4} alt="thumbnail" circle />
             <h3>Cliff Kang</h3>
             <ul className="team-links">
-              <li className="team-links__slug">Epitome of FullStack</li>
+              <li className="team-links__slug">Full Stack Problem Solver</li>
               <li>
                 <a href="https://github.com/cliffkang" target="_blank" rel="noopener noreferrer">
                   <img src={GitCat} width="32px" alt="Github Logo" />
