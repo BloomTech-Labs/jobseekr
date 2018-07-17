@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const chai = require('chai');
 const chaiHTTP = require('chai-http');
+const jwt = require('jsonwebtoken');
 // const sinon = require('sinon');
-const server = require('../server');
 
 const Job = require('../models/jobModel');
 const User = require('../models/userModel');
@@ -41,7 +41,7 @@ describe('jobs test', () => {
   const secret = "secret";
   beforeEach(async () => {
     const newUser = new User({
-      email: 'test@user.test',
+      email: 'jobstest@user.test',
       password: 'testuser',
       jobslist: [
         { id: 1, status: 'Want to Apply', jobs: [] },
@@ -58,17 +58,18 @@ describe('jobs test', () => {
     await newUser.save().then(user => {
       userId = user._id
       token = jwt.sign({email: user.email}, secret);
-    });
-    
-
-    const newJob = new Job({
-      companyName: "Google",
-      position: "janitor",
-      status: "Want to Apply",
-      user: userId,
-    });
-    
-    await newJob.save().then(job => job1 = job);
+      console.log({userId, token});
+      const newJob = new Job({
+        companyName: "Google",
+        position: "janitor",
+        status: "Want to Apply",
+        user: userId,
+        token
+      });
+      newJob.save().then(job => job1 = job)
+      .catch(err => console.error("error saving job", err));
+    })
+    .catch(err => console.error("error saving user", err));
     
   });
 
@@ -89,7 +90,7 @@ describe('jobs test', () => {
       .get('/api/jobs', { headers: { Authorization: token } }) 
       .end((err, res) => {
         console.log("response: ", res);
-        if (err) console.error(err);
+        if (err) console.error("error getting jobs", err);
         expect(res.status).to.equal(200);
         expect(res.body.length).to.equal(1);
         expect(res.body[0].position).to.equal('janitor');
