@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const chai = require('chai');
 const chaiHTTP = require('chai-http');
-const sinon = require('sinon');
-const server = require('../server.js');
+// const sinon = require('sinon');
+const server = require('../server');
 
 const Job = require('../models/jobModel');
 const User = require('../models/userModel');
@@ -12,10 +12,10 @@ const { expect } = chai;
 // allows us to make and test HTTP requests
 chai.use(chaiHTTP);
 
-const PATH = '/api/jobs';
+const PATH = 'http://localhost:5000';
 
 
-describe('jobs', () => {
+describe('jobs test', () => {
   
   before(done => {
     mongoose.Promise = global.Promise;
@@ -37,6 +37,8 @@ describe('jobs', () => {
   
   let userId;
   let job1;
+  let token;
+  const secret = "secret";
   beforeEach(async () => {
     const newUser = new User({
       email: 'test@user.test',
@@ -53,6 +55,12 @@ describe('jobs', () => {
       ]
     });
 
+    await newUser.save().then(user => {
+      userId = user._id
+      token = jwt.sign({email: user.email}, secret);
+    });
+    
+
     const newJob = new Job({
       companyName: "Google",
       position: "janitor",
@@ -60,7 +68,6 @@ describe('jobs', () => {
       user: userId,
     });
     
-    await newUser.save().then(user => userId = user.id);
     await newJob.save().then(job => job1 = job);
     
   });
@@ -68,22 +75,27 @@ describe('jobs', () => {
   afterEach(done => {
     User.remove({}, err => {
       if (err) console.error(err);
-      done();
     });
-  });
-
-});
-
-describe('[GET] /api/jobs', () => {
-  it('should return all jobs belonging to a user', (done) => {
-    chai.request(server)
-    .get('/api/jobs')
-    .end((err, res) => {
+    Job.remove({}, err => {
       if (err) console.error(err);
-      expect(res.status).to.equal(200);
-      expect(res.body.length).to.equal(1);
-      expect(res.body[0].position).to.equal('janitor');
-      done();
+    });
+    done();
+  });
+
+  
+  describe('[GET] /api/jobs', () => {
+    it('should return all jobs belonging to a user', (done) => {
+      chai.request(PATH)
+      .get('/api/jobs', { headers: { Authorization: token } }) 
+      .end((err, res) => {
+        console.log("response: ", res);
+        if (err) console.error(err);
+        expect(res.status).to.equal(200);
+        expect(res.body.length).to.equal(1);
+        expect(res.body[0].position).to.equal('janitor');
+        done();
+      });
     });
   });
+  
 });
