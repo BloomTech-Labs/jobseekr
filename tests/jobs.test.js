@@ -58,7 +58,7 @@ describe('jobs test', () => {
     await newUser.save().then(user => {
       userId = user._id
       token = jwt.sign({email: user.email}, secret);
-      console.log({userId, token});
+      // console.log({ userId, token });
       const newJob = new Job({
         companyName: "Google",
         position: "janitor",
@@ -66,7 +66,10 @@ describe('jobs test', () => {
         user: userId,
         token
       });
-      newJob.save().then(job => job1 = job)
+      newJob.save().then(job => {
+        job1 = job
+        // console.log({ job1 });
+      })
       .catch(err => console.error("error saving job", err));
     })
     .catch(err => console.error("error saving user", err));
@@ -87,15 +90,18 @@ describe('jobs test', () => {
   describe('[GET] /api/jobs', () => {
     it('should return all jobs belonging to a user', (done) => {
       chai.request(PATH)
-      .get('/api/jobs', { headers: { Authorization: token } }) 
+      .get('/api/jobs', { headers: { "Authorization": token } }) 
       .end((err, res) => {
         console.log("response: ", res);
-        if (err) console.error("error getting jobs", err);
+        if (err) {
+          console.error("error getting jobs", err);
+          done();
+        }
         expect(res.status).to.equal(200);
         expect(res.body.length).to.equal(1);
         expect(res.body[0].position).to.equal('janitor');
-        done();
       });
+      done();
     });
   });
   
