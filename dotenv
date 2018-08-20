@@ -1,0 +1,4 @@
+# add info and change this file to .env
+JOBSEEKR_USERNAME=ADD_MLAB_USERNAME_HERE
+JOBSEEKR_PASSWORD=ADD_MLAB_PASSWORD_HERE
+MLAB_URI=ds123456.mlab.com:12345/jobseekr
