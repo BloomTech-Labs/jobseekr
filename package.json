@@ -39,5 +39,8 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.9.1",
     "nodemon": "^1.18.3"
+  },
+  "engines": {
+    "npm": ">=5.7.1"
   }
 }
