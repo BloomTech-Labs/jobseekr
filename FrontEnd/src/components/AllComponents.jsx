@@ -6,3 +6,4 @@ export { default as Carousel } from './Carousel';
 export { default as Team } from './Team';
 export { default as AppDescription } from './AppDescription';
 export { default as DeleteList } from './DeleteList';
+export { default as SearchJobs } from './SearchJobs';

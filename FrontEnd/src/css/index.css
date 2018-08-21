@@ -372,7 +372,7 @@ body {
 .MeetupsWrapper .col {
   display: inline-flex;
   flex-wrap: wrap;
-  padding: .5%;
+  padding: 0.5%;
   width: 20%;
 }
 .MeetupsWrapper .meetups--btn {
@@ -426,7 +426,7 @@ body {
 .ContributionsWrapper .col {
   display: inline-flex;
   flex-wrap: wrap;
-  padding: .5%;
+  padding: 0.5%;
   width: 20%;
 }
 .ContributionsWrapper .contributions--btn {
@@ -469,4 +469,11 @@ body {
   background-image: none;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+.SearchJobs {
+  display: flex;
+  justify-content: center;
+}
+.SearchJobs input {
+  text-align: center;
 }
