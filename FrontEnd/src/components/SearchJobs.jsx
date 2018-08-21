@@ -45,7 +45,6 @@ export default class SearchJobs extends React.Component {
             placeholder="search jobs"
             onChange={e => this.handleChange(e)}
           />
-          <FormControl.Feedback />
         </FormGroup>
       </form>
     );
