@@ -26,6 +26,7 @@ server.use(
     'https://jobseekr.app',
     'https://m.stripe.network',
     'http://localhost:3000'),
+    'https://https://jobseekr-forked.herokuapp.com/',
     credentials: true,
     methods: ['GET', 'PUT', 'POST', 'DELETE'],
   }),
