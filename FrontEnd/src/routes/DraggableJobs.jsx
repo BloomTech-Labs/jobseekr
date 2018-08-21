@@ -39,7 +39,7 @@ class Jobs extends Component {
       .get(`${ROOT_URL}/jobs`, { headers: { Authorization: token } })
       .then(jobs => {
         jobs = jobs.data;
-        console.log('reaches inside getAllJobs', jobs);
+        // console.log('reaches inside getAllJobs', jobs);
         const newList = this.state.lists;
         newList.forEach(list => (list.jobs = []));
         jobs.forEach(job => {
@@ -65,13 +65,13 @@ class Jobs extends Component {
   onDragOver = e => e.preventDefault();
 
   onDragStart = (e, id) => {
-    console.log('dragstart:', id);
+    // console.log('dragstart:', id);
     e.dataTransfer.setData('id', id);
   };
 
   onDrop = (e, status) => {
     const _id = e.dataTransfer.getData('id');
-    console.log('ondrop status, _id', status, _id);
+    // console.log('ondrop status, _id', status, _id);
     axios
       .put(`${ROOT_URL}/updateStatus`, { _id, status })
       .then(job => {
@@ -94,7 +94,7 @@ class Jobs extends Component {
   render() {
     return (
       <div className="parent">
-        {console.log('state.list in DraggableJobs', this.state.lists)}
+        {/* {console.log('state.list in DraggableJobs', this.state.lists)} */}
         <Header />
         <Grid className="board__container">
           <Well className="jobs-well">
