@@ -42,5 +42,5 @@
     "eslint-plugin-react": "^7.9.1",
     "less-watch-compiler": "^1.11.3"
   },
-  "proxy": "https://ls-jobseekr1.herokuapp.com/"
+  "proxy": "https://jobseekr-forked.herokuapp.com/"
 }
