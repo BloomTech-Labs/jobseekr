@@ -2,10 +2,7 @@ import React from 'react';
 import { FormControl, FormGroup } from 'react-bootstrap';
 
 export default class SearchJobs extends React.Component {
-  state = {
-    query: '',
-    lists: [],
-  };
+  state = { query: '', lists: [] };
 
   componentDidMount() {
     this.setState({ lists: this.props.lists });
@@ -14,10 +11,10 @@ export default class SearchJobs extends React.Component {
   handleChange = e => {
     e.preventDefault();
     this.setState({ query: e.target.value });
-    this._filterLists(e);
+    this.filterLists(e);
   };
 
-  _filterLists = e => {
+  filterLists = e => {
     const q = e.target.value;
 
     this.props.updateJobs(
@@ -35,6 +32,11 @@ export default class SearchJobs extends React.Component {
     );
   };
 
+  resetSearch = _ => {
+    this.setState({ query: '' });
+    this.filterLists({ target: { value: '' } });
+  };
+
   render() {
     return (
       <form className="SearchJobs" onSubmit={e => e.preventDefault()}>
@@ -44,6 +46,7 @@ export default class SearchJobs extends React.Component {
             value={this.state.query}
             placeholder="search jobs"
             onChange={e => this.handleChange(e)}
+            onBlur={_ => this.resetSearch()}
           />
         </FormGroup>
       </form>
