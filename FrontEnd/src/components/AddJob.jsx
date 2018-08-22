@@ -98,33 +98,40 @@ class AddJob extends Component {
       .catch(err => {
         const msg = err.response.data.error;
 
-        if (window.confirm(msg + '. Add anyway?'))
+        if (msg === `Possible duplicate job found`)
         {
-          axios
-          .post(`${ROOT_URL}/jobs`, {
-            bypassDup: true,
-            status: body.timelineSelection,
-            gotRejected: body.gotRejected,
-            gotOffer: body.gotOffer,
-            notes: body.notes,
-            companyName: body.companyName,
-            position: body.position,
-            jobId: body.jobId,
-            jobPostingLink: body.jobPostingLink,
-            pointOfContactName: body.pointOfContactName,
-            contactInfo: body.contactInfo,
-            sourceOfJob: body.sourceSelection,
-            rejectionFile: body.rejectionFile,
-            rejectionUrl: body.rejectionUrl,
-            offerFile: body.offerFile,
-            offerUrl: body.offerUrl,
-            token
-          })
-          .then(() => { if (this.state.rejectionFile) this.handleFileSubmit('rejectionUrl'); })
-          .then(() => { if (this.state.offerFile) this.handleFileSubmit('offerUrl'); })
-          .then(() => this.setState({ show: false }))
-          .then(() => this.props.getAllJobs())
-          .catch(err => console.log({ error: err}));
+          if (window.confirm(msg + '. Add anyway?'))
+          {
+            axios
+            .post(`${ROOT_URL}/jobs`, {
+              bypassDup: true,
+              status: body.timelineSelection,
+              gotRejected: body.gotRejected,
+              gotOffer: body.gotOffer,
+              notes: body.notes,
+              companyName: body.companyName,
+              position: body.position,
+              jobId: body.jobId,
+              jobPostingLink: body.jobPostingLink,
+              pointOfContactName: body.pointOfContactName,
+              contactInfo: body.contactInfo,
+              sourceOfJob: body.sourceSelection,
+              rejectionFile: body.rejectionFile,
+              rejectionUrl: body.rejectionUrl,
+              offerFile: body.offerFile,
+              offerUrl: body.offerUrl,
+              token
+            })
+            .then(() => { if (this.state.rejectionFile) this.handleFileSubmit('rejectionUrl'); })
+            .then(() => { if (this.state.offerFile) this.handleFileSubmit('offerUrl'); })
+            .then(() => this.setState({ show: false }))
+            .then(() => this.props.getAllJobs())
+            .catch(err => console.log({ error: err}));
+          }
+        }
+        else
+        {
+          console.log({ error: err});
         }
       })
   };
