@@ -27,6 +27,7 @@ class AddJob extends Component {
       notes: '',
       companyName: '',
       position: '',
+      jobId: '',
       jobPostingLink: '',
       pointOfContactName: '',
       contactInfo: '',
@@ -75,6 +76,7 @@ class AddJob extends Component {
         notes: body.notes,
         companyName: body.companyName,
         position: body.position,
+        jobId: body.jobId,
         jobPostingLink: body.jobPostingLink,
         pointOfContactName: body.pointOfContactName,
         contactInfo: body.contactInfo,
@@ -93,7 +95,38 @@ class AddJob extends Component {
       .then(() => { if (this.state.offerFile) this.handleFileSubmit('offerUrl'); })
       .then(() => this.setState({ show: false }))
       .then(() => this.props.getAllJobs())
-      .catch(err => console.log({ error: err}));
+      .catch(err => {
+        const msg = err.response.data.error;
+
+        if (window.confirm(msg + '. Add anyway?'))
+        {
+          axios
+          .post(`${ROOT_URL}/jobs`, {
+            bypassDup: true,
+            status: body.timelineSelection,
+            gotRejected: body.gotRejected,
+            gotOffer: body.gotOffer,
+            notes: body.notes,
+            companyName: body.companyName,
+            position: body.position,
+            jobId: body.jobId,
+            jobPostingLink: body.jobPostingLink,
+            pointOfContactName: body.pointOfContactName,
+            contactInfo: body.contactInfo,
+            sourceOfJob: body.sourceSelection,
+            rejectionFile: body.rejectionFile,
+            rejectionUrl: body.rejectionUrl,
+            offerFile: body.offerFile,
+            offerUrl: body.offerUrl,
+            token
+          })
+          .then(() => { if (this.state.rejectionFile) this.handleFileSubmit('rejectionUrl'); })
+          .then(() => { if (this.state.offerFile) this.handleFileSubmit('offerUrl'); })
+          .then(() => this.setState({ show: false }))
+          .then(() => this.props.getAllJobs())
+          .catch(err => console.log({ error: err}));
+        }
+      })
   };
 
   handleTimelineRadioClick = (selection) => {
@@ -242,6 +275,12 @@ class AddJob extends Component {
                     type="text" 
                     placeholder="Link to Job Posting" 
                     id='jobPostingLink'
+                    onChange={this.handleChange}
+                  />
+                  <FormControl 
+                    type="text" 
+                    placeholder="Job ID"
+                    id='jobId'
                     onChange={this.handleChange}
                   />
                 </div>

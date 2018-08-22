@@ -38,7 +38,7 @@ const getJob = (req, res) => {
   }
 };
 
-const editJob = (req, res) => {
+const editJob = async (req, res) => {
   const job = req.body;
   if (job.jobPostingLink) {
     if (!job.jobPostingLink.match(/^http/)) job.jobPostingLink = 'http://' + job.jobPostingLink;
@@ -46,6 +46,18 @@ const editJob = (req, res) => {
   const { _id } = job;
   delete job._id;
   if (_id) {
+    if (!job.bypassDup)
+    {
+      const originalJob = await Job.find({ _id })
+      const isDup = await _checkJobDup({ ...job, _id }, originalJob[0].user);
+
+      if (isDup)
+      {
+        res.status(422).json({ error: `Possible duplicate job found` });
+        return;
+      }
+    }
+
     Job.findOneAndUpdate({ _id }, { ...job }, { returnNewDocument: true })
       .then(job => res.json(job))
       .catch(err => res.status(500).json({ error: 'Error updating the job', err }));
@@ -147,22 +159,28 @@ const deleteList = async (req, res) => {
  * confirm duplicate logic
  * - if jobId or posting uri are the same
  * - if company and position are the same
- * 
- * @param {Object} job 
- * @param {Object} user 
+ *
+ * other logic:
+ * - if the _id are the same, skip job (this check is for updating jobs)
+ * - because jobId is initialized as empty strings, ignore when jobId is ''
+ *
+ * @param {Object} job
+ * @param {Object} user
  */
 const _checkJobDup = async (job, user) => {
   const threshold = 0.85;
   const jobs = await Job.find({ user });
-  
   for (let i = 0; i < jobs.length; i++)
   {
     const j = jobs[i];
     let score = 0.0;
 
-    if (j.jobId === job.jobId) return true;
+    if (j._id.toString() === job._id) continue;
 
-    if (j.jobPostingLink.toLowerCase() === job.jobPostingLink.toLowerCase())
+    if (j.jobId === job.jobId && job.jobId !== '') return true;
+
+    if (j.jobPostingLink.toLowerCase() === job.jobPostingLink.toLowerCase() &&
+        job.jobPostingLink !== '')
     {
       return true;
     }
