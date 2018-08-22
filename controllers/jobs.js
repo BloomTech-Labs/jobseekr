@@ -65,7 +65,18 @@ const createJob = async (req, res) => {
   delete job.token;
   if (job.companyName && job.position && job.status && email) {
     User.find({ email })
-      .then(user => {
+      .then(async user => {
+        if (!job.bypassDup)
+        {
+          const isDup = await _checkJobDup(job, user[0]._id);
+
+          if (isDup)
+          {
+            res.status(422).json({ error: `Possible duplicate job found` });
+            return;
+          }
+        }  
+
         job.user = user[0]._id
         const newJob = new Job({...job});
         newJob.save()
@@ -130,6 +141,46 @@ const deleteList = async (req, res) => {
   User.findOneAndUpdate({ email }, { jobslist: newList })
     .then(list => res.status(200).json({ 'list successfully deleted': list }))
     .catch(err => res.status(500).json({ 'error deleting list': err }));
+}
+
+/**
+ * confirm duplicate logic
+ * - if jobId or posting uri are the same
+ * - if company and position are the same
+ * 
+ * @param {Object} job 
+ * @param {Object} user 
+ */
+const _checkJobDup = async (job, user) => {
+  const threshold = 0.85;
+  const jobs = await Job.find({ user });
+  
+  for (let i = 0; i < jobs.length; i++)
+  {
+    const j = jobs[i];
+    let score = 0.0;
+
+    if (j.jobId === job.jobId) return true;
+
+    if (j.jobPostingLink.toLowerCase() === job.jobPostingLink.toLowerCase())
+    {
+      return true;
+    }
+
+    if (j.companyName.toLowerCase() === job.companyName.toLowerCase())
+    {
+      score += 0.4;
+    } 
+
+    if (j.position.toLowerCase() === job.position.toLowerCase())
+    {
+      score += 0.5;
+    }
+
+    if (score >= threshold) return true;
+  }
+
+  return false;
 }
 
 module.exports = {
