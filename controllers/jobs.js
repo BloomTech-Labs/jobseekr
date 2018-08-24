@@ -58,7 +58,7 @@ const editJob = async (req, res) => {
       }
     }
 
-    Job.findOneAndUpdate({ _id }, { ...job }, { returnNewDocument: true })
+    Job.findOneAndUpdate({ _id }, { ...job }, { new: true })
       .then(job => res.json(job))
       .catch(err => res.status(500).json({ error: 'Error updating the job', err }));
   } else {
@@ -193,6 +193,11 @@ const _checkJobDup = async (job, user) => {
     if (j.position.toLowerCase() === job.position.toLowerCase())
     {
       score += 0.5;
+    }
+
+    if (j.jobId !== job.jobId)
+    {
+      score -= 0.1;
     }
 
     if (score >= threshold) return true;
