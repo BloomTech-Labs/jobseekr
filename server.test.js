@@ -147,6 +147,46 @@ describe(`Jobs`, () => {
               });
           });
       });
+
+      it(`should return a status code of 422 when there is a duplicate job with the same posting uri`, done => {
+        chai
+          .request(server)
+          .post(`/api/jobs`)
+          .send({ ...job, jobPostingLink: 'lambdaschool.com' })
+          .end((err, res) => {
+            expect(res).to.have.status(200);
+
+            chai
+              .request(server)
+              .post(`/api/jobs`)
+              .send({ ...job, jobPostingLink: 'lambdaschool.com' })
+              .end((err, res) => {
+                expect(res).to.have.status(422);
+
+                done();
+              });
+          });
+      });
+
+      it(`should add the job and return a status code of 200 when bypass is set to true with the same posting uri`, done => {
+        chai
+          .request(server)
+          .post(`/api/jobs`)
+          .send({ ...job, jobPostingLink: 'lambdaschool.com' })
+          .end((err, res) => {
+            expect(res).to.have.status(200);
+
+            chai
+              .request(server)
+              .post(`/api/jobs`)
+              .send({ ...job, jobPostingLink: 'lambdaschool.com' })
+              .end((err, res) => {
+                expect(res).to.have.status(422);
+
+                done();
+              });
+          });
+      });
     });
 
     describe(`using jobId`, () => {
@@ -392,6 +432,102 @@ describe(`Jobs`, () => {
                 expect(res).to.have.status(200);
 
                 done();
+              });
+          });
+      });
+
+      it(`should return a status code of 422 when there is a duplicate job with the same posting uri`, done => {
+        const localJob = {
+          status: 'Want to Apply',
+          notes: '',
+          companyName: 'aaa',
+          position: 'Software Engineer',
+          jobId: '',
+          jobPostingLink: '',
+          pointOfContactName: '',
+          contactInfo: '',
+          sourceOfJob: 'Source of Job',
+          rejectionUrl: '',
+          offerUrl: '',
+          token,
+        };
+
+        chai
+          .request(server)
+          .put(`/api/jobs`)
+          .send({ ...resJob, jobPostingLink: 'lambdaschool.com', token })
+          .end((err, res) => {
+            chai
+              .request(server)
+              .post(`/api/jobs`)
+              .send({
+                ...localJob,
+                companyName: 'changed',
+              })
+              .end((err, res) => {
+                expect(res).to.have.status(200);
+
+                const savedJob = { ...res.body, token };
+
+                chai
+                  .request(server)
+                  .put(`/api/jobs`)
+                  .send({ ...savedJob, jobPostingLink: 'lambdaschool.com' })
+                  .end((err, res) => {
+                    expect(res).to.have.status(422);
+
+                    done();
+                  });
+              });
+          });
+      });
+
+      it(`should add the job and return a status code of 200 when bypass is set to true with the same posting uri`, done => {
+        const localJob = {
+          status: 'Want to Apply',
+          notes: '',
+          companyName: 'aaa',
+          position: 'Software Engineer',
+          jobId: '',
+          jobPostingLink: '',
+          pointOfContactName: '',
+          contactInfo: '',
+          sourceOfJob: 'Source of Job',
+          rejectionUrl: '',
+          offerUrl: '',
+          token,
+        };
+
+        chai
+          .request(server)
+          .put(`/api/jobs`)
+          .send({ ...resJob, jobPostingLink: 'lambdaschool.com', token })
+          .end((err, res) => {
+            chai
+              .request(server)
+              .post(`/api/jobs`)
+              .send({
+                ...localJob,
+                companyName: 'changed',
+              })
+              .end((err, res) => {
+                expect(res).to.have.status(200);
+
+                const savedJob = { ...res.body, token };
+
+                chai
+                  .request(server)
+                  .put(`/api/jobs`)
+                  .send({
+                    ...savedJob,
+                    jobPostingLink: 'lambdaschool.com',
+                    bypassDup: true,
+                  })
+                  .end((err, res) => {
+                    expect(res).to.have.status(200);
+
+                    done();
+                  });
               });
           });
       });
