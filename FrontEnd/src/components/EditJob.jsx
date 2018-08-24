@@ -30,6 +30,7 @@ class EditJob extends Component {
       notes: this.props.job.notes,
       companyName: this.props.job.companyName,
       position: this.props.job.position,
+      jobId: this.props.job.jobId,
       jobPostingLink: this.props.job.jobPostingLink,
       pointOfContactName: this.props.job.pointOfContactName,
       contactInfo: this.props.job.contactInfo,
@@ -78,6 +79,7 @@ class EditJob extends Component {
         notes: body.notes,
         companyName: body.companyName,
         position: body.position,
+        jobId: body.jobId,
         jobPostingLink: body.jobPostingLink,
         pointOfContactName: body.pointOfContactName,
         contactInfo: body.contactInfo,
@@ -93,7 +95,45 @@ class EditJob extends Component {
       })
       .then(() => this.props.getAllJobs())
       .then(() => this.setState({ show: false }))
-      .catch(err => console.log({ error: err }));
+      .catch(err => {
+        const msg = err.response.data.error;
+
+        if (msg === `Possible duplicate job found`)
+        {
+          if (window.confirm(msg + '. Add anyway?'))
+          {
+            axios
+            .put(`${ROOT_URL}/jobs`, {
+              bypassDup: true,
+              status: body.timelineSelection,
+              gotRejected: body.gotRejected,
+              gotOffer: body.gotOffer,
+              notes: body.notes,
+              companyName: body.companyName,
+              position: body.position,
+              jobId: body.jobId,
+              jobPostingLink: body.jobPostingLink,
+              pointOfContactName: body.pointOfContactName,
+              contactInfo: body.contactInfo,
+              sourceOfJob: body.sourceSelection,
+              rejectionFile: body.rejectionFile,
+              rejectionUrl: body.rejectionUrl,
+              offerFile: body.offerFile,
+              offerUrl: body.offerUrl,
+              _id: body._id,
+            })
+            .then(() => { if (this.state.rejectionFile) this.handleFileSubmit('rejectionUrl'); })
+            .then(() => { if (this.state.offerFile) this.handleFileSubmit('offerUrl'); })
+            .then(() => this.setState({ show: false }))
+            .then(() => this.props.getAllJobs())
+            .catch(err => console.log({ error: err}));
+          }
+        }
+        else
+        {
+          console.log({ error: err});
+        }
+      })
   };
 
   handleDeleteJob = e => {
@@ -282,6 +322,13 @@ class EditJob extends Component {
                     placeholder="Link to Job Posting"
                     id="jobPostingLink"
                     value={this.state.jobPostingLink}
+                    onChange={this.handleChange}
+                  />
+                  <FormControl 
+                    type="text" 
+                    placeholder="Job ID"
+                    id='jobId'
+                    value={this.state.jobId}
                     onChange={this.handleChange}
                   />
                 </div>

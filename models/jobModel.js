@@ -15,6 +15,15 @@ const JobSchema = mongoose.Schema(
       minlength: 1,
       maxlength: 80,
     },
+    jobId: {
+      type: String,
+      default: '',
+    },
+    bypassDup: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
     status: {
       type: String,
       required: true,

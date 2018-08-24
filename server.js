@@ -8,8 +8,9 @@ const fileUpload = require('express-fileupload');
 
 const routes = require('./routes/routes.js');
 
-const user = process.env.JOBSEEKR_USERNAME || "jobseekr";
-const pass = process.env.JOBSEEKR_PASSWORD || "job123";
+const user = process.env.JOBSEEKR_USERNAME || 'jobseekr';
+const pass = process.env.JOBSEEKR_PASSWORD || 'job123';
+const dbUri = process.env.MLAB_URI || 'ds263520.mlab.com:63520/jobseekr';
 
 const server = express();
 server.use(express.json());
@@ -24,10 +25,11 @@ server.use(
     'https://www.jobseekr.app',
     'https://jobseekr.app',
     'https://m.stripe.network',
+    'https://https://jobseekr-forked.herokuapp.com/',
     'http://localhost:3000'),
     credentials: true,
-    methods: ["GET", "PUT", "POST", "DELETE"]
-  })
+    methods: ['GET', 'PUT', 'POST', 'DELETE'],
+  }),
 );
 server.use(fileUpload());
 server.options('http://localhost:3000', cors());
@@ -38,12 +40,14 @@ server.get('*', (req, res) => {
 });
 
 mongoose
-.connect(`mongodb://${user}:${pass}@ds263520.mlab.com:63520/jobseekr`)
-.then(result => {
-  console.log('Mongo Connected');
-})
-.catch(error => {
-  console.log('Error connecting to Mongo.', error);
-});
+  .connect(`mongodb://${user}:${pass}@${dbUri}`)
+  .then(result => {
+    console.log('Mongo Connected');
+  })
+  .catch(error => {
+    console.log('Error connecting to Mongo.', error);
+  });
 
 server.listen(PORT, () => console.log(`Server is Listening on port: ${PORT}`));
+
+module.exports = server;
