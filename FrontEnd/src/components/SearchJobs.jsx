@@ -46,7 +46,7 @@ export default class SearchJobs extends React.Component {
             value={this.state.query}
             placeholder="search jobs"
             onChange={e => this.handleChange(e)}
-            onBlur={_ => this.resetSearch()}
+            // onBlur={_ => this.resetSearch()}
           />
         </FormGroup>
       </form>
