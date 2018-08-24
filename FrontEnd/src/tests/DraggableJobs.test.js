@@ -15,6 +15,8 @@ describe(`<DraggableJobs />`, () => {
   let wrapper, wrapper2, jobs, newList;
 
   beforeEach(() => {
+    localStorage.setItem('token', process.env.REACT_APP_TEST_TOKEN);
+
     wrapper = shallow(<DraggableJobs />);
 
     wrapper2 = wrapper.find(SearchJobs).shallow();
@@ -116,6 +118,10 @@ describe(`<DraggableJobs />`, () => {
       returnOriginal: wrapper.instance().returnOriginalLists,
       updateJobs: wrapper.instance().updateJobsFromSearch,
     });
+  });
+
+  afterEach(() => {
+    localStorage.clear();
   });
 
   it(`should have a SearchJobs component`, () => {

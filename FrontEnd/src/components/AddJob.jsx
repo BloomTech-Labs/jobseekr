@@ -168,7 +168,7 @@ class AddJob extends Component {
     const tooltip = <Tooltip id="modal-tooltip">Add a Job.</Tooltip>;
     const statuses = [];
     !this.props.lists
-      ? setTimeout()
+      ? setTimeout(_ => {}, 0)
       : this.props.lists.forEach(list => statuses.push(list.status));
 
     return (
