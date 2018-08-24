@@ -249,7 +249,7 @@ describe(`Jobs`, () => {
   });
 
   describe(`[PUT] /api/jobs`, () => {
-    describe(`SUCCESS`, () => {
+    describe(`not using jobId`, () => {
       let resJob;
 
       beforeEach(done => {
@@ -386,6 +386,159 @@ describe(`Jobs`, () => {
               .send({
                 ...savedJob,
                 companyName: 'Lambda School',
+                bypassDup: true,
+              })
+              .end((err, res) => {
+                expect(res).to.have.status(200);
+
+                done();
+              });
+          });
+      });
+    });
+
+    describe(`using jobId`, () => {
+      let resJob;
+
+      beforeEach(done => {
+        const job = {
+          status: 'Want to Apply',
+          notes: '',
+          companyName: 'Lambda School',
+          position: 'Software Engineer',
+          jobId: 'ABCDE12345',
+          jobPostingLink: '',
+          pointOfContactName: '',
+          contactInfo: '',
+          sourceOfJob: 'Source of Job',
+          rejectionUrl: '',
+          offerUrl: '',
+          token,
+        };
+
+        chai
+          .request(server)
+          .post(`/api/jobs`)
+          .send(job)
+          .end((err, res) => {
+            expect(res).to.have.status(200);
+
+            resJob = res.body;
+
+            done();
+          });
+      });
+
+      afterEach(() => {
+        mongoose.connection.db.dropCollection('jobs', _ => {});
+      });
+
+      it(`should return a status code of 200 when a job is edited`, done => {
+        chai
+          .request(server)
+          .put(`/api/jobs`)
+          .send({ ...resJob, companyName: 'LS' })
+          .end((err, res) => {
+            expect(res).to.have.status(200);
+
+            done();
+          });
+      });
+
+      it(`should return the edited job`, done => {
+        chai
+          .request(server)
+          .put(`/api/jobs`)
+          .send({ ...resJob, companyName: 'LS' })
+          .end((err, res) => {
+            const b = res.body;
+
+            const localJob = {
+              ...resJob,
+              companyName: 'LS',
+            };
+
+            Object.keys(localJob).forEach(
+              k => (b[k] ? expect(localJob[k]).to.equal(b[k]) : null),
+            );
+
+            done();
+          });
+      });
+
+      it(`should return a status code of 422 when there is a duplicate job when editing`, done => {
+        const localJob = {
+          status: 'Want to Apply',
+          notes: '',
+          companyName: 'aaa',
+          position: 'Software Engineer',
+          jobId: '12345ABCDE',
+          jobPostingLink: '',
+          pointOfContactName: '',
+          contactInfo: '',
+          sourceOfJob: 'Source of Job',
+          rejectionUrl: '',
+          offerUrl: '',
+          token,
+        };
+
+        chai
+          .request(server)
+          .post(`/api/jobs`)
+          .send(localJob)
+          .end((err, res) => {
+            expect(res).to.have.status(200);
+
+            const savedJob = { ...res.body, token };
+
+            chai
+              .request(server)
+              .put(`/api/jobs`)
+              .send({
+                ...savedJob,
+                companyName: 'different',
+                jobId: 'ABCDE12345',
+              })
+              .end((err, res) => {
+                expect(res).to.have.status(422);
+
+                done();
+              });
+          });
+      });
+
+      it(`should return a status code of 200 when bypass is true while editing a job`, done => {
+        const localJob = {
+          status: 'Want to Apply',
+          notes: '',
+          companyName: 'aaa',
+          position: 'Software Engineer',
+          jobId: '12345ABCDE',
+          jobPostingLink: '',
+          pointOfContactName: '',
+          contactInfo: '',
+          sourceOfJob: 'Source of Job',
+          rejectionUrl: '',
+          offerUrl: '',
+          token,
+        };
+
+        chai
+          .request(server)
+          .post(`/api/jobs`)
+          .send(localJob)
+          .end((err, res) => {
+            expect(res).to.have.status(200);
+
+            const savedJob = { ...res.body, token };
+
+            chai
+              .request(server)
+              .put(`/api/jobs`)
+              .send({
+                ...savedJob,
+                companyName: 'different',
+                jobId: 'ABCDE12345',
                 bypassDup: true,
               })
               .end((err, res) => {
